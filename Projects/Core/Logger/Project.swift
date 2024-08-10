@@ -1,0 +1,14 @@
+import Foundation
+import ProjectDescription
+import MoodPlugin
+
+let project = Project.makeModule(
+    name: "Logger",
+    organizationName: organizationName,
+    product: .staticLibrary,
+    bundleId: bundleID + "Logger",
+    dependencies: [
+        .core(module: .ThirdPartyLibrary)
+    ],
+    settings: .core()
+)
