@@ -10,7 +10,6 @@ public enum FontWeight: String {
 
 extension UIFont {
     public class func pretendard(weight: FontWeight, size: CGFloat) -> UIFont {
-        print("Pretendard-\(weight.rawValue)")
         return .init(name: "Pretendard-\(weight.rawValue)", size: size)!
     }
     
