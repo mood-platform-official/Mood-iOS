@@ -12,24 +12,17 @@ enum FocusField {
 struct AuthApp: App {
     
     @State var disabled: Bool = false
+    @State var state: CheckBoxState = .unchecked
     
     var body: some Scene {
         WindowGroup {
             VStack(spacing: 20) {
-                AssistiveButton(text: "disabled", disabled: false, action: {
-                    self.disabled.toggle()
-                })
-                
-                AssistiveButton(text: "123", rightIcon: .icClock, disabled: disabled, action: {
-                    
-                })
-                
-                AssistiveButton(text: "123", leftIcon: .icPin, disabled: disabled, action: {
-                    
-                })
-                
-                AssistiveButton(text: "123", leftIcon: .icPin, rightIcon: .icClock, disabled: disabled, action: {
-                    
+                DefaultCheckBox(state: state, disabled: false, action: { state in
+                    if state == .unchecked {
+                        self.state = .checked
+                    } else if state == .checked {
+                        self.state = .unchecked
+                    }
                 })
             }
             .padding(.horizontal, 20)

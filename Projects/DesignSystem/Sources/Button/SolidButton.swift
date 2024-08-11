@@ -7,7 +7,6 @@ public struct SolidButton: View {
     var disabled: Bool
     var action: () -> Void
     
-    
     var textColor: Color { disabled ? .gray400 : .white }
     var bgColor: Color { disabled ? .gray75 : .primary500 }
     
