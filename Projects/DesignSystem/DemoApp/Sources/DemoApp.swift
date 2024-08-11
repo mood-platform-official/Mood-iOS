@@ -16,19 +16,19 @@ struct AuthApp: App {
     var body: some Scene {
         WindowGroup {
             VStack(spacing: 20) {
-                SecondaryButton(text: "disabled", disabled: false, action: {
+                AssistiveButton(text: "disabled", disabled: false, action: {
                     self.disabled.toggle()
                 })
                 
-                SecondaryButton(text: "123", rightIcon: .icClock, disabled: disabled, action: {
+                AssistiveButton(text: "123", rightIcon: .icClock, disabled: disabled, action: {
                     
                 })
                 
-                SecondaryButton(text: "123", leftIcon: .icPin, disabled: disabled, action: {
+                AssistiveButton(text: "123", leftIcon: .icPin, disabled: disabled, action: {
                     
                 })
                 
-                SecondaryButton(text: "123", leftIcon: .icPin, rightIcon: .icClock, disabled: disabled, action: {
+                AssistiveButton(text: "123", leftIcon: .icPin, rightIcon: .icClock, disabled: disabled, action: {
                     
                 })
             }
