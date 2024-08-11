@@ -17,6 +17,14 @@ struct AuthApp: App {
     var body: some Scene {
         WindowGroup {
             VStack(spacing: 20) {
+                RoundCheckBox(state: state, disabled: false, action: { state in
+                    if state == .unchecked {
+                        self.state = .checked
+                    } else if state == .checked {
+                        self.state = .unchecked
+                    }
+                })
+                
                 DefaultCheckBox(state: state, disabled: false, action: { state in
                     if state == .unchecked {
                         self.state = .checked
