@@ -16,11 +16,19 @@ struct AuthApp: App {
     var body: some Scene {
         WindowGroup {
             VStack(spacing: 20) {
-                SolidButton(text: "disabled", disabled: false, action: {
+                OutlinedButton(text: "disabled", disabled: false, action: {
                     self.disabled.toggle()
                 })
                 
-                SolidButton(text: "123", leftIcon: .icPin, rightIcon: .icClock, disabled: disabled, action: {
+                OutlinedButton(text: "123", rightIcon: .icClock, disabled: disabled, action: {
+                    
+                })
+                
+                OutlinedButton(text: "123", leftIcon: .icPin, disabled: disabled, action: {
+                    
+                })
+                
+                OutlinedButton(text: "123", leftIcon: .icPin, rightIcon: .icClock, disabled: disabled, action: {
                     
                 })
             }
