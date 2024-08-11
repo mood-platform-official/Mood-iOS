@@ -7,6 +7,13 @@ let project = Project.makeModule(
     organizationName: organizationName,
     product: .framework,
     bundleId: bundleID + "DesignSystem",
+    infoPlist: .extendingDefault(with: [
+        "UIAppFonts": [
+            "Pretendard-Bold.otf",
+            "Pretendard-Medium.otf",
+            "Pretendard-Regular.otf"
+        ]
+    ]),
     resources: ["Resources/**"],
     dependencies: [
         .core(module: .Entity),
