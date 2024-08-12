@@ -1,10 +1,11 @@
 import SwiftUI
+import Entity
 
 public struct RoundCheckBox: View {
     
-    var state: CheckBoxState = .unchecked
+    var state: Entity.UI.CheckBoxState = .unchecked
     var disabled: Bool
-    var action: (CheckBoxState) -> Void
+    var action: (Entity.UI.CheckBoxState) -> Void
     
     var bgColor: Color { state == .unchecked ? .white : .primary500 }
     var strokeColor: Color { state == .unchecked ? .gray300 : .clear }
@@ -19,7 +20,7 @@ public struct RoundCheckBox: View {
         }
     }
     
-    public init(state: CheckBoxState = .unchecked, disabled: Bool = false, action: @escaping (CheckBoxState) -> Void) {
+    public init(state: Entity.UI.CheckBoxState = .unchecked, disabled: Bool = false, action: @escaping (Entity.UI.CheckBoxState) -> Void) {
         self.state = state
         self.disabled = disabled
         self.action = action
