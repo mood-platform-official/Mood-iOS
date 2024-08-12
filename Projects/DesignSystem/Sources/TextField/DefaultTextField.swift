@@ -1,4 +1,5 @@
 import SwiftUI
+import Entity
 
 public struct DefaultTextField<value: Hashable>: View {
     let placeholder: String
@@ -7,10 +8,10 @@ public struct DefaultTextField<value: Hashable>: View {
     var disabled: Bool
     @Binding var isError: Bool
     
-    var leftBottom: BottomText?
-    var rightBottom: BottomText?
+    var leftBottom: Entity.UI.BottomText?
+    var rightBottom: Entity.UI.BottomText?
     
-    var rightBtn: RightButton?
+    var rightBtn: Entity.UI.RightButton?
     
     var hasBottom: Bool { leftBottom?.text.count ?? 0 > 0 || rightBottom?.text.count ?? 0 > 0 }
     var bgColor: Color { disabled ? .gray75 : .white }
@@ -30,9 +31,9 @@ public struct DefaultTextField<value: Hashable>: View {
         focusedField: (binding: FocusState<value?>.Binding, equals: value?),
         disabled: Bool,
         isError: Binding<Bool>,
-        leftBottom: BottomText? = nil,
-        rightBottom: BottomText? = nil,
-        rightBtn: RightButton? = nil
+        leftBottom: Entity.UI.BottomText? = nil,
+        rightBottom: Entity.UI.BottomText? = nil,
+        rightBtn: Entity.UI.RightButton? = nil
     ) {
         self.placeholder = placeholder
         self._text = text

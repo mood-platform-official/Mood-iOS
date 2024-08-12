@@ -5,6 +5,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import LinkNavigator
 import Entity
+import DesignSystem
 
 struct AppDependency: DependencyType { }
 
@@ -15,6 +16,7 @@ struct AuthApp: App {
     }
     init() {
         KakaoSDK.initSDK(appKey: Environment.KAKAO_APP_KEY)
+        DesignSystemFontFamily.registerAllCustomFonts()
     }
     
     var body: some Scene {

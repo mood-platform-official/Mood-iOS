@@ -1,4 +1,5 @@
 import SwiftUI
+import Entity
 
 extension DefaultTextField {
     struct TextFieldRow: View {
@@ -6,9 +7,9 @@ extension DefaultTextField {
         @Binding var text: String
         var bgColor: Color
         var strokeColor: Color
-        var rightBtn: RightButton?
+        var rightBtn: Entity.UI.RightButton?
         
-        init(_ placeholder: String, _ text: Binding<String>, _ bgColor: Color, _ strokeColor: Color, _ rightBtn: RightButton? = nil) {
+        init(_ placeholder: String, _ text: Binding<String>, _ bgColor: Color, _ strokeColor: Color, _ rightBtn: Entity.UI.RightButton? = nil) {
             self.placeholder = placeholder
             self._text = text
             self.bgColor = bgColor
