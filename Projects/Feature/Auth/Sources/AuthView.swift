@@ -23,6 +23,7 @@ extension AuthView: View {
                 .headline1(.bold)
                 .frame(height: 150)
                 .frame(maxWidth: .infinity)
+                .background(Color.gray100)
                 
             VStack(alignment: .leading, spacing: 8) {
                 Text("이메일")
@@ -46,10 +47,14 @@ extension AuthView: View {
                         textColor: .rubyRed
                     )
                 )
+                
+                SolidButton(text: "이메일로 계속하기", action: { })
             }
             
+            Spacer()
         }
         .padding(.horizontal, 16)
+        .background(.white)
     }
 }
 

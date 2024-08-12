@@ -47,9 +47,10 @@ public struct SolidButton: View {
             }
             .padding(.horizontal, 28)
             .padding(.vertical, 12)
-            .background(bgColor)
-            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
+        .frame(maxWidth: .infinity)
+        .background(bgColor)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
         .disabled(disabled)
     }
 }
