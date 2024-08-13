@@ -48,6 +48,7 @@ public struct DefaultTextField<value: Hashable>: View {
     public var body: some View {
         VStack(spacing: 6) {
             TextFieldRow(placeholder, $text, bgColor, strokeColor, rightBtn)
+                .frame(height: 48)
                 .focused(focusedField.binding, equals: focusedField.equals)
                 .disabled(disabled)
                 .onChange(of: text) { oldValue, newValue in
