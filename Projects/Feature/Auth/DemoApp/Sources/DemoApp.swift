@@ -11,9 +11,10 @@ struct AppDependency: DependencyType { }
 
 @main
 struct AuthApp: App {
-    var navigator: LinkNavigator {
-        LinkNavigator(dependency: AppDependency(), builders: [AuthRouteBuilder()])
-    }
+    var navigator: SingleLinkNavigator = .init(
+        routeBuilderItemList: [AuthRouteBuilder.generate()],
+        dependency: AppDependency()
+    )
     init() {
         KakaoSDK.initSDK(appKey: Environment.KAKAO_APP_KEY)
         DesignSystemFontFamily.registerAllCustomFonts()
@@ -21,7 +22,11 @@ struct AuthApp: App {
     
     var body: some Scene {
         WindowGroup {
-            navigator.launch(paths: [Screen.Path.Auth.rawValue], items: [:])
+            LinkNavigationView(
+                linkNavigator: navigator,
+                item: .init(path: Screen.Path.Auth.rawValue)
+            )
+            .ignoresSafeArea(.all)
         }
     }
 }

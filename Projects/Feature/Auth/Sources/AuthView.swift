@@ -21,40 +21,104 @@ extension AuthView: View {
         VStack(spacing: 72) {
             Text("Mood")
                 .headline1(.bold)
-                .frame(height: 150)
+                .frame(height: 50)
                 .frame(maxWidth: .infinity)
                 .background(Color.gray100)
                 
-            VStack(alignment: .leading, spacing: 8) {
-                Text("이메일")
-                    .subtitle5(.medium)
-                    .foregroundStyle(Color.gray600)
+            VStack(spacing: 36) {
+                VStack(spacing: 12) {
+                    emailTextFieldRow()
+                    
+                    SolidButton(text: "이메일로 계속하기", action: { })
+                }
                 
-                DefaultTextField(
-                    placeholder: "이메일을 입력해주세요",
-                    text: .init(
-                        get: { state.email },
-                        set: { intent.send(action: .changeEmail($0)) }
-                    ),
-                    focusedField: ($focusField, AuthModel.FocusField.email),
-                    disabled: false,
-                    isError: .init(
-                        get: { state.isError },
-                        set: { intent.send(action: .changeError($0)) }
-                    ),
-                    leftBottom: .init(
-                        text: state.bottomText,
-                        textColor: .rubyRed
-                    )
-                )
-                
-                SolidButton(text: "이메일로 계속하기", action: { })
+                socialIconButtonRow()
+                findButtonRow()
             }
-            
-            Spacer()
         }
         .padding(.horizontal, 16)
-        .background(.white)
     }
 }
 
+extension AuthView {
+    @ViewBuilder
+    func emailTextFieldRow() -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("이메일")
+                .subtitle5(.medium)
+                .foregroundStyle(Color.gray600)
+            
+            DefaultTextField(
+                placeholder: "이메일을 입력해주세요",
+                text: .init(
+                    get: { state.email },
+                    set: { intent.send(action: .changeEmail($0)) }
+                ),
+                focusedField: ($focusField, AuthModel.FocusField.email),
+                disabled: false,
+                isError: .init(
+                    get: { state.isError },
+                    set: { intent.send(action: .changeError($0)) }
+                ),
+                leftBottom: .init(
+                    text: state.bottomText,
+                    textColor: .rubyRed
+                )
+            )
+        }
+    }
+    
+    @ViewBuilder
+    func socialIconButtonRow() -> some View {
+        HStack(alignment: .center, spacing: 20) {
+            Button {
+//                self.intent.send(action: )
+            } label: {
+                Image.icKakaoSocialButton
+                    .resizable()
+                    .frame(width: 52, height: 52)
+            }
+            
+            Button {
+//                self.intent.send(action: )
+            } label: {
+                Image.icNaverSocialButton
+                    .resizable()
+                    .frame(width: 52, height: 52)
+            }
+            
+            Button {
+//                self.intent.send(action: )
+            } label: {
+                Image.icAppleSocialButton
+                    .resizable()
+                    .frame(width: 52, height: 52)
+            }
+        }
+    }
+    
+    @ViewBuilder
+    func findButtonRow() -> some View {
+        HStack(alignment: .center, spacing: 12) {
+            Button {
+                
+            } label: {
+                Text("이메일 찾기")
+                    .caption1()
+                    .foregroundStyle(Color.gray600)
+            }
+            
+            Line()
+                .frame(width: 1, height: 12)
+                .background(Color.gray200)
+            
+            Button {
+                
+            } label: {
+                Text("비밀번호 찾기")
+                    .caption1()
+                    .foregroundStyle(Color.gray600)
+            }
+        }
+    }
+}

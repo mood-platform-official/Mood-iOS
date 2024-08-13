@@ -5,7 +5,7 @@ import LinkNavigator
 
 protocol AuthIntentType {
     var state: AuthModel.State { get }
-    var navigator: LinkNavigatorType { get }
+    var navigator: RootNavigatorType { get }
     
     func send(action: AuthModel.ViewAction)
 }
@@ -21,11 +21,11 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     @Published var state: State
     
     var cancellable: Set<AnyCancellable> = []
-    var navigator: LinkNavigatorType
+    var navigator: RootNavigatorType
 
     init(
         initialState: State,
-        navigator: LinkNavigatorType
+        navigator: RootNavigatorType
     ) {
         self.state = initialState
         self.navigator = navigator

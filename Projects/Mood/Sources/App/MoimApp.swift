@@ -1,19 +1,29 @@
 import SwiftUI
 import LinkNavigator
+import Entity
+import DesignSystem
 
 @main
 struct MoimApp: App {
-    var navigator: LinkNavigator {
-        LinkNavigator(dependency: AppDependency(), builders: AppRouterGroup().routers)
+    var navigator: SingleLinkNavigator = .init(
+        routeBuilderItemList: AppRouterGroup().routers,
+        dependency: AppDependency()
+    )
+    
+    init() {
+        DesignSystemFontFamily.registerAllCustomFonts()
     }
     
     var body: some Scene {
         WindowGroup {
-            navigator
-                .launch(paths: [], items: [:])
-                .onOpenURL { url in
-                    
-                }
+            LinkNavigationView(
+                linkNavigator: navigator,
+                item: .init(path: Screen.Path.Auth.rawValue)
+            )
+            .ignoresSafeArea(.all)
+            .onOpenURL { url in
+                
+            }
         }
     }
 }
