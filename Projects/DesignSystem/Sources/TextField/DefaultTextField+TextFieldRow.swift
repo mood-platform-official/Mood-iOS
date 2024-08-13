@@ -20,6 +20,8 @@ extension DefaultTextField {
         var body: some View {
             HStack(spacing: 8) {
                 TextField(placeholder, text: $text)
+                    .frame(height: 26)
+                    .foregroundStyle(Color.gray900)
                     
                 if let rightBtn {
                     Button {

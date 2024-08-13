@@ -7,7 +7,10 @@ let project = Project.makeModule(
     organizationName: organizationName,
     product: .staticLibrary,
     bundleId: bundleID + "Auth",
-    infoPlist: .extendingDefault(with: ["KAKAO_APP_KEY": "$(KAKAO_APP_KEY)"]),
+    infoPlist: .extendingDefault(with: [
+        "KAKAO_APP_KEY": "$(KAKAO_APP_KEY)",
+        "UILaunchScreen": [:]
+    ]),
     dependencies: [
         .feature(module: .Base),
         .SPM.KakaoSDKAuth,

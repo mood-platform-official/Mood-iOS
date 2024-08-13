@@ -16,8 +16,6 @@ public struct AuthRouteBuilder<RootNavigator: RootNavigatorType> {
                     state: intent.state,
                     modelChangePublisher: intent.objectWillChange
                 ))
-                .navigationBarBackButtonHidden()
-                .navigationTitle("")
             }
             return vc
         }
