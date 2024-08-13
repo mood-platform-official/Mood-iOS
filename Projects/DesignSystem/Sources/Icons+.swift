@@ -38,4 +38,7 @@ extension Image {
       public static let icShareAndroid = DesignSystemAsset.Icons.icShareAndroid.swiftUIImage
       public static let icShareIos = DesignSystemAsset.Icons.icShareIos.swiftUIImage
       public static let icTriangleDown = DesignSystemAsset.Icons.icTriangleDown.swiftUIImage
+    public static let icAppleSocialButton = DesignSystemAsset.SocialButtons.icAppleSocialButton.swiftUIImage
+    public static let icKakaoSocialButton = DesignSystemAsset.SocialButtons.icKakaoSocialButton.swiftUIImage
+    public static let icNaverSocialButton = DesignSystemAsset.SocialButtons.icNaverSocialButton.swiftUIImage
 }
