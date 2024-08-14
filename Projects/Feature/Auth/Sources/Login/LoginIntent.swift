@@ -36,7 +36,7 @@ final class LoginIntent: ObservableObject {
 extension LoginIntent: IntentType, LoginIntentType {
     func mutate(action: LoginModel.ViewAction, viewEffect: (() -> Void)?) {
         switch action {
-        case .viewOnAppear:
+        case .onAppear:
             self.viewOnAppear()
         }
     }

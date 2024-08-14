@@ -8,6 +8,6 @@ enum LoginModel {
     }
     
     enum ViewAction: Equatable {
-        case viewOnAppear
+        case onAppear
     }
 }
