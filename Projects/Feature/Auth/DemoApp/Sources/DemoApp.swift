@@ -12,7 +12,10 @@ struct AppDependency: DependencyType { }
 @main
 struct AuthApp: App {
     var navigator: SingleLinkNavigator = .init(
-        routeBuilderItemList: [AuthRouteBuilder.generate()],
+        routeBuilderItemList: [
+            AuthRouteBuilder.generate(),
+            LoginRouteBuilder.generate()
+        ],
         dependency: AppDependency()
     )
     init() {

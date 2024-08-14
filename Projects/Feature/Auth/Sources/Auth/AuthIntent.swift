@@ -46,7 +46,7 @@ extension AuthIntent: IntentType {
             state.bottomText = state.isDisabledEmailBtn ? "올바른 이메일 형식으로 입력해주세요." : ""
         case .emailBtnDidTap:
             guard !state.isDisabledEmailBtn else { return }
-            navigator.send(item: .init(path: Screen.Path.Auth.rawValue))
+            navigator.next(linkItem: .init(path: Screen.Path.Login.rawValue), isAnimated: true)
         }
     }
 }

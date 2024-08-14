@@ -5,7 +5,7 @@ import ThirdPartyLibrary
 
 public struct LoginRouteBuilder<RootNavigator: RootNavigatorType> {
     public static func generate() -> RouteBuilderOf<RootNavigator> {
-        var matchPath: String { Screen.Path.Auth.rawValue }
+        var matchPath: String { Screen.Path.Login.rawValue }
         return .init(matchPath: matchPath) { navigator, _, _ -> RouteViewController? in
             let intent = LoginIntent(initialState: .init(), navigator: navigator)
             let vc = DebugWrappingViewController(matchPath: matchPath) {
