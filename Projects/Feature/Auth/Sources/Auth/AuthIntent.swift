@@ -2,6 +2,8 @@ import Foundation
 import Combine
 import Base
 import LinkNavigator
+import CoreKit
+import Entity
 
 protocol AuthIntentType {
     var state: AuthModel.State { get }
@@ -40,14 +42,17 @@ extension AuthIntent: IntentType {
             self.viewOnAppear()
         case .changeEmail(let email):
             state.email = email ?? ""
-        case .changeError(let isError):
-            state.isError = isError
+            state.isDisabledEmailBtn = !(!state.email.isEmpty && state.email.isValidEmail())
+            state.bottomText = state.isDisabledEmailBtn ? "올바른 이메일 형식으로 입력해주세요." : ""
+        case .emailBtnDidTap:
+            guard !state.isDisabledEmailBtn else { return }
+            navigator.send(item: .init(path: Screen.Path.Auth.rawValue))
         }
     }
 }
 
 extension AuthIntent {
-    func viewOnAppear() {
+    private func viewOnAppear() {
         
     }
 }

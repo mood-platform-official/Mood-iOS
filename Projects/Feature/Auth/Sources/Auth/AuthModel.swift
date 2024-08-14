@@ -1,18 +1,19 @@
 import Foundation
+import CoreKit
 
 enum AuthModel {
     struct State: Equatable {
         var focusField: FocusField?
         var email: String = ""
-        var isError: Bool = false
         
         var bottomText: String = ""
+        var isDisabledEmailBtn: Bool = false
     }
     
     enum ViewAction: Equatable {
         case onAppear
         case changeEmail(String?)
-        case changeError(Bool)
+        case emailBtnDidTap
     }
 }
 

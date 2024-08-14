@@ -29,7 +29,11 @@ extension AuthView: View {
                 VStack(spacing: 12) {
                     emailTextFieldRow()
                     
-                    SolidButton(text: "이메일로 계속하기", action: { })
+                    SolidButton(
+                        text: "이메일로 계속하기",
+                        disabled: self.state.isDisabledEmailBtn,
+                        action: { self.intent.send(action: .emailBtnDidTap) }
+                    )
                 }
                 
                 socialIconButtonRow()
@@ -57,8 +61,8 @@ extension AuthView {
                 focusedField: ($focusField, AuthModel.FocusField.email),
                 disabled: false,
                 isError: .init(
-                    get: { state.isError },
-                    set: { intent.send(action: .changeError($0)) }
+                    get: { state.isDisabledEmailBtn },
+                    set: { _ in }
                 ),
                 leftBottom: .init(
                     text: state.bottomText,

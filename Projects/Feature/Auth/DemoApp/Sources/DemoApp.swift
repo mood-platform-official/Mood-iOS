@@ -26,7 +26,6 @@ struct AuthApp: App {
                 linkNavigator: navigator,
                 item: .init(path: Screen.Path.Auth.rawValue)
             )
-            .ignoresSafeArea(.all)
         }
     }
 }
