@@ -38,6 +38,13 @@ extension LoginIntent: IntentType, LoginIntentType {
         switch action {
         case .onAppear:
             self.viewOnAppear()
+        case .changePassword(let pw):
+            state.password = pw ?? ""
+            state.isDisabledLoginBtn = state.password.isEmpty
+        case .loginBtnDidTap:
+            print("loginBtnDidTap")
+        case .findPWBtnDidTap:
+            print("findPWBtnDidTap")
         }
     }
 }
