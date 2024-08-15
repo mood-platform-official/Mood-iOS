@@ -37,6 +37,11 @@ extension FindEmailIntent: IntentType, FindEmailIntentType {
         switch action {
         case .onAppear:
             self.viewOnAppear()
+        case .changePhoneNumber(let pn):
+            state.phoneNumber = pn ?? ""
+            state.isDisabledFindEmailBtn = state.phoneNumber.isValidPhone()
+        case .findEmailBtnDidTap:
+            print("findEmailBtnDidTap")
         }
     }
 }
