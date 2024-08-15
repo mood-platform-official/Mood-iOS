@@ -43,7 +43,7 @@ extension LoginIntent: IntentType, LoginIntentType {
             state.password = pw ?? ""
             state.isDisabledLoginBtn = state.password.isEmpty
         case .loginBtnDidTap:
-            print("loginBtnDidTap")
+            navigator.next(linkItem: .init(path: Screen.Path.SignupPassword.rawValue), isAnimated: true)
         case .findPWBtnDidTap:
             navigator.next(linkItem: .init(path: Screen.Path.FindPassword.rawValue), isAnimated: true)
         }

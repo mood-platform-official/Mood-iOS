@@ -6,5 +6,6 @@ extension Screen {
         case Login
         case FindEmail
         case FindPassword
+        case SignupPassword
     }
 }
