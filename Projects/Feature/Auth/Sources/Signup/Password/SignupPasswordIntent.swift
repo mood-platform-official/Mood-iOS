@@ -2,6 +2,8 @@ import Foundation
 import Combine
 import Base
 import LinkNavigator
+import CoreKit
+import Entity
 
 protocol SignupPasswordIntentType {
     var state: SignupPasswordModel.State { get }
@@ -39,16 +41,12 @@ extension SignupPasswordIntent: IntentType, SignupPasswordIntentType {
             self.viewOnAppear()
         case .changePassword(let pw):
             state.password = pw ?? ""
-            let isValid = state.password.isValidPassword()
-            && (state.password == state.passwordAgain)
-            state.isDisabledNextBtn = isValid
+            state.pwBottomText = state.password.isEmpty ? state.pwBottomText : ""
         case .changePasswordAgain(let pwAgain):
             state.passwordAgain = pwAgain ?? ""
-            let isValid = state.password.isValidPassword()
-            && (state.password == state.passwordAgain)
-            state.isDisabledNextBtn = isValid
+            state.pwAgainBottomText = state.passwordAgain.isEmpty ? state.pwAgainBottomText : ""
         case .nextBtnDidTap:
-            print("nextBtnDidTap")
+            self.nextBtnDidTap()
         }
     }
 }
@@ -58,5 +56,21 @@ extension SignupPasswordIntent: IntentType, SignupPasswordIntentType {
 extension SignupPasswordIntent {
     private func viewOnAppear() {
         
+    }
+    
+    private func nextBtnDidTap() {
+        guard state.password.isValidPassword() else {
+            state.pwBottomText = "영문 대소문자, 숫자, 특수문자 포함 8자 이상"
+            return
+        }
+        
+        guard state.password == state.passwordAgain else {
+            state.pwAgainBottomText = "비밀번호가 일치하지 않습니다."
+            return
+        }
+        
+        // TODO: API
+        
+//        self.navigator.next(linkItem: .init(path: Screen.Path.SignupPassword), isAnimated: true)
     }
 }
