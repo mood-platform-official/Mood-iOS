@@ -1,14 +1,7 @@
-//
-//  SignupETCIntent.swift
-//  Auth
-//
-//  Created by 송형욱 on 8/15/24.
-//  Copyright © 2024 com.mood. All rights reserved.
-//
-
 import Foundation
 import Combine
-import Dependencies
+import Base
+import LinkNavigator
 
 protocol SignupETCIntentType {
     var state: SignupETCModel.State { get }
@@ -39,7 +32,16 @@ final class SignupETCIntent: ObservableObject {
 extension SignupETCIntent: IntentType, SignupETCIntentType {
     func mutate(action: SignupETCModel.ViewAction, viewEffect: (() -> Void)?) {
         switch action {
-        
+        case .onAppear:
+            self.viewOnAppear()
+        case .changeName(let name):
+            state.name = name ?? ""
+        case .changeBirthDay(let birthDay):
+            state.birthDay = birthDay ?? ""
+        case .changeNickname(let nickname):
+            state.nickname = nickname ?? ""
+        case .nextBtnDidTap:
+            print("nextBtnDidTap")
         }
     }
 }
@@ -47,5 +49,7 @@ extension SignupETCIntent: IntentType, SignupETCIntentType {
 // MARK: Custom Method
 
 extension SignupETCIntent {
-    
+    private func viewOnAppear() {
+        
+    }
 }
