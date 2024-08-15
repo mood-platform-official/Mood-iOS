@@ -23,7 +23,7 @@ extension FindEmailView: View {
             Text("비밀번호를 입력하고\n로그인해주세요")
                 .headline7(.bold)
                 .multilineTextAlignment(.leading)
-                .padding(.top, 28)
+                .padding(.top, 16)
             
             VStack(spacing: 12) {
                 phoneTextFieldRow()

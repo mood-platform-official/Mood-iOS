@@ -31,8 +31,8 @@ public struct DefaultTextField<value: Hashable>: View {
         placeholder: String,
         text: Binding<String>,
         focusedField: (binding: FocusState<value?>.Binding, equals: value?),
-        disabled: Bool,
-        isError: Binding<Bool>,
+        disabled: Bool = false,
+        isError: Binding<Bool> = .constant(false),
         leftBottom: Entity.UI.BottomText? = nil,
         rightBottom: Entity.UI.BottomText? = nil,
         rightBtn: Entity.UI.RightButton? = nil

@@ -24,10 +24,10 @@ extension LoginView: View {
                 Text("비밀번호를 입력하고\n로그인해주세요")
                     .headline7(.bold)
                     .multilineTextAlignment(.leading)
-                    .padding(.top, 28)
-                
+                    
                 Spacer()
             }
+            .padding(.top, 28)
             
             VStack(spacing: 12) {
                 passwordTextFieldRow()
