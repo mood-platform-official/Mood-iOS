@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Base
 import LinkNavigator
+import Entity
 
 protocol LoginIntentType {
     var state: LoginModel.State { get }
@@ -44,7 +45,7 @@ extension LoginIntent: IntentType, LoginIntentType {
         case .loginBtnDidTap:
             print("loginBtnDidTap")
         case .findPWBtnDidTap:
-            print("findPWBtnDidTap")
+            navigator.next(linkItem: .init(path: Screen.Path.FindPassword.rawValue), isAnimated: true)
         }
     }
 }

@@ -14,7 +14,9 @@ struct AuthApp: App {
     var navigator: SingleLinkNavigator = .init(
         routeBuilderItemList: [
             AuthRouteBuilder.generate(),
-            LoginRouteBuilder.generate()
+            LoginRouteBuilder.generate(),
+            FindEmailRouter.generate(),
+            FindPasswordRouter.generate()
         ],
         dependency: AppDependency()
     )

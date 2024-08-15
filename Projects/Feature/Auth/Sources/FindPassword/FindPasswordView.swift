@@ -40,7 +40,8 @@ extension FindPasswordView: View {
                 )
             }
         }
-        .backTopBar(title: "이메일 찾기", backAction: { self.dismiss() })
+        .padding(.horizontal, 16)
+        .backTopBar(title: "비밀번호 찾기", backAction: { self.dismiss() })
         .task {
             self.intent.send(action: .onAppear)
         }
