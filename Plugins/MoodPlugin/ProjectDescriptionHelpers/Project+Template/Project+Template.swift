@@ -36,7 +36,7 @@ public extension Project {
         let testTarget = Target.makeTest(
             name: name,
             destinations: destinations,
-            product: product,
+            product: .unitTests,
             bundleId: bundleId,
             deploymentTargets: deploymentTargets,
             dependencies: dependencies

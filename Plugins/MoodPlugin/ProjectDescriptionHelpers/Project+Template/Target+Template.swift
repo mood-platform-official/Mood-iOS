@@ -50,7 +50,7 @@ public extension Target {
             deploymentTargets: deploymentTargets,
             sources: sources,
             scripts: [],
-            dependencies: dependencies
+            dependencies: [.target(name: "\(name)")]
         )
     }
     

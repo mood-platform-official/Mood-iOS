@@ -31,7 +31,7 @@ extension AuthView: View {
                     
                     SolidButton(
                         text: "이메일로 계속하기",
-                        disabled: self.state.isDisabledEmailBtn,
+                        disabled: !self.state.isEnabledEmailBtn,
                         action: { self.intent.send(action: .emailBtnDidTap) }
                     )
                 }
@@ -61,7 +61,7 @@ extension AuthView {
                 focusedField: ($focusField, AuthModel.FocusField.email),
                 disabled: false,
                 isError: .init(
-                    get: { state.isDisabledEmailBtn },
+                    get: { state.isErrorEmailBtn },
                     set: { _ in }
                 ),
                 leftBottom: .init(

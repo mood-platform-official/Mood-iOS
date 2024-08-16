@@ -7,7 +7,8 @@ enum AuthModel {
         var email: String = ""
         
         var bottomText: String = ""
-        var isDisabledEmailBtn: Bool = false
+        var isEnabledEmailBtn: Bool { email.isValidEmail() && !email.isEmpty }
+        var isErrorEmailBtn: Bool { !bottomText.isEmpty }
     }
     
     enum ViewAction: Equatable {

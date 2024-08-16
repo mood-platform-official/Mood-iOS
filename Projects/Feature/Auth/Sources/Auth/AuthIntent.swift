@@ -7,7 +7,7 @@ import Entity
 
 protocol AuthIntentType {
     var state: AuthModel.State { get }
-    var navigator: RootNavigatorType { get }
+    var navigator: RootNavigatorType? { get }
     
     func send(action: AuthModel.ViewAction)
 }
@@ -23,14 +23,12 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     @Published var state: State
     
     var cancellable: Set<AnyCancellable> = []
-    var navigator: RootNavigatorType
+    var navigator: RootNavigatorType?
 
     init(
-        initialState: State,
-        navigator: RootNavigatorType
+        initialState: State
     ) {
         self.state = initialState
-        self.navigator = navigator
     }
 }
 
@@ -42,18 +40,29 @@ extension AuthIntent: IntentType {
             self.viewOnAppear()
         case .changeEmail(let email):
             state.email = email ?? ""
-            state.isDisabledEmailBtn = !(!state.email.isEmpty && state.email.isValidEmail())
-            state.bottomText = state.isDisabledEmailBtn ? "올바른 이메일 형식으로 입력해주세요." : ""
         case .emailBtnDidTap:
-            guard !state.isDisabledEmailBtn else { return }
-            navigator.next(linkItem: .init(path: Screen.Path.Login.rawValue), isAnimated: true)
+            self.emailBtnDidTap()
         }
     }
 }
+
+
+// MARK: Custom Method
 
 extension AuthIntent {
     private func viewOnAppear() {
         
     }
+    
+    private func emailBtnDidTap() {
+        guard state.isEnabledEmailBtn else { return }
+        
+        navigator?.next(linkItem: .init(path: Screen.Path.Login.rawValue), isAnimated: true)
+    }
 }
 
+// MARK: API
+
+extension AuthIntent {
+    
+}
