@@ -5,6 +5,7 @@ public enum Environment {
     enum Keys {
         enum Plist {
             static let KAKAO_APP_KEY = "KAKAO_APP_KEY"
+            static let BASE_URL = "BASE_URL"
         }
     }
 
@@ -19,7 +20,14 @@ public enum Environment {
     // MARK: - Plist values
     public static let KAKAO_APP_KEY: String = {
         guard let kakaoAppKey = Environment.infoDictionary[Keys.Plist.KAKAO_APP_KEY] as? String else {
-            fatalError("Root URL not set in plist for this environment")
+            fatalError("KAKAO APP KEY not set in plist for this environment")
+        }
+        return kakaoAppKey
+    }()
+    
+    public static let BASE_URL: String = {
+        guard let kakaoAppKey = Environment.infoDictionary[Keys.Plist.BASE_URL] as? String else {
+            fatalError("BASE URL not set in plist for this environment")
         }
         return kakaoAppKey
     }()

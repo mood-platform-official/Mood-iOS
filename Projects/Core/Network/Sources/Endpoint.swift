@@ -1,5 +1,6 @@
 import Foundation
 import Alamofire
+import CoreKit
 
 protocol Endpoint: URLRequestConvertible {
     var baseURL: String { get }
@@ -14,4 +15,5 @@ protocol Endpoint: URLRequestConvertible {
 
 extension Endpoint {
     // TODO: Common Endpoint property
+    var baseURL: String { Environment.BASE_URL }
 }
