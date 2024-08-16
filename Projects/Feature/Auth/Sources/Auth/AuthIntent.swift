@@ -4,6 +4,7 @@ import Base
 import LinkNavigator
 import CoreKit
 import Entity
+import Dependencies
 
 protocol AuthIntentType {
     var state: AuthModel.State { get }
@@ -19,6 +20,8 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     // MARK: Internal
     typealias State = AuthModel.State
     typealias ViewAction = AuthModel.ViewAction
+    
+    @Dependency(\.authClient) var client
     
     @Published var state: State
     
@@ -55,14 +58,31 @@ extension AuthIntent {
     }
     
     private func emailBtnDidTap() {
-        guard state.isEnabledEmailBtn else { return }
+        guard state.isEnabledEmailBtn else {
+            state.bottomText = "올바른 이메일 형식으로 입력해주세요."
+            return
+        }
         
-        navigator?.next(linkItem: .init(path: Screen.Path.Login.rawValue), isAnimated: true)
+        Task {
+            let isDuplicated = await self.checkDupEmailRequest()
+            let path = isDuplicated
+            ? Screen.Path.Login.rawValue
+            : Screen.Path.SignupPassword.rawValue
+            
+            navigator?.next(linkItem: .init(path: path), isAnimated: true)
+        }
     }
 }
 
 // MARK: API
 
 extension AuthIntent {
-    
+    private func checkDupEmailRequest() async -> Bool {
+        do {
+            return try await self.client.checkDuplEmail(state.email)
+        } catch {
+            print("asdfd")
+            return false
+        }
+    }
 }

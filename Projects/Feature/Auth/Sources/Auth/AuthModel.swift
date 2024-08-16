@@ -1,5 +1,6 @@
 import Foundation
 import CoreKit
+import Entity
 
 enum AuthModel {
     struct State: Equatable {

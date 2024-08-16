@@ -1,6 +1,6 @@
 import Foundation
 
-public enum Environment {
+public enum Env {
     // MARK: - Keys
     enum Keys {
         enum Plist {
@@ -19,16 +19,16 @@ public enum Environment {
 
     // MARK: - Plist values
     public static let KAKAO_APP_KEY: String = {
-        guard let kakaoAppKey = Environment.infoDictionary[Keys.Plist.KAKAO_APP_KEY] as? String else {
+        guard let kakaoAppKey = Env.infoDictionary[Keys.Plist.KAKAO_APP_KEY] as? String else {
             fatalError("KAKAO APP KEY not set in plist for this environment")
         }
         return kakaoAppKey
     }()
     
     public static let BASE_URL: String = {
-        guard let kakaoAppKey = Environment.infoDictionary[Keys.Plist.BASE_URL] as? String else {
+        guard let baseURL = Env.infoDictionary[Keys.Plist.BASE_URL] as? String else {
             fatalError("BASE URL not set in plist for this environment")
         }
-        return kakaoAppKey
+        return baseURL
     }()
 }
