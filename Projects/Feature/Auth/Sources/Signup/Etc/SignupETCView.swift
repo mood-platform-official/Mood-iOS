@@ -33,6 +33,14 @@ extension SignupETCView: View {
             }
             
             nameTextFieldRow()
+            
+            Spacer()
+            
+            SolidButton(
+                text: "다음",
+                disabled: !state.isEnabledNextBtn,
+                action: { intent.send(action: .nextBtnDidTap) }
+            )
         }
         .animation(.easeInOut, value: state.isShowBirthDayField)
         .animation(.easeInOut, value: state.isShowNicknameField)
@@ -67,7 +75,7 @@ extension SignupETCView {
                 .foregroundStyle(Color.gray600)
             
             DefaultTextField(
-                placeholder: "비밀번호를 입력해주세요",
+                placeholder: "실명을 입력해주세요",
                 text: .init(
                     get: { state.name },
                     set: { intent.send(action: .changeName($0)) }
@@ -89,17 +97,16 @@ extension SignupETCView {
                 .subtitle5(.medium)
                 .foregroundStyle(Color.gray600)
             
-            DefaultTextField(
-                placeholder: "YYYY.MM.DD",
-                text: .init(
+            DatePickerRow(
+                date: .init(
                     get: { state.birthDay },
                     set: { intent.send(action: .changeBirthDay($0)) }
                 ),
-                focusedField: ($focusField, SignupETCModel.FocusField.birthDay),
-                leftBottom: .init(text: state.birthDayBottomText, textColor: Color.rubyRed)
+                placeholder: "YYYY.MM.DD",
+                format: "yyyy.MM.dd"
             )
-            .onSubmit {
-                self.intent.send(action: .onSubmitBirthDay)
+            .onChange(of: state.birthDay) { oldValue, newValue in
+                intent.send(action: .onSubmitBirthDay)
             }
         }
     }
@@ -129,7 +136,7 @@ extension SignupETCView {
     func titleText() -> String {
         if state.name.isEmpty || focusField == .name {
             return "이름을 입력해주세요"
-        } else if state.birthDay.isEmpty || focusField == .birthDay {
+        } else if state.birthDay == nil {
             return "생년월일을 입력해주세요"
         } else {
             return "사용할 닉네임을 입력해주세요"

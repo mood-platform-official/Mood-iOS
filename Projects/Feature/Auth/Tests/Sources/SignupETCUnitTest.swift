@@ -84,7 +84,7 @@ final class SignupETCUnitTest: XCTestCase {
     func test_생일입력() {
         // Given
         let name = "우기"
-        let birthDay = "1990.06.08"
+        let birthDay = Date()
         
         // When
         intent.send(action: .changeName(name))
@@ -106,7 +106,7 @@ final class SignupETCUnitTest: XCTestCase {
     func test_닉네임입력_성공() {
         // Given
         let name = "우기"
-        let birthDay = "1990.06.08"
+        let birthDay = Date()
         let nickname = "우기"
         
         let errorText = ""
@@ -135,7 +135,7 @@ final class SignupETCUnitTest: XCTestCase {
     func test_닉네임입력_실패() {
         // Given
         let name = "우기"
-        let birthDay = "1990.06.08"
+        let birthDay = Date()
         let nickname = " 우기"
         
         let errorText = "올바른 별명을 입력해주세요"
@@ -164,7 +164,7 @@ final class SignupETCUnitTest: XCTestCase {
     func test_다음버튼Tap_이름유효성검사_실패() {
         // Given
         let name = " 우기"
-        let birthDay = "1990.06.08"
+        let birthDay = Date()
         let nickname = "우기"
         
         let nameErrorText = "올바른 이름을 입력해주세요"
@@ -189,7 +189,7 @@ final class SignupETCUnitTest: XCTestCase {
     func test_다음버튼Tap_별명유효성검사_실패() {
         // Given
         let name = "우기"
-        let birthDay = "1990.06.08"
+        let birthDay = Date()
         let nickname = " 우기"
         
         let nickNameErrorText = "올바른 별명을 입력해주세요"

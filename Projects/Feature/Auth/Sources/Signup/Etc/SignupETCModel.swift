@@ -4,11 +4,10 @@ import SwiftUI
 enum SignupETCModel {
     struct State: Equatable {
         var name: String = ""
-        var birthDay: String = ""
+        var birthDay: Date? = nil
         var nickname: String = ""
         
         var nameBottomText: String = ""
-        var birthDayBottomText: String = ""
         var nickNameBottomText: String = ""
         
         var isShowBirthDayField: Bool = false
@@ -22,7 +21,7 @@ enum SignupETCModel {
         case changeName(String?)
         case onSubmitName
         
-        case changeBirthDay(String?)
+        case changeBirthDay(Date?)
         case onSubmitBirthDay
         
         case changeNickname(String?)
@@ -35,7 +34,6 @@ enum SignupETCModel {
 extension SignupETCModel {
     enum FocusField {
         case name
-        case birthDay
         case nickname
     }
 }

@@ -46,7 +46,7 @@ extension SignupETCIntent: IntentType, SignupETCIntentType {
             self.onSubmitFieldName()
             
         case .changeBirthDay(let birthDay):
-            state.birthDay = birthDay ?? ""
+            state.birthDay = birthDay
         case .onSubmitBirthDay:
             self.changeShowFields()
             
@@ -70,8 +70,11 @@ extension SignupETCIntent {
     
     private func changeShowFields() {
         state.isShowBirthDayField = !state.name.isEmpty
-        state.isShowNicknameField = !state.name.isEmpty && !state.birthDay.isEmpty
-        state.isEnabledNextBtn = !state.name.isEmpty && !state.birthDay.isEmpty && !state.nickname.isEmpty
+        state.isShowNicknameField = !state.name.isEmpty && state.birthDay != nil
+        state.isEnabledNextBtn = !state.name.isEmpty && state.birthDay != nil && !state.nickname.isEmpty
+        
+        state.birthDay = state.isShowBirthDayField ? state.birthDay : nil
+        state.nickname = state.isShowNicknameField ? state.nickname : ""
     }
     
     private func onSubmitFieldName() {
