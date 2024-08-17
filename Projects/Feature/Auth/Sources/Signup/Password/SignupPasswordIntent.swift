@@ -61,6 +61,7 @@ extension SignupPasswordIntent {
     private func nextBtnDidTap() {
         guard state.password.isValidPassword() else {
             state.pwBottomText = "영문 대소문자, 숫자, 특수문자 포함 8자 이상"
+            state.pwAgainBottomText = "비밀번호가 일치하지 않습니다."
             return
         }
         

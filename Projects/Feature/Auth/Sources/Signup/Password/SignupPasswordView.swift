@@ -52,6 +52,7 @@ extension SignupPasswordView {
             
             Text("영문 대소문자, 숫자, 특수문자를 포함해\n8자 이상으로 작성해주세요.")
                 .body2()
+                .foregroundStyle(Color.gray600)
                 .multilineTextAlignment(.leading)
         }
     }
