@@ -7,7 +7,8 @@ enum FindEmailModel {
         var phoneNumber: String = ""
         
         var bottomText: String = ""
-        var isDisabledFindEmailBtn: Bool = false
+        var isEnabledFindEmailBtn: Bool { phoneNumber.isValidPhone() }
+        var isErrorFindEmailBtn: Bool { !bottomText.isEmpty }
     }
     
     enum ViewAction: Equatable {

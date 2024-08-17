@@ -5,6 +5,7 @@ import LinkNavigator
 
 protocol FindEmailIntentType {
     var state: FindEmailModel.State { get }
+    var navigator: RootNavigatorType { get }
     
     func send(action: FindEmailModel.ViewAction)
 }
@@ -39,9 +40,9 @@ extension FindEmailIntent: IntentType, FindEmailIntentType {
             self.viewOnAppear()
         case .changePhoneNumber(let pn):
             state.phoneNumber = pn ?? ""
-            state.isDisabledFindEmailBtn = state.phoneNumber.isValidPhone()
+            state.bottomText = state.phoneNumber.isEmpty ? state.bottomText : ""
         case .findEmailBtnDidTap:
-            print("findEmailBtnDidTap")
+            self.findEmailBtntDidTap()
         }
     }
 }
@@ -50,6 +51,15 @@ extension FindEmailIntent: IntentType, FindEmailIntentType {
 
 extension FindEmailIntent {
     private func viewOnAppear() {
+        
+    }
+    
+    private func findEmailBtntDidTap() {
+        guard state.isEnabledFindEmailBtn else {
+            state.bottomText = "일치하는 사용자 정보를 찾을 수 없습니다."
+            return
+        }
+        
         
     }
 }

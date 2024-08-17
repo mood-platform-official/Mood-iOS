@@ -1,6 +1,5 @@
 import SwiftUI
 import Auth
-import CoreKit
 import KakaoSDKCommon
 import KakaoSDKAuth
 import LinkNavigator
@@ -22,7 +21,7 @@ struct AuthApp: App {
         dependency: AppDependency()
     )
     init() {
-        KakaoSDK.initSDK(appKey: Environment.KAKAO_APP_KEY)
+        KakaoSDK.initSDK(appKey: Env.KAKAO_APP_KEY)
         DesignSystemFontFamily.registerAllCustomFonts()
     }
     

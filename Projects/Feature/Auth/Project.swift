@@ -9,7 +9,8 @@ let project = Project.makeModule(
     bundleId: bundleID + "Auth",
     infoPlist: .extendingDefault(with: [
         "KAKAO_APP_KEY": "$(KAKAO_APP_KEY)",
-        "UILaunchScreen": [:]
+        "UILaunchScreen": [:],
+        "UIUserInterfaceStyle": "Light",
     ]),
     dependencies: [
         .feature(module: .Base),

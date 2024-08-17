@@ -30,7 +30,7 @@ extension FindEmailView: View {
                 
                 SolidButton(
                     text: "이메일 찾기",
-                    disabled: state.isDisabledFindEmailBtn,
+                    disabled: !state.isEnabledFindEmailBtn,
                     action: { self.intent.send(action: .findEmailBtnDidTap) }
                 )
             }
@@ -60,7 +60,7 @@ extension FindEmailView {
                 focusedField: ($focusField, FindEmailModel.FocusField.phone),
                 disabled: false,
                 isError: .init(
-                    get: { state.isDisabledFindEmailBtn },
+                    get: { state.isEnabledFindEmailBtn },
                     set: { _ in }
                 ),
                 leftBottom: .init(

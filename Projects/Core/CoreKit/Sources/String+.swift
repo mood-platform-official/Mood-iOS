@@ -11,7 +11,7 @@ extension String {
     public func isValidPhone() -> Bool {
         let phoneRegEx = "^[0-9+]{0,1}+[0-9]{5,16}$"
         let phonePred = NSPredicate(format: "SELF MATCHES %@", phoneRegEx)
-        return phonePred.evaluate(with: self)
+        return phonePred.evaluate(with: self) && self.hasPrefix("010")
     }
     
     public func isValidPassword() -> Bool {
