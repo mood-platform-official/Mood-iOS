@@ -21,6 +21,7 @@ extension SignupETCView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 28) {
             titleRow()
+                .padding(.top, 16)
             
             if state.isShowNicknameField {
                 nicknameTextFieldRow()

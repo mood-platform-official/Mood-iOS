@@ -6,13 +6,16 @@ enum SignupPhoneAuthModel {
         var phoneNumber: String = ""
         var authCode: String = ""
         
-        var isDisabledNextBtn: Bool = false
+        var isShowAuthCodeField: Bool = false
+        
+        var isEnabledNextBtn: Bool = false
     }
     
     enum ViewAction: Equatable {
         case onAppear
         case changePhoneNumber(String?)
         case changeAuthCode(String?)
+        case authBtnDidTap
         case nextBtnDidTap
     }
 }
