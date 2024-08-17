@@ -17,7 +17,8 @@ struct AuthApp: App {
             FindEmailRouter.generate(),
             FindPasswordRouter.generate(),
             SignupPasswordRouter.generate(),
-            SignupETCRouter.generate()
+            SignupETCRouter.generate(),
+            SignupPhoneAuthRouter.generate()
         ],
         dependency: AppDependency()
     )

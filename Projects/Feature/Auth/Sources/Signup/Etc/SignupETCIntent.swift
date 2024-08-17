@@ -102,6 +102,6 @@ extension SignupETCIntent {
             return
         }
         
-//        navigator.next(linkItem: .init(path: Screen.Path.SignupETC.rawValue), isAnimated: true)
+        navigator.next(linkItem: .init(path: Screen.Path.SignupPhoneAuth.rawValue), isAnimated: true)
     }
 }
