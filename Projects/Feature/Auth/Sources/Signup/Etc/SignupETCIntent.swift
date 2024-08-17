@@ -5,6 +5,7 @@ import LinkNavigator
 
 protocol SignupETCIntentType {
     var state: SignupETCModel.State { get }
+    var navigator: RootNavigatorType { get }
     
     func send(action: SignupETCModel.ViewAction)
 }
@@ -21,11 +22,14 @@ final class SignupETCIntent: ObservableObject {
     @Published var state: State
     
     var cancellable: Set<AnyCancellable> = []
+    var navigator: RootNavigatorType
 
     init(
-        initialState: State
+        initialState: State,
+        navigator: RootNavigatorType
     ) {
         self.state = initialState
+        self.navigator = navigator
     }
 }
 

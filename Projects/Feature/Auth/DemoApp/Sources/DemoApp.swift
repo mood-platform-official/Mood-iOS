@@ -16,7 +16,8 @@ struct AuthApp: App {
             LoginRouteBuilder.generate(),
             FindEmailRouter.generate(),
             FindPasswordRouter.generate(),
-            SignupPasswordRouter.generate()
+            SignupPasswordRouter.generate(),
+            SignupETCRouter.generate()
         ],
         dependency: AppDependency()
     )
@@ -29,7 +30,7 @@ struct AuthApp: App {
         WindowGroup {
             LinkNavigationView(
                 linkNavigator: navigator,
-                item: .init(path: Screen.Path.Auth.rawValue)
+                item: .init(path: Screen.Path.SignupETC.rawValue)
             )
         }
     }

@@ -19,8 +19,17 @@ struct SignupETCView: IntentBindingType {
 extension SignupETCView: View {
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 32) {
+        VStack(alignment: .leading, spacing: 28) {
+            titleRow()
             
+            nameTextFieldRow()
+            if !state.name.isEmpty {
+                birthDayTextFieldRow()
+            }
+            
+            if !state.name.isEmpty, !state.birthDay.isEmpty {
+                nicknameTextFieldRow()
+            }
         }
         .padding(.horizontal, 16)
         .backTopBar(title: "회원가입", backAction: { self.dismiss() })
@@ -31,6 +40,20 @@ extension SignupETCView: View {
 }
 
 extension SignupETCView {
+    @ViewBuilder
+    func titleRow() -> some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(titleText())
+                .headline7(.bold)
+                .multilineTextAlignment(.leading)
+            
+            Text(subTitleText())
+                .body2()
+                .foregroundStyle(Color.gray600)
+                .multilineTextAlignment(.leading)
+        }
+    }
+    
     @ViewBuilder
     func nameTextFieldRow() -> some View {
         VStack(alignment: .leading, spacing: 8) {
@@ -84,5 +107,21 @@ extension SignupETCView {
                 focusedField: ($focusField, SignupETCModel.FocusField.nickname)
             )
         }
+    }
+    
+    func titleText() -> String {
+        if state.nickname.isEmpty || focusField == .nickname {
+            return "사용할 닉네임을 입력해주세요"
+        } else if state.birthDay.isEmpty || focusField == .birthDay {
+            return "생년월일을 입력해주세요"
+        } else {
+            return "이름을 입력해주세요"
+        }
+    }
+    
+    func subTitleText() -> String {
+        let isExist = state.nickname.isEmpty || focusField == .nickname
+        || state.birthDay.isEmpty || focusField == .birthDay
+        return isExist ? "" : "본인 인증을 위해 실명으로 입력해주세요."
     }
 }
