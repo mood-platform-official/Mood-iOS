@@ -1,11 +1,35 @@
 import XCTest
 import Combine
 import Dependencies
+import LinkNavigator
 
 @testable import Auth
 
 final class AuthUnitTest: XCTestCase {
+    struct AppDependency: DependencyType {}
     var cancellable: Set<AnyCancellable> = []
+    var state: AuthModel.State?
+    var intent: AuthIntent?
+    var navigator: SingleLinkNavigator?
+    
+    override class func setUp() {
+        super.setUp()
+    }
+    
+    private func initialize() {
+        let initState: AuthModel.State = .init()
+        let initNavigator: SingleLinkNavigator = .init(
+            routeBuilderItemList: [AuthRouteBuilder.generate()],
+            dependency: AppDependency()
+        )
+        navigator = initNavigator
+        state = initState
+        intent = withDependencies {
+            $0.authClient = .testValue
+        } operation: {
+            AuthIntent(initialState: initState, navigator: initNavigator)
+        }
+    }
     
     override func tearDownWithError() throws {
         self.cancellable = []
@@ -13,16 +37,15 @@ final class AuthUnitTest: XCTestCase {
     
     func test_changeEmail() {
         // Given
-        let state = AuthModel.State()
-        let intent = AuthIntent(initialState: state)
+        let intent = self.intent
         
         let email = "chicazic@gmail.com"
         
         // When
-        intent.send(action: .changeEmail(email))
+        intent?.send(action: .changeEmail(email))
         
         // Then
-        intent.$state
+        intent?.$state
             .sink { state in
                 XCTAssert(state.email == email, "email: \(email)")
                 XCTAssert(state.isEnabledEmailBtn, "isEnabledEmailBtn: \(state.isEnabledEmailBtn)")
@@ -32,21 +55,17 @@ final class AuthUnitTest: XCTestCase {
     
     func test_emailBtnDidTap_이메일형식X() {
         // Given
-        var state = AuthModel.State()
-        state.email = "chicazicail.com"
-        let intent = withDependencies {
-            $0.authClient = .testValue
-        } operation: {
-            AuthIntent(initialState: state)
-        }
+        var state = self.state
+        state?.email = "chicazicail.com"
+        let intent = self.intent
 
         let bottomText = "올바른 이메일 형식으로 입력해주세요."
         
         // When
-        intent.send(action: .emailBtnDidTap)
+        intent?.send(action: .emailBtnDidTap)
         
         // Then
-        intent.$state
+        intent?.$state
             .sink { state in
                 XCTAssert(state.bottomText == bottomText, "bottomText: \(state.bottomText)")
             }

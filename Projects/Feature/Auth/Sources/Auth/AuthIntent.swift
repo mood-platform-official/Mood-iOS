@@ -8,7 +8,7 @@ import Dependencies
 
 protocol AuthIntentType {
     var state: AuthModel.State { get }
-    var navigator: RootNavigatorType? { get }
+    var navigator: RootNavigatorType { get }
     
     func send(action: AuthModel.ViewAction)
 }
@@ -26,12 +26,14 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     @Published var state: State
     
     var cancellable: Set<AnyCancellable> = []
-    var navigator: RootNavigatorType?
+    var navigator: RootNavigatorType
 
     init(
-        initialState: State
+        initialState: State,
+        navigator: RootNavigatorType
     ) {
         self.state = initialState
+        self.navigator = navigator
     }
 }
 
@@ -45,6 +47,10 @@ extension AuthIntent: IntentType {
             state.email = email ?? ""
         case .emailBtnDidTap:
             self.emailBtnDidTap()
+        case .findEmailBtnDidTap:
+            navigator.next(linkItem: .init(path: Screen.Path.FindEmail.rawValue), isAnimated: true)
+        case .findPWBtnDidTap:
+            navigator.next(linkItem: .init(path: Screen.Path.FindPassword.rawValue), isAnimated: true)
         }
     }
 }
@@ -69,7 +75,9 @@ extension AuthIntent {
             ? Screen.Path.Login.rawValue
             : Screen.Path.SignupPassword.rawValue
             
-            navigator?.next(linkItem: .init(path: path), isAnimated: true)
+            await MainActor.run {
+                navigator.next(linkItem: .init(path: path), isAnimated: true)
+            }
         }
     }
 }

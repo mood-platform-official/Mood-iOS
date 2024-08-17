@@ -9,8 +9,7 @@ public struct AuthRouteBuilder<RootNavigator: RootNavigatorType> {
     public static func generate() -> RouteBuilderOf<RootNavigator> {
         var matchPath: String { Screen.Path.Auth.rawValue }
         return .init(matchPath: matchPath) { navigator, _, _ -> RouteViewController? in
-            let intent = AuthIntent(initialState: .init())
-            intent.navigator = navigator
+            let intent = AuthIntent(initialState: .init(), navigator: navigator)
             let vc = DebugWrappingViewController(matchPath: matchPath) {
                 AuthView(container: .init(
                     intent: intent,

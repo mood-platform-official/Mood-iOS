@@ -105,7 +105,7 @@ extension AuthView {
     func findButtonRow() -> some View {
         HStack(alignment: .center, spacing: 12) {
             Button {
-                
+                self.intent.send(action: .findEmailBtnDidTap)
             } label: {
                 Text("이메일 찾기")
                     .caption1()
@@ -117,7 +117,7 @@ extension AuthView {
                 .background(Color.gray200)
             
             Button {
-                
+                self.intent.send(action: .findPWBtnDidTap)
             } label: {
                 Text("비밀번호 찾기")
                     .caption1()
