@@ -22,15 +22,20 @@ extension SignupETCView: View {
         VStack(alignment: .leading, spacing: 28) {
             titleRow()
             
-            nameTextFieldRow()
-            if !state.name.isEmpty {
-                birthDayTextFieldRow()
+            if state.isShowNicknameField {
+                nicknameTextFieldRow()
+                    .transition(.scale)
             }
             
-            if !state.name.isEmpty, !state.birthDay.isEmpty {
-                nicknameTextFieldRow()
+            if state.isShowBirthDayField {
+                birthDayTextFieldRow()
+                    .transition(.scale)
             }
+            
+            nameTextFieldRow()
         }
+        .animation(.easeInOut, value: state.isShowBirthDayField)
+        .animation(.easeInOut, value: state.isShowNicknameField)
         .padding(.horizontal, 16)
         .backTopBar(title: "회원가입", backAction: { self.dismiss() })
         .task {
@@ -67,9 +72,13 @@ extension SignupETCView {
                     get: { state.name },
                     set: { intent.send(action: .changeName($0)) }
                 ),
-                focusedField: ($focusField, SignupETCModel.FocusField.name)
+                focusedField: ($focusField, SignupETCModel.FocusField.name),
+                leftBottom: .init(text: state.nameBottomText, textColor: Color.rubyRed)
             )
             .keyboardType(.numberPad)
+            .onSubmit {
+                self.intent.send(action: .onSubmitName)
+            }
         }
     }
     
@@ -86,8 +95,12 @@ extension SignupETCView {
                     get: { state.birthDay },
                     set: { intent.send(action: .changeBirthDay($0)) }
                 ),
-                focusedField: ($focusField, SignupETCModel.FocusField.birthDay)
+                focusedField: ($focusField, SignupETCModel.FocusField.birthDay),
+                leftBottom: .init(text: state.birthDayBottomText, textColor: Color.rubyRed)
             )
+            .onSubmit {
+                self.intent.send(action: .onSubmitBirthDay)
+            }
         }
     }
     
@@ -104,24 +117,26 @@ extension SignupETCView {
                     get: { state.nickname },
                     set: { intent.send(action: .changeNickname($0)) }
                 ),
-                focusedField: ($focusField, SignupETCModel.FocusField.nickname)
+                focusedField: ($focusField, SignupETCModel.FocusField.nickname),
+                leftBottom: .init(text: state.nickNameBottomText, textColor: Color.rubyRed)
             )
+            .onSubmit {
+                self.intent.send(action: .onSubmitNickname)
+            }
         }
     }
     
     func titleText() -> String {
-        if state.nickname.isEmpty || focusField == .nickname {
-            return "사용할 닉네임을 입력해주세요"
+        if state.name.isEmpty || focusField == .name {
+            return "이름을 입력해주세요"
         } else if state.birthDay.isEmpty || focusField == .birthDay {
             return "생년월일을 입력해주세요"
         } else {
-            return "이름을 입력해주세요"
+            return "사용할 닉네임을 입력해주세요"
         }
     }
     
     func subTitleText() -> String {
-        let isExist = state.nickname.isEmpty || focusField == .nickname
-        || state.birthDay.isEmpty || focusField == .birthDay
-        return isExist ? "" : "본인 인증을 위해 실명으로 입력해주세요."
+        return state.name.isEmpty || focusField == .name ? "본인 인증을 위해 실명으로 입력해주세요." : ""
     }
 }

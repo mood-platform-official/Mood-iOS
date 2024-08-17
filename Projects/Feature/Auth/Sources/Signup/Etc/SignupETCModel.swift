@@ -7,14 +7,27 @@ enum SignupETCModel {
         var birthDay: String = ""
         var nickname: String = ""
         
-        var isDisabledNextBtn: Bool = false
+        var nameBottomText: String = ""
+        var birthDayBottomText: String = ""
+        var nickNameBottomText: String = ""
+        
+        var isShowBirthDayField: Bool = false
+        var isShowNicknameField: Bool = false
+        
+        var isEnabledNextBtn: Bool = false
     }
     
     enum ViewAction: Equatable {
         case onAppear
         case changeName(String?)
+        case onSubmitName
+        
         case changeBirthDay(String?)
+        case onSubmitBirthDay
+        
         case changeNickname(String?)
+        case onSubmitNickname
+        
         case nextBtnDidTap
     }
 }

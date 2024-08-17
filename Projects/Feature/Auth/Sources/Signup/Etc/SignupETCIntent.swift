@@ -2,6 +2,8 @@ import Foundation
 import Combine
 import Base
 import LinkNavigator
+import Entity
+import CoreKit
 
 protocol SignupETCIntentType {
     var state: SignupETCModel.State { get }
@@ -40,12 +42,21 @@ extension SignupETCIntent: IntentType, SignupETCIntentType {
             self.viewOnAppear()
         case .changeName(let name):
             state.name = name ?? ""
+        case .onSubmitName:
+            self.onSubmitFieldName()
+            
         case .changeBirthDay(let birthDay):
             state.birthDay = birthDay ?? ""
+        case .onSubmitBirthDay:
+            self.changeShowFields()
+            
         case .changeNickname(let nickname):
             state.nickname = nickname ?? ""
+        case .onSubmitNickname:
+            self.onSubmitFieldNickname()
+            
         case .nextBtnDidTap:
-            print("nextBtnDidTap")
+            self.nextBtnDidTap()
         }
     }
 }
@@ -55,5 +66,39 @@ extension SignupETCIntent: IntentType, SignupETCIntentType {
 extension SignupETCIntent {
     private func viewOnAppear() {
         
+    }
+    
+    private func changeShowFields() {
+        state.isShowBirthDayField = !state.name.isEmpty
+        state.isShowNicknameField = !state.name.isEmpty && !state.birthDay.isEmpty
+        state.isEnabledNextBtn = !state.name.isEmpty && !state.birthDay.isEmpty && !state.nickname.isEmpty
+    }
+    
+    private func onSubmitFieldName() {
+        self.changeShowFields()
+        state.nameBottomText = state.name.isValidName()
+        ? ""
+        : "올바른 이름을 입력해주세요"
+    }
+    
+    private func onSubmitFieldNickname() {
+        self.changeShowFields()
+        state.nickNameBottomText = state.nickname.isValidNickname()
+        ? ""
+        : "올바른 별명을 입력해주세요"
+    }
+    
+    private func nextBtnDidTap() {
+        guard state.name.isValidName() else {
+            state.nameBottomText = "올바른 이름을 입력해주세요"
+            return
+        }
+        
+        guard state.nickname.isValidNickname() else {
+            state.nickNameBottomText = "올바른 별명을 입력해주세요"
+            return
+        }
+        
+//        navigator.next(linkItem: .init(path: Screen.Path.SignupETC.rawValue), isAnimated: true)
     }
 }
