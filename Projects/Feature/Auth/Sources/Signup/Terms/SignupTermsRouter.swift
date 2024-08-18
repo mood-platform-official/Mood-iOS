@@ -2,6 +2,7 @@ import LinkNavigator
 import SwiftUI
 import Entity
 import ThirdPartyLibrary
+import Base
 
 public struct SignupTermsRouter<RootNavigator: RootNavigatorType> {
     public static func generate() -> RouteBuilderOf<RootNavigator> {

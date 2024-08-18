@@ -5,23 +5,13 @@ import KakaoSDKAuth
 import LinkNavigator
 import Entity
 import DesignSystem
-
-struct AppDependency: DependencyType { }
+import Base
 
 @main
 struct AuthApp: App {
     var navigator: SingleLinkNavigator = .init(
-        routeBuilderItemList: [
-            AuthRouteBuilder.generate(),
-            LoginRouteBuilder.generate(),
-            FindEmailRouter.generate(),
-            FindPasswordRouter.generate(),
-            SignupPasswordRouter.generate(),
-            SignupETCRouter.generate(),
-            SignupPhoneAuthRouter.generate(),
-            SignupTermsRouter.generate()
-        ],
-        dependency: AppDependency()
+        routeBuilderItemList: AuthRouterGroup().routers,
+        dependency: AuthDependency()
     )
     init() {
         KakaoSDK.initSDK(appKey: Env.KAKAO_APP_KEY)

@@ -1,10 +1,12 @@
 import LinkNavigator
 import Auth
-
-public typealias RootNavigatorType = LinkNavigatorFindLocationUsable & LinkNavigatorProtocol
+import Base
 
 struct AppRouterGroup<RootNavigator: RootNavigatorType> {
     var routers: [RouteBuilderOf<RootNavigator>] {
-        [AuthRouteBuilder.generate()]
+        [
+            
+        ]
+        + AuthRouterGroup().routers
     }
 }

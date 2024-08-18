@@ -2,8 +2,7 @@ import LinkNavigator
 import SwiftUI
 import Entity
 import ThirdPartyLibrary
-
-public typealias RootNavigatorType = LinkNavigatorFindLocationUsable & LinkNavigatorProtocol
+import Base
 
 public struct AuthRouteBuilder<RootNavigator: RootNavigatorType> {
     public static func generate() -> RouteBuilderOf<RootNavigator> {
