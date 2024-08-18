@@ -77,7 +77,6 @@ extension SignupPasswordView {
                     textColor: .rubyRed
                 )
             )
-            .keyboardType(.numberPad)
         }
     }
     

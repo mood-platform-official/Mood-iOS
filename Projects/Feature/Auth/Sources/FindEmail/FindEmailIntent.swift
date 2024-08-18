@@ -41,6 +41,8 @@ extension FindEmailIntent: IntentType, FindEmailIntentType {
         case .changePhoneNumber(let pn):
             state.phoneNumber = pn ?? ""
             state.bottomText = state.phoneNumber.isEmpty ? state.bottomText : ""
+        case .onSubmitPhoneNumber:
+            state.isEnabledFindEmailBtn = state.phoneNumber.isValidPhone()
         case .findEmailBtnDidTap:
             self.findEmailBtntDidTap()
         }

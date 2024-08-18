@@ -21,6 +21,13 @@ let project = Project.makeModule(
     organizationName: organizationName,
     product: .app,
     bundleId: bundleID,
+    infoPlist: .extendingDefault(with: [
+        "UISupportedInterfaceOrientations": ["UIInterfaceOrientationPortrait"],
+        "KAKAO_APP_KEY": "$(KAKAO_APP_KEY)",
+        "UILaunchScreen": [:],
+        "UIUserInterfaceStyle": "Light",
+        "BASE_URL": "${BASE_URL}",
+    ]),
     dependencies: [
         .feature(module: .Auth)
     ],

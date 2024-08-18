@@ -60,7 +60,7 @@ extension FindEmailView {
                 focusedField: ($focusField, FindEmailModel.FocusField.phone),
                 disabled: false,
                 isError: .init(
-                    get: { state.isEnabledFindEmailBtn },
+                    get: { !state.bottomText.isEmpty },
                     set: { _ in }
                 ),
                 leftBottom: .init(
@@ -69,6 +69,9 @@ extension FindEmailView {
                 )
             )
             .keyboardType(.numberPad)
+            .onSubmit {
+                intent.send(action: .onSubmitPhoneNumber)
+            }
         }
     }
 }

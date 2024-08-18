@@ -70,8 +70,6 @@ extension SignupPasswordIntent {
             return
         }
         
-        // TODO: API
-        
-//        self.navigator.next(linkItem: .init(path: Screen.Path.SignupPassword), isAnimated: true)
+        navigator.next(linkItem: .init(path: Screen.Path.SignupETC.rawValue), isAnimated: true)
     }
 }
