@@ -41,8 +41,10 @@ extension SignupPhoneAuthIntent: IntentType, SignupPhoneAuthIntentType {
             state.phoneNumber = phoneNumber ?? ""
         case .changeAuthCode(let authCode):
             state.authCode = authCode ?? ""
-        case .authBtnDidTap:
+        case .sendAuthCodeBtnDidTap:
             state.isShowAuthCodeField = !state.phoneNumber.isEmpty
+        case .validAuthCodeBtnDidTap:
+            state.isEnabledAuthCodeField = false
         case .nextBtnDidTap:
             print("nextBtnDidTap")
         }

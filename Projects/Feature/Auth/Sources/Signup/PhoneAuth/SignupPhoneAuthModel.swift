@@ -8,6 +8,7 @@ enum SignupPhoneAuthModel {
         
         var isShowAuthCodeField: Bool = false
         
+        var isEnabledAuthCodeField: Bool = true
         var isEnabledNextBtn: Bool = false
     }
     
@@ -15,7 +16,8 @@ enum SignupPhoneAuthModel {
         case onAppear
         case changePhoneNumber(String?)
         case changeAuthCode(String?)
-        case authBtnDidTap
+        case sendAuthCodeBtnDidTap
+        case validAuthCodeBtnDidTap
         case nextBtnDidTap
     }
 }

@@ -84,7 +84,7 @@ extension SignupPhoneAuthView {
                     text: state.isShowAuthCodeField ? "재전송" : "인증",
                     textColor: state.phoneNumber.isEmpty ? Color.gray700 : Color.primary500,
                     action: { 
-                        intent.send(action: .authBtnDidTap)
+                        intent.send(action: .sendAuthCodeBtnDidTap)
                         timeRemaining = 180
                     }
                 )
@@ -102,6 +102,7 @@ extension SignupPhoneAuthView {
                 set: { intent.send(action: .changeAuthCode($0)) }
             ),
             focusedField: ($focusField, SignupPhoneAuthModel.FocusField.authCode),
+            disabled: timeRemaining == 0 || !state.isEnabledAuthCodeField,
             rightBtn: authCodeTimeLimitBtn()
         )
         .keyboardType(.numberPad)
@@ -115,8 +116,8 @@ extension SignupPhoneAuthView {
     private func authCodeTimeLimitBtn() -> Entity.UI.RightButton {
         return .init(
             text: timeFormatter(timeRemaining),
-            textColor: state.phoneNumber.isEmpty ? Color.gray700 : Color.primary500,
-            action: { intent.send(action: .authBtnDidTap) }
+            textColor: timeRemaining == 0 ? Color.gray700 : Color.primary500,
+            action: { intent.send(action: .validAuthCodeBtnDidTap) }
         )
     }
     
