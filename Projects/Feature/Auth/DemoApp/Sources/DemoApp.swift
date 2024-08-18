@@ -22,7 +22,7 @@ struct AuthApp: App {
         WindowGroup {
             LinkNavigationView(
                 linkNavigator: navigator,
-                item: .init(path: Screen.Path.SignupTerms.rawValue)
+                item: .init(path: Screen.Path.SignupETC.rawValue)
             )
         }
     }

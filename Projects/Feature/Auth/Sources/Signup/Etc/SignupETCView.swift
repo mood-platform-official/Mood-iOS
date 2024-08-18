@@ -25,12 +25,12 @@ extension SignupETCView: View {
             
             if state.isShowNicknameField {
                 nicknameTextFieldRow()
-                    .transition(.scale)
+                    .frame(height: state.isShowNicknameField ? nil : 0, alignment: .top)
             }
             
             if state.isShowBirthDayField {
                 birthDayTextFieldRow()
-                    .transition(.scale)
+                    .frame(height: state.isShowBirthDayField ? nil : 0, alignment: .top)
             }
             
             nameTextFieldRow()
