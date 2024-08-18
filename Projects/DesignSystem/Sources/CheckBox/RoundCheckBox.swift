@@ -30,7 +30,7 @@ public struct RoundCheckBox: View {
         Button {
             action(state)
         } label: {
-            Image.icCheckThickness20
+            icon
                 .resizable()
                 .renderingMode(.template)
                 .foregroundStyle(state == .unchecked ? .clear : .white)

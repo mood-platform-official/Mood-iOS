@@ -9,5 +9,6 @@ extension Screen {
         case SignupPassword
         case SignupETC
         case SignupPhoneAuth
+        case SignupTerms
     }
 }

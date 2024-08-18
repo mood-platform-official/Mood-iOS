@@ -74,7 +74,7 @@ final class SignupPhoneAuthUnitTest: XCTestCase {
         let authCode = "123456"
         
         // When
-        intent.send(action: .changePhoneNumber(phoneNumber))
+        intent.send(action: .changePhoneNumber(authCode))
         intent.send(action: .sendAuthCodeBtnDidTap)
         
         // Then

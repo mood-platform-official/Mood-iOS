@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Base
 import LinkNavigator
+import Entity
 
 protocol SignupPhoneAuthIntentType {
     var state: SignupPhoneAuthModel.State { get }
@@ -46,7 +47,7 @@ extension SignupPhoneAuthIntent: IntentType, SignupPhoneAuthIntentType {
         case .validAuthCodeBtnDidTap:
             state.isEnabledAuthCodeField = false
         case .nextBtnDidTap:
-            print("nextBtnDidTap")
+            navigator.next(linkItem: .init(path: Screen.Path.SignupTerms.rawValue), isAnimated: true)
         }
     }
 }
