@@ -22,8 +22,13 @@ struct AuthApp: App {
         WindowGroup {
             LinkNavigationView(
                 linkNavigator: navigator,
-                item: .init(path: Screen.Path.SignupETC.rawValue)
+                item: .init(path: Screen.Path.Auth.rawValue)
             )
+            .onOpenURL { url in
+                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                    _ = AuthController.handleOpenUrl(url: url)
+                }
+            }
         }
     }
 }

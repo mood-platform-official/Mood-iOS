@@ -22,10 +22,15 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     typealias ViewAction = AuthModel.ViewAction
     
     @Dependency(\.authClient) var client
+    @Dependency(\.kakaoClient) var kakao
     
     @Published var state: State
     
     var cancellable: Set<AnyCancellable> = []
+    
+    var kakaoTask: Task<Void, Error>?
+    var dupEmailTask: Task<Void, Error>?
+    
     var navigator: RootNavigatorType
 
     init(
@@ -34,6 +39,13 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     ) {
         self.state = initialState
         self.navigator = navigator
+    }
+    
+    deinit {
+        self.kakaoTask?.cancel()
+        self.dupEmailTask?.cancel()
+        
+        self.cancellable.removeAll()
     }
 }
 
@@ -47,10 +59,13 @@ extension AuthIntent: IntentType {
             state.email = email ?? ""
         case .emailBtnDidTap:
             self.emailBtnDidTap()
+        case .kakaoBtnDidTap:
+            self.kakaoBtnDidTap()
         case .findEmailBtnDidTap:
             navigator.next(linkItem: .init(path: Screen.Path.FindEmail.rawValue), isAnimated: true)
         case .findPWBtnDidTap:
             navigator.next(linkItem: .init(path: Screen.Path.FindPassword.rawValue), isAnimated: true)
+        
         }
     }
 }
@@ -69,8 +84,12 @@ extension AuthIntent {
             return
         }
         
-        Task {
+        self.dupEmailTask?.cancel()
+        
+        self.dupEmailTask = Task {
             let isDuplicated = await self.checkDupEmailRequest()
+            
+            guard !(self.dupEmailTask?.isCancelled ?? false) else { return }
             let path = isDuplicated
             ? Screen.Path.Login.rawValue
             : Screen.Path.SignupPassword.rawValue
@@ -78,6 +97,16 @@ extension AuthIntent {
             await MainActor.run {
                 navigator.next(linkItem: .init(path: path), isAnimated: true)
             }
+        }
+    }
+    
+    private func kakaoBtnDidTap() {
+        self.kakaoTask?.cancel()
+        
+        self.kakaoTask = Task { @MainActor in
+            let oauthToken = await self.kakaoLoginRequest()
+            
+            guard !(self.kakaoTask?.isCancelled ?? false) else { return }
         }
     }
 }
@@ -91,6 +120,15 @@ extension AuthIntent {
         } catch {
             print("asdfd")
             return false
+        }
+    }
+    
+    private func kakaoLoginRequest() async -> String {
+        do {
+            return try await self.kakao.login()
+        } catch {
+            print("error kakao login")
+            return ""
         }
     }
 }

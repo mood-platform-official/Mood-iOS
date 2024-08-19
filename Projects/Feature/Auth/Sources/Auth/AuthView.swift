@@ -76,7 +76,7 @@ extension AuthView {
     func socialIconButtonRow() -> some View {
         HStack(alignment: .center, spacing: 20) {
             Button {
-//                self.intent.send(action: )
+                self.intent.send(action: .kakaoBtnDidTap)
             } label: {
                 Image.icKakaoSocialButton
                     .resizable()
