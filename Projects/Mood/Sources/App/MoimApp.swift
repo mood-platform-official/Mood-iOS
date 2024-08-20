@@ -2,6 +2,8 @@ import SwiftUI
 import LinkNavigator
 import Entity
 import DesignSystem
+import KakaoSDKCommon
+import KakaoSDKAuth
 
 @main
 struct MoimApp: App {
@@ -12,6 +14,7 @@ struct MoimApp: App {
     
     init() {
         DesignSystemFontFamily.registerAllCustomFonts()
+        KakaoSDK.initSDK(appKey: Env.KAKAO_APP_KEY)
     }
     
     var body: some Scene {
@@ -22,7 +25,9 @@ struct MoimApp: App {
             )
             .ignoresSafeArea(.all)
             .onOpenURL { url in
-                
+                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                    _ = AuthController.handleOpenUrl(url: url)
+                }
             }
         }
     }
