@@ -15,7 +15,8 @@ let project = Project.makeModule(
     dependencies: [
         .feature(module: .Base),
         .SPM.KakaoSDKAuth,
-        .SPM.KakaoSDKUser
+        .SPM.KakaoSDKUser,
+        .SPM.NaverThirdPartyLogin
     ],
     settings: .base("Auth"),
     hasTest: true,

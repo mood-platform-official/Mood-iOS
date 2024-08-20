@@ -6,6 +6,8 @@ public enum Env {
         enum Plist {
             static let KAKAO_APP_KEY = "KAKAO_APP_KEY"
             static let BASE_URL = "BASE_URL"
+            static let NAVER_CLIENT_ID = "NAVER_CLIENT_ID"
+            static let NAVER_CLIENT_SECRET = "NAVER_CLIENT_SECRET"
         }
     }
 
@@ -30,5 +32,19 @@ public enum Env {
             fatalError("BASE URL not set in plist for this environment")
         }
         return baseURL
+    }()
+    
+    public static let NAVER_CLIENT_ID: String = {
+        guard let clientID = Env.infoDictionary[Keys.Plist.NAVER_CLIENT_ID] as? String else {
+            fatalError("CLIENT ID not set in plist for this environment")
+        }
+        return clientID
+    }()
+    
+    public static let NAVER_CLIENT_SECRET: String = {
+        guard let clientSecret = Env.infoDictionary[Keys.Plist.NAVER_CLIENT_SECRET] as? String else {
+            fatalError("CLIENT_SECRET not set in plist for this environment")
+        }
+        return clientSecret
     }()
 }
