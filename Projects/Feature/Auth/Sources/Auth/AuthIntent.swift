@@ -5,6 +5,7 @@ import LinkNavigator
 import CoreKit
 import Entity
 import Dependencies
+import NetworkKit
 
 protocol AuthIntentType {
     var state: AuthModel.State { get }
@@ -23,12 +24,14 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     
     @Dependency(\.authClient) var client
     @Dependency(\.kakaoClient) var kakao
+    let naverClient = NaverClient()
     
     @Published var state: State
     
     var cancellable: Set<AnyCancellable> = []
     
     var kakaoTask: Task<Void, Error>?
+    var naverTask: Task<Void, Error>?
     var dupEmailTask: Task<Void, Error>?
     
     var navigator: RootNavigatorType
@@ -44,6 +47,7 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     deinit {
         self.kakaoTask?.cancel()
         self.dupEmailTask?.cancel()
+        self.naverTask?.cancel()
         
         self.cancellable.removeAll()
     }
@@ -61,6 +65,8 @@ extension AuthIntent: IntentType {
             self.emailBtnDidTap()
         case .kakaoBtnDidTap:
             self.kakaoBtnDidTap()
+        case .naverBtnDidTap:
+            self.naverBtnDidTap()
         case .findEmailBtnDidTap:
             navigator.next(linkItem: .init(path: Screen.Path.FindEmail.rawValue), isAnimated: true)
         case .findPWBtnDidTap:
@@ -75,7 +81,7 @@ extension AuthIntent: IntentType {
 
 extension AuthIntent {
     private func viewOnAppear() {
-        
+        self.naverClient.delegate = self
     }
     
     private func emailBtnDidTap() {
@@ -109,11 +115,19 @@ extension AuthIntent {
             guard !(self.kakaoTask?.isCancelled ?? false) else { return }
         }
     }
+    
+    private func naverBtnDidTap() {
+        self.naverTask?.cancel()
+        
+        self.naverTask = Task { @MainActor in
+            self.naverClient.login()
+        }
+    }
 }
 
 // MARK: API
 
-extension AuthIntent {
+extension AuthIntent: NaverDelegate {
     private func checkDupEmailRequest() async -> Bool {
         do {
             return try await self.client.checkDuplEmail(state.email)
@@ -130,5 +144,9 @@ extension AuthIntent {
             print("error kakao login")
             return ""
         }
+    }
+    
+    func naverUserInfo(_ user: UserData) {
+        print(user)
     }
 }

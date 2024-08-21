@@ -84,7 +84,7 @@ extension AuthView {
             }
             
             Button {
-//                self.intent.send(action: )
+                self.intent.send(action: .naverBtnDidTap)
             } label: {
                 Image.icNaverSocialButton
                     .resizable()

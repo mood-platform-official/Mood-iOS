@@ -17,6 +17,7 @@ enum AuthModel {
         case changeEmail(String?)
         case emailBtnDidTap
         case kakaoBtnDidTap
+        case naverBtnDidTap
         case findEmailBtnDidTap
         case findPWBtnDidTap
     }

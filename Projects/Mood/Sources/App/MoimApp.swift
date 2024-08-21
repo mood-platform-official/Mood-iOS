@@ -16,6 +16,7 @@ struct MoimApp: App {
     init() {
         DesignSystemFontFamily.registerAllCustomFonts()
         KakaoSDK.initSDK(appKey: Env.KAKAO_APP_KEY)
+        initNaver()
     }
     
     var body: some Scene {
