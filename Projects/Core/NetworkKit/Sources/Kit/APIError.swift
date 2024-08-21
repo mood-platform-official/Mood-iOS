@@ -2,17 +2,17 @@ import Foundation
 
 public struct APIError: Error {
 
-    var statusCode: Int
-    let errorCode: String
-    var message: String
+    public var statusCode: Int
+    public let errorCode: String
+    public var message: String
 
-    init(statusCode: Int = 0, errorCode: String, message: String) {
+    public init(statusCode: Int = 0, errorCode: String, message: String) {
         self.statusCode = statusCode
         self.errorCode = errorCode
         self.message = message
     }
 
-    var errorCodeNumber: String {
+    public var errorCodeNumber: String {
         let numberString = errorCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
         return numberString
     }

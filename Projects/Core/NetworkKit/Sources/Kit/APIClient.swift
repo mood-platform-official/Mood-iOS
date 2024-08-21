@@ -1,19 +1,19 @@
 import Foundation
 import Alamofire
 
-final class APIClient: APIProtocol {
-    
+public final class APIClient: APIProtocol {
+    public static let shared: APIClient = .init()
     public init() {}
     
-    private var session: Session {
+    private var session: Session = {
         let configuration = URLSessionConfiguration.af.default
         configuration.waitsForConnectivity = true
         configuration.timeoutIntervalForRequest = 60 // seconds that a task will wait for data to arrive
         configuration.timeoutIntervalForResource = 300 // seconds for whole resource request to complete ,.
         return Session(configuration: configuration, eventMonitors: [APILogger()])
-    }
+    }()
     
-    func request<T: Decodable>(_ endpoint: Endpoint, decode: T.Type) async throws -> T {
+    public func request<T: Decodable>(_ endpoint: Endpoint, decode: T.Type) async throws -> T {
         do {
             let result = try await self.session.request(endpoint.asURLRequest()).serializingData().response
             return try self.manageResponse(data: result.data, response: result.response)

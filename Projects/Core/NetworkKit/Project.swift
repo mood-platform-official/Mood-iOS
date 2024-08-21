@@ -3,13 +3,13 @@ import ProjectDescription
 import MoodPlugin
 
 let project = Project.makeModule(
-    name: "Network",
+    name: "NetworkKit",
     organizationName: organizationName,
     product: .staticLibrary,
-    bundleId: bundleID + "Network",
+    bundleId: bundleID + "NetworkKit",
     dependencies: [
         .core(module: .Entity),
-        .core(module: .ThirdPartyLibrary)
+        .SPM.Alamofire
     ],
     settings: .core()
 )

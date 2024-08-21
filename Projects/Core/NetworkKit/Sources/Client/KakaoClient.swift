@@ -5,8 +5,8 @@ import KakaoSDKCommon
 import Entity
 
 public struct KakaoClient {
-    var login: @Sendable () async throws -> String
-    var me: @Sendable () async throws -> UserData
+    public var login: @Sendable () async throws -> String
+    public var me: @Sendable () async throws -> UserData
 }
 
 extension KakaoClient {
@@ -59,7 +59,7 @@ extension KakaoClient: DependencyKey {
             let birthDay = user.kakaoAccount?.birthday ?? ""
             return UserData(
                 id: user.id,
-                imageURL: user.kakaoAccount?.profile?.profileImageUrl,
+                imageURL: user.kakaoAccount?.profile?.profileImageUrl?.absoluteString,
                 name: user.kakaoAccount?.name,
                 nickname: user.kakaoAccount?.profile?.nickname,
                 email: user.kakaoAccount?.email,
@@ -72,7 +72,7 @@ extension KakaoClient: DependencyKey {
 }
 
 extension DependencyValues {
-    var kakaoClient: KakaoClient {
+    public var kakaoClient: KakaoClient {
         get { self[KakaoClient.self] }
         set { self[KakaoClient.self] = newValue }
     }

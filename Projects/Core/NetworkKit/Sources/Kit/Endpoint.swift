@@ -2,7 +2,7 @@ import Foundation
 import Alamofire
 import Entity
 
-protocol Endpoint: URLRequestConvertible {
+public protocol Endpoint: URLRequestConvertible {
     var baseURL: String { get }
     var method: HTTPMethod { get }
     var path: String { get }
@@ -15,5 +15,5 @@ protocol Endpoint: URLRequestConvertible {
 
 extension Endpoint {
     // TODO: Common Endpoint property
-    var baseURL: String { Env.BASE_URL }
+    public var baseURL: String { Env.BASE_URL }
 }
