@@ -5,6 +5,7 @@ import DesignSystem
 import KakaoSDKCommon
 import KakaoSDKAuth
 import NaverThirdPartyLogin
+import Base
 
 @main
 struct MoimApp: App {
@@ -21,10 +22,12 @@ struct MoimApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LinkNavigationView(
-                linkNavigator: navigator,
-                item: .init(path: Screen.Path.Auth.rawValue)
-            )
+            RootView {
+                LinkNavigationView(
+                    linkNavigator: navigator,
+                    item: .init(path: Screen.Path.Auth.rawValue)
+                )
+            }
             .ignoresSafeArea(.all)
             .onOpenURL { url in
                 if (AuthApi.isKakaoTalkLoginUrl(url)) {
@@ -37,7 +40,6 @@ struct MoimApp: App {
             }
         }
     }
-    
     
     private func initNaver() {
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()

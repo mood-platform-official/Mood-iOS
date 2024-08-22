@@ -141,7 +141,7 @@ extension AuthIntent: NaverDelegate {
         do {
             return try await self.kakao.login()
         } catch {
-            print("error kakao login")
+            Toast.shared.present(title: "error kakao login")
             return ""
         }
     }
