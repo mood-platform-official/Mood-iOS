@@ -36,7 +36,8 @@ let project = Project.makeModule(
     dependencies: [
         .feature(module: .Auth)
     ],
-    settings: .main
+    settings: .main,
+    entitlements: .file(path: .path("Entitlements/Mood.entitlements"))
 )
 
 

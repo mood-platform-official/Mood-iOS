@@ -25,6 +25,7 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     @Dependency(\.authClient) var client
     @Dependency(\.kakaoClient) var kakao
     let naverClient = NaverClient()
+    let appleClient = AppleClient()
     
     @Published var state: State
     
@@ -67,6 +68,8 @@ extension AuthIntent: IntentType {
             self.kakaoBtnDidTap()
         case .naverBtnDidTap:
             self.naverBtnDidTap()
+        case .appleBtnDidTap:
+            self.appleBtnDidTap()
         case .findEmailBtnDidTap:
             navigator.next(linkItem: .init(path: Screen.Path.FindEmail.rawValue), isAnimated: true)
         case .findPWBtnDidTap:
@@ -123,11 +126,15 @@ extension AuthIntent {
             self.naverClient.login()
         }
     }
+    
+    private func appleBtnDidTap() {
+        
+    }
 }
 
 // MARK: API
 
-extension AuthIntent: NaverDelegate {
+extension AuthIntent: NaverDelegate, AppleDelegate {
     private func checkDupEmailRequest() async -> Bool {
         do {
             return try await self.client.checkDuplEmail(state.email)
@@ -148,5 +155,25 @@ extension AuthIntent: NaverDelegate {
     
     func naverUserInfo(_ user: UserData) {
         print(user)
+    }
+    
+    func performRequests(_ result: Result<String, NetworkKit.AppleError>) {
+        switch result {
+        case .success(let identityToken):
+            print(identityToken)
+        case .failure(let failure):
+            self.appleFailureResonse(failure)
+        }
+    }
+    
+    private func appleFailureResonse(_ error: AppleError) {
+        switch error {
+        case .canceled:
+            break
+        case .error(let error):
+            Toast.shared.present(title: error.localizedDescription)
+        case .message(let msg):
+            Toast.shared.present(title: msg)
+        }
     }
 }
