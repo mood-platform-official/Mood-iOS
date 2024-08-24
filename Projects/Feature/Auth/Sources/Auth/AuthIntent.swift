@@ -62,6 +62,7 @@ extension AuthIntent: IntentType {
             self.viewOnAppear()
         case .changeEmail(let email):
             state.email = email ?? ""
+            state.bottomText = state.email.isEmpty ? state.bottomText : ""
         case .emailBtnDidTap:
             self.emailBtnDidTap()
         case .kakaoBtnDidTap:
@@ -88,7 +89,7 @@ extension AuthIntent {
     }
     
     private func emailBtnDidTap() {
-        guard state.isEnabledEmailBtn else {
+        guard state.email.isValidEmail() else {
             state.bottomText = "올바른 이메일 형식으로 입력해주세요."
             return
         }
