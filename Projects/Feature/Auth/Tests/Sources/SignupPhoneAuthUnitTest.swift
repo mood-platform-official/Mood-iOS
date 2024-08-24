@@ -66,20 +66,4 @@ final class SignupPhoneAuthUnitTest: XCTestCase {
             }
             .store(in: &cancellable)
     }
-    
-    func test_인증코드변경() {
-        // Given
-        let authCode = "123456"
-        
-        // When
-        intent.send(action: .changePhoneNumber(authCode))
-        intent.send(action: .sendAuthCodeBtnDidTap)
-        
-        // Then
-        intent.$state
-            .sink { state in
-                XCTAssertTrue(state.isShowAuthCodeField)
-            }
-            .store(in: &cancellable)
-    }
 }

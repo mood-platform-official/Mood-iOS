@@ -38,6 +38,7 @@ extension DefaultTextField {
                         Text(rightBtn.text)
                             .foregroundStyle(rightBtn.textColor)
                     }
+                    .disabled(!rightBtn.isEnabled)
                 }
             }
             .body1()

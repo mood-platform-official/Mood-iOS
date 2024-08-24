@@ -15,7 +15,7 @@ struct SignupPhoneAuthView: IntentBindingType {
     @FocusState var focusField: SignupPhoneAuthModel.FocusField?
     
     @SwiftUI.State private var timeRemaining: Int = 0
-    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    @SwiftUI.State var timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
 }
 
 // MARK: Body
@@ -82,10 +82,12 @@ extension SignupPhoneAuthView {
                 focusedField: ($focusField, SignupPhoneAuthModel.FocusField.phoneNumber),
                 rightBtn: .init(
                     text: state.isShowAuthCodeField ? "재전송" : "인증",
-                    textColor: state.phoneNumber.isEmpty ? Color.gray700 : Color.primary500,
-                    action: { 
+                    textColor: !state.isEnabledSendBtn ? .gray700 : .primary500,
+                    isEnabled: state.isEnabledSendBtn,
+                    action: {
                         intent.send(action: .sendAuthCodeBtnDidTap)
                         timeRemaining = 180
+                        timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
                     }
                 )
             )
@@ -103,7 +105,8 @@ extension SignupPhoneAuthView {
             ),
             focusedField: ($focusField, SignupPhoneAuthModel.FocusField.authCode),
             disabled: timeRemaining == 0 || !state.isEnabledAuthCodeField,
-            rightBtn: authCodeTimeLimitBtn()
+            rightBottom: authCodeRightBottomText(),
+            rightBtn: authCodeRightBtn()
         )
         .keyboardType(.numberPad)
         .onReceive(timer) { _ in
@@ -113,11 +116,23 @@ extension SignupPhoneAuthView {
         }
     }
     
-    private func authCodeTimeLimitBtn() -> Entity.UI.RightButton {
+    private func authCodeRightBottomText() -> Entity.UI.BottomText {
         return .init(
             text: timeFormatter(timeRemaining),
-            textColor: timeRemaining == 0 ? Color.gray700 : Color.primary500,
-            action: { intent.send(action: .validAuthCodeBtnDidTap) }
+            textColor: .gray600
+        )
+    }
+    
+    private func authCodeRightBtn() -> Entity.UI.RightButton {
+        let isAuthcodeEmpty = state.authCode.isEmpty
+        return .init(
+            text: "인증하기",
+            textColor: isAuthcodeEmpty ? .gray400 : .primary500,
+            isEnabled: !isAuthcodeEmpty,
+            action: {
+                intent.send(action: .validAuthCodeBtnDidTap)
+                timer.upstream.connect().cancel()
+            }
         )
     }
     

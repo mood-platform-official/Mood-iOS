@@ -8,6 +8,7 @@ enum SignupPhoneAuthModel {
         
         var isShowAuthCodeField: Bool = false
         
+        var isEnabledSendBtn: Bool { phoneNumber.isValidPhone() }
         var isEnabledAuthCodeField: Bool = true
         var isEnabledNextBtn: Bool = false
     }
