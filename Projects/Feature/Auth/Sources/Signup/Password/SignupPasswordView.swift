@@ -29,8 +29,8 @@ extension SignupPasswordView: View {
             
             SolidButton(
                 text: "다음",
-                disabled: self.state.isDisabledNextBtn,
-                action: { self.intent.send(action: .nextBtnDidTap) }
+                disabled: !state.isEnabledNextBtn,
+                action: { intent.send(action: .nextBtnDidTap) }
             )
                 .padding(.bottom, 8)
         }
@@ -72,6 +72,7 @@ extension SignupPasswordView {
                     set: { intent.send(action: .changePassword($0)) }
                 ),
                 focusedField: ($focusField, SignupPasswordModel.FocusField.password),
+                isError: .init(get: { state.isErrorPWRow }, set: { _ in }),
                 leftBottom: .init(
                     text: state.pwBottomText,
                     textColor: .rubyRed
@@ -95,6 +96,7 @@ extension SignupPasswordView {
                     set: { intent.send(action: .changePasswordAgain($0)) }
                 ),
                 focusedField: ($focusField, SignupPasswordModel.FocusField.passwordAgain),
+                isError: .init(get: { state.isErrorPWAgainRow }, set: { _ in }),
                 leftBottom: .init(
                     text: state.pwAgainBottomText,
                     textColor: .rubyRed

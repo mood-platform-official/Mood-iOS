@@ -8,9 +8,9 @@ enum SignupPasswordModel {
         
         var pwBottomText: String = ""
         var pwAgainBottomText: String = ""
-        var isDisabledNextBtn: Bool {
-            self.password.isEmpty || self.passwordAgain != self.password
-        }
+        var isEnabledNextBtn: Bool { !password.isEmpty && !passwordAgain.isEmpty }
+        var isErrorPWRow: Bool { !pwBottomText.isEmpty }
+        var isErrorPWAgainRow: Bool { !pwAgainBottomText.isEmpty }
     }
     
     enum ViewAction: Equatable {

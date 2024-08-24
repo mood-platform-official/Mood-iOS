@@ -16,7 +16,7 @@ extension String {
     
     public func isValidPassword() -> Bool {
         /// 8자 이상, 영문, 대소문자, 숫자, 특수문자 조합
-        let pwRegEx = "^.*(?=.{8,})(?=.*[A-Z])(?=.*[a-zA-Z])(?=.*\\d)|(?=.*[!#$%&?]).*$"
+        let pwRegEx = "^[A-Za-z0-9~!#$%&?]{8,}$"
         let pwPred = NSPredicate(format: "SELF MATCHES %@", pwRegEx)
         return pwPred.evaluate(with: self)
     }

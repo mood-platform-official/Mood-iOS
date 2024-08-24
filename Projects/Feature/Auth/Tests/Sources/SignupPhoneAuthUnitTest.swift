@@ -23,8 +23,6 @@ final class SignupPhoneAuthUnitTest: XCTestCase {
             dependency: AppDependency()
         )
         intent = .init(initialState: state, navigator: navigator)
-        
-        intent.navigator = navigator
     }
     
     override func tearDown() {
