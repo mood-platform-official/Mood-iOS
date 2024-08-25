@@ -1,7 +1,7 @@
 # Mood-iOS
 
 ## :white_check_mark: 프로젝트 사용방법
-> 'Mood'는 Tuist 로 각 모듈 및 프로젝트를 관리하고 있습니다.
+> 'Mood'는 Tuist 4.22.0 로 각 모듈 및 프로젝트를 관리하고 있습니다.
 
 &emsp;**1.** [Tuist 설치하기](https://tuist.io/)
 
