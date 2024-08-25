@@ -15,6 +15,11 @@ tuist install
 tuist generate
 ```
 
+&emsp;**4.** Feature 생성하기
+```sh
+tuist scaffold feature --name Auth
+```
+
 <br/>
 <br/>
 
