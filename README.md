@@ -27,6 +27,7 @@ tuist scaffold feature --name Auth
 > 'Mood' 는 Tuist 를 통해 의존성 그래프를 확인하고 있습니다.
 <br/>
 
+- 그래프 생성하기
 ```sh
 tuist graph -d # 외부 라이브러리 제외
 ```
