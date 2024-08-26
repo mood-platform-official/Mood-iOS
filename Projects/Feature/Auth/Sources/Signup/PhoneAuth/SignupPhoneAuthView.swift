@@ -91,7 +91,7 @@ extension SignupPhoneAuthView {
                     }
                 )
             )
-            .keyboardType(.numberPad)
+            .keyboardType(.phonePad)
         }
     }
     
@@ -101,7 +101,7 @@ extension SignupPhoneAuthView {
             placeholder: "인증번호를 입력해주세요",
             text: .init(
                 get: { state.authCode },
-                set: { intent.send(action: .changeAuthCode($0)) }
+                set: { intent.send(action: .changeAuthCode(String($0.prefix(6)))) }
             ),
             focusedField: ($focusField, SignupPhoneAuthModel.FocusField.authCode),
             disabled: timeRemaining == 0 || !state.isEnabledAuthCodeField,
