@@ -1,11 +1,12 @@
+import Entity
 import SwiftUI
 
 extension DefaultTextField {
     struct BottomRow: View {
-        var leftBottom: BottomText?
-        var rightBottom: BottomText?
+        var leftBottom: Entity.UI.BottomText?
+        var rightBottom: Entity.UI.BottomText?
         
-        init(_ leftBottom: BottomText? = nil, _ rightBottom: BottomText? = nil) {
+        init(_ leftBottom: Entity.UI.BottomText? = nil, _ rightBottom: Entity.UI.BottomText? = nil) {
             self.leftBottom = leftBottom
             self.rightBottom = rightBottom
         }

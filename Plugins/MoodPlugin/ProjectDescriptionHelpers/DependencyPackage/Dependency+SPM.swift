@@ -11,4 +11,5 @@ public extension TargetDependency.SPM {
     static let Alamofire = TargetDependency.external(name: "Alamofire")
     static let KakaoSDKAuth = TargetDependency.external(name: "KakaoSDKAuth")
     static let KakaoSDKUser = TargetDependency.external(name: "KakaoSDKUser")
+    static let NaverThirdPartyLogin = TargetDependency.external(name: "NaverThirdPartyLogin")
 }

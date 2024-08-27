@@ -100,6 +100,12 @@ extension View {
             .kerning(0.19)
     }
     
+    public func subtitle6(_ weight: FontWeight) -> some View {
+        return self
+            .fontWithLineHeight(font: .pretendard(weight: weight, size: 13), lineHeight: 18)
+            .kerning(0.25)
+    }
+    
     public func body1() -> some View {
         return self
             .fontWithLineHeight(font: .pretendard(weight: .regular, size: 16), lineHeight: 26)

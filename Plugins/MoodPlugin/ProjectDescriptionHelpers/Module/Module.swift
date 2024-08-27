@@ -23,7 +23,7 @@ public extension Module {
 public extension Module {
     enum Core: String, CaseIterable {
         case Entity
-        case Network
+        case NetworkKit
         case ThirdPartyLibrary
         case Logger
         case CoreKit

@@ -1,16 +1,18 @@
 import SwiftUI
+import Entity
 
 public struct DefaultTextField<value: Hashable>: View {
+    let isSecure: Bool
     let placeholder: String
     @Binding var text: String
     var focusedField: (binding: FocusState<value?>.Binding, equals: value?)
     var disabled: Bool
     @Binding var isError: Bool
     
-    var leftBottom: BottomText?
-    var rightBottom: BottomText?
+    var leftBottom: Entity.UI.BottomText?
+    var rightBottom: Entity.UI.BottomText?
     
-    var rightBtn: RightButton?
+    var rightBtn: Entity.UI.RightButton?
     
     var hasBottom: Bool { leftBottom?.text.count ?? 0 > 0 || rightBottom?.text.count ?? 0 > 0 }
     var bgColor: Color { disabled ? .gray75 : .white }
@@ -25,15 +27,17 @@ public struct DefaultTextField<value: Hashable>: View {
     }
     
     public init(
+        isSecure: Bool = false,
         placeholder: String,
         text: Binding<String>,
         focusedField: (binding: FocusState<value?>.Binding, equals: value?),
-        disabled: Bool,
-        isError: Binding<Bool>,
-        leftBottom: BottomText? = nil,
-        rightBottom: BottomText? = nil,
-        rightBtn: RightButton? = nil
+        disabled: Bool = false,
+        isError: Binding<Bool> = .constant(false),
+        leftBottom: Entity.UI.BottomText? = nil,
+        rightBottom: Entity.UI.BottomText? = nil,
+        rightBtn: Entity.UI.RightButton? = nil
     ) {
+        self.isSecure = isSecure
         self.placeholder = placeholder
         self._text = text
         self.focusedField = focusedField
@@ -46,7 +50,7 @@ public struct DefaultTextField<value: Hashable>: View {
     
     public var body: some View {
         VStack(spacing: 6) {
-            TextFieldRow(placeholder, $text, bgColor, strokeColor, rightBtn)
+            TextFieldRow(isSecure, placeholder, $text, bgColor, strokeColor, rightBtn)
                 .focused(focusedField.binding, equals: focusedField.equals)
                 .disabled(disabled)
                 .onChange(of: text) { oldValue, newValue in
