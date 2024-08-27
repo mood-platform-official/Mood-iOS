@@ -1,8 +1,9 @@
 # Mood-iOS
 
 ## :white_check_mark: 프로젝트 사용방법
-> 'Mood'는 Tuist 4.22.0 로 각 모듈 및 프로젝트를 관리하고 있습니다. <br/>
-> 보안을 생각해서 XCConfig 파일은 Git에 올리지 않았습니다. <br/>
+> 'Mood'는 Tuist 4.22.0 로 각 모듈 및 프로젝트를 관리하고 있습니다.
+
+ <br/>
  
 &emsp;**1.** XCConfig 설정하기
 
