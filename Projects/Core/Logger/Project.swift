@@ -7,8 +7,6 @@ let project = Project.makeModule(
     organizationName: organizationName,
     product: .staticLibrary,
     bundleId: bundleID + "Logger",
-    dependencies: [
-        .core(module: .ThirdPartyLibrary)
-    ],
+    dependencies: [],
     settings: .core()
 )
