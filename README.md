@@ -1,21 +1,28 @@
 # Mood-iOS
 
 ## :white_check_mark: 프로젝트 사용방법
-> 'Mood'는 Tuist 4.22.0 로 각 모듈 및 프로젝트를 관리하고 있습니다.
+> 'Mood'는 Tuist 4.22.0 로 각 모듈 및 프로젝트를 관리하고 있습니다. <br/>
+> 보안을 생각해서 XCConfig 파일은 Git에 올리지 않았습니다. <br/>
+ 
+&emsp;**1.** XCConfig 설정하기
 
-&emsp;**1.** [Tuist 설치하기](https://tuist.io/)
+```sh
+mkdir -p XCConfig && echo '#include "./Shared.xcconfig"' >> XCConfig/Debug.xcconfig && echo '#include "./Shared.xcconfig"' >> XCConfig/Release.xcconfig && echo '// Shared' >> XCConfig/Shared.xcconfig
+```
 
-&emsp;**2.** Dependecy 가져오기
+&emsp;**2.** [Tuist 설치하기](https://tuist.io/)
+
+&emsp;**3.** Dependecy 가져오기
 ```sh
 tuist install
 ```
 
-&emsp;**3.** 프로젝트 생성하기
+&emsp;**4.** 프로젝트 생성하기
 ```sh
 tuist generate
 ```
 
-&emsp;**4.** Feature 생성하기
+&emsp;**5.** Feature 생성하기
 ```sh
 tuist scaffold feature --name Auth
 ```
