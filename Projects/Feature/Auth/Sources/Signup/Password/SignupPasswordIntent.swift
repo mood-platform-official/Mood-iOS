@@ -4,6 +4,7 @@ import Base
 import LinkNavigator
 import CoreKit
 import Entity
+import Logger
 
 protocol SignupPasswordIntentType {
     var state: SignupPasswordModel.State { get }
@@ -40,12 +41,15 @@ extension SignupPasswordIntent: IntentType, SignupPasswordIntentType {
         case .onAppear:
             self.viewOnAppear()
         case .changePassword(let pw):
+            Log.debug("changePassword(pw)", pw ?? "")
             state.password = pw ?? ""
             state.pwBottomText = state.password.isEmpty ? state.pwBottomText : ""
         case .changePasswordAgain(let pwAgain):
+            Log.debug("changePasswordAgain(pwAgain)", pwAgain ?? "")
             state.passwordAgain = pwAgain ?? ""
             state.pwAgainBottomText = state.passwordAgain.isEmpty ? state.pwAgainBottomText : ""
         case .nextBtnDidTap:
+            Log.debug("nextBtnDidTap")
             self.nextBtnDidTap()
         }
     }
