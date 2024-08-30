@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Base
 import LinkNavigator
+import Logger
 
 protocol FindPasswordIntentType {
     var state: FindPasswordModel.State { get }
@@ -38,14 +39,17 @@ extension FindPasswordIntent: IntentType, FindPasswordIntentType {
         case .onAppear:
             self.viewOnAppear()
         case .changePhoneNumber(let pn):
+            Log.debug("changePhoneNumber(pn)", pn ?? "")
             state.phoneNumber = pn ?? ""
             let isValid = state.phoneNumber.isValidPhone() && state.email.isValidEmail()
             state.isDisabledAuthenticationNumberBtn = isValid
         case .changeEmail(let email):
+            Log.debug("changeEmail(email)", email ?? "")
             state.phoneNumber = email ?? ""
             let isValid = state.phoneNumber.isValidPhone() && state.email.isValidEmail()
             state.isDisabledAuthenticationNumberBtn = isValid
         case .authenticationNumberBtnDidTap:
+            Log.debug("authenticationNumberBtnDidTap")
             print("authenticationNumberBtnDidTap")
         }
     }
