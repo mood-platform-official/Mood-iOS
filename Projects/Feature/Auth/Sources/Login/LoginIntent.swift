@@ -3,6 +3,7 @@ import Combine
 import Base
 import LinkNavigator
 import Entity
+import Logger
 
 protocol LoginIntentType {
     var state: LoginModel.State { get }
@@ -40,11 +41,14 @@ extension LoginIntent: IntentType, LoginIntentType {
         case .onAppear:
             self.viewOnAppear()
         case .changePassword(let pw):
+            Log.debug("changePassword(pw)", pw ?? "")
             state.password = pw ?? ""
             state.isDisabledLoginBtn = state.password.isEmpty
         case .loginBtnDidTap:
+            Log.debug("loginBtnDidTap")
             navigator.next(linkItem: .init(path: Screen.Path.SignupPassword.rawValue), isAnimated: true)
         case .findPWBtnDidTap:
+            Log.debug("findPWBtnDidTap")
             navigator.next(linkItem: .init(path: Screen.Path.FindPassword.rawValue), isAnimated: true)
         }
     }
