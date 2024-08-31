@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import Base
 import LinkNavigator
+import Logger
 
 protocol FindEmailIntentType {
     var state: FindEmailModel.State { get }
@@ -39,11 +40,14 @@ extension FindEmailIntent: IntentType, FindEmailIntentType {
         case .onAppear:
             self.viewOnAppear()
         case .changePhoneNumber(let pn):
+            Log.debug("changePhoneNumber(pn)", pn ?? "")
             state.phoneNumber = pn ?? ""
             state.bottomText = state.phoneNumber.isEmpty ? state.bottomText : ""
         case .onSubmitPhoneNumber:
+            Log.debug("onSubmitPhoneNumber")
             state.isEnabledFindEmailBtn = state.phoneNumber.isValidPhone()
         case .findEmailBtnDidTap:
+            Log.debug("findEmailBtnDidTap")
             self.findEmailBtntDidTap()
         }
     }
@@ -58,6 +62,7 @@ extension FindEmailIntent {
     
     private func findEmailBtntDidTap() {
         guard state.isEnabledFindEmailBtn else {
+            Log.debug("\(#function) - invalidated PhoneNumber", state.phoneNumber)
             state.bottomText = "일치하는 사용자 정보를 찾을 수 없습니다."
             return
         }

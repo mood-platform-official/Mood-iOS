@@ -4,6 +4,7 @@ import Base
 import LinkNavigator
 import Entity
 import CoreKit
+import Logger
 
 protocol SignupETCIntentType {
     var state: SignupETCModel.State { get }
@@ -41,21 +42,28 @@ extension SignupETCIntent: IntentType, SignupETCIntentType {
         case .onAppear:
             self.viewOnAppear()
         case .changeName(let name):
+            Log.debug("changeName", name ?? "")
             state.name = name ?? ""
         case .onSubmitName:
+            Log.debug("onSubmitName")
             self.onSubmitFieldName()
             
         case .changeBirthDay(let birthDay):
+            Log.debug("changeBirthDay", birthDay ?? "")
             state.birthDay = birthDay
         case .onSubmitBirthDay:
+            Log.debug("onSubmitBirthDay")
             self.changeShowFields()
             
         case .changeNickname(let nickname):
+            Log.debug("changeNickname", nickname ?? "")
             state.nickname = nickname ?? ""
         case .onSubmitNickname:
+            Log.debug("onSubmitNickname")
             self.onSubmitFieldNickname()
             
         case .nextBtnDidTap:
+            Log.debug("nextBtnDidTap")
             self.nextBtnDidTap()
         }
     }
@@ -93,11 +101,13 @@ extension SignupETCIntent {
     
     private func nextBtnDidTap() {
         guard state.name.isValidName() else {
+            Log.debug("\(#function) - invalidated Name", state.name)
             state.nameBottomText = "올바른 이름을 입력해주세요"
             return
         }
         
         guard state.nickname.isValidNickname() else {
+            Log.debug("\(#function) - invalidated Nickname", state.nickname)
             state.nickNameBottomText = "올바른 별명을 입력해주세요"
             return
         }
