@@ -8,9 +8,12 @@ let project = Project.makeModule(
     product: .framework,
     bundleId: bundleID + "ThirdPartyLibrary",
     dependencies: [
-        .SPM.Dependencies,
         .SPM.LinkNavigator,
-        .SPM.NukeUI
+        .SPM.Alamofire,
+        .SPM.Dependencies,
+        .SPM.KakaoSDKAuth,
+        .SPM.KakaoSDKUser,
+        .SPM.NaverThirdPartyLogin
     ],
     settings: .core()
 )

@@ -35,10 +35,7 @@ let project = Project.makeModule(
     bundleId: bundleID + "Auth",
     infoPlist: .extendingDefault(with: infoPlist),
     dependencies: [
-        .feature(module: .Base),
-        .SPM.KakaoSDKAuth,
-        .SPM.KakaoSDKUser,
-        .SPM.NaverThirdPartyLogin
+        .feature(module: .Base)
     ],
     settings: .base("Auth"),
     hasTest: true,
