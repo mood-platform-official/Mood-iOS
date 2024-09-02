@@ -12,5 +12,5 @@ let project = Project.makeModule(
         .design(module: .DesignSystem),
     ],
     settings: .base("Base"),
-    hasTest: true
+    hasTest: false
 )
