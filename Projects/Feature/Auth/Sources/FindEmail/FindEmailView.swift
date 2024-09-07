@@ -8,26 +8,26 @@ struct FindEmailView: IntentBindingType {
     @StateObject var container: Container<FindEmailIntentType, FindEmailModel.State>
     var intent: FindEmailIntentType { self.container.intent }
     var state: FindEmailModel.State { self.intent.state }
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     @FocusState var focusField: FindEmailModel.FocusField?
 }
 
 // MARK: Body
 
 extension FindEmailView: View {
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 32) {
             Text("비밀번호를 입력하고\n로그인해주세요")
                 .headline7(.bold)
                 .multilineTextAlignment(.leading)
                 .padding(.top, 16)
-            
+
             VStack(spacing: 12) {
                 phoneTextFieldRow()
-                
+
                 SolidButton(
                     text: "이메일 찾기",
                     disabled: !state.isEnabledFindEmailBtn,
@@ -50,7 +50,7 @@ extension FindEmailView {
             Text("휴대폰 번호")
                 .subtitle5(.medium)
                 .foregroundStyle(Color.gray600)
-            
+
             DefaultTextField(
                 placeholder: "01012345678",
                 text: .init(

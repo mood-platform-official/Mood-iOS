@@ -9,14 +9,14 @@ public struct SignupETCRouter<RootNavigator: RootNavigatorType> {
         var matchPath: String { Screen.Path.SignupETC.rawValue }
         return .init(matchPath: matchPath) { navigator, _, _ -> RouteViewController? in
             let intent = SignupETCIntent(initialState: .init(), navigator: navigator)
-            let vc = DebugWrappingViewController(matchPath: matchPath) {
+            let viewController = DebugWrappingViewController(matchPath: matchPath) {
                 SignupETCView(container: .init(
                     intent: intent,
                     state: intent.state,
                     modelChangePublisher: intent.objectWillChange
                 ))
             }
-            return vc
+            return viewController
         }
     }
 }
