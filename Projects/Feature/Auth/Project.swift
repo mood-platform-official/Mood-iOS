@@ -38,6 +38,7 @@ let project = Project.makeModule(
         .feature(module: .Base)
     ],
     settings: .base("Auth"),
+    scripts: [.swiftLint],
     hasTest: true,
     hasDemo: true
 )
