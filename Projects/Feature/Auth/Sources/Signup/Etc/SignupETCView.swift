@@ -8,16 +8,16 @@ struct SignupETCView: IntentBindingType {
     @StateObject var container: Container<SignupETCIntentType, SignupETCModel.State>
     var intent: SignupETCIntentType { self.container.intent }
     var state: SignupETCModel.State { self.intent.state }
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     @FocusState var focusField: SignupETCModel.FocusField?
 }
 
 // MARK: Body
 
 extension SignupETCView: View {
-    
+
     var body: some View {
         VStack(alignment: .leading, spacing: 28) {
             titleRow()

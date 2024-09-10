@@ -9,14 +9,14 @@ public struct FindPasswordRouter<RootNavigator: RootNavigatorType> {
         var matchPath: String { Screen.Path.FindPassword.rawValue }
         return .init(matchPath: matchPath) { navigator, _, _ -> RouteViewController? in
             let intent = FindPasswordIntent(initialState: .init(), navigator: navigator)
-            let vc = DebugWrappingViewController(matchPath: matchPath) {
+            let viewController = DebugWrappingViewController(matchPath: matchPath) {
                 FindPasswordView(container: .init(
                     intent: intent,
                     state: intent.state,
                     modelChangePublisher: intent.objectWillChange
                 ))
             }
-            return vc
+            return viewController
         }
     }
 }

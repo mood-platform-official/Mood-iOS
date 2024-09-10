@@ -8,11 +8,11 @@ struct AuthView: IntentBindingType {
     @StateObject public var container: Container<AuthIntentType, AuthModel.State>
     var intent: AuthIntentType { self.container.intent }
     var state: AuthModel.State { self.intent.state }
-    
+
     init(container: Container<AuthIntentType, AuthModel.State>) {
         self._container = StateObject(wrappedValue: container)
     }
-    
+
     @FocusState var focusField: AuthModel.FocusField?
 }
 
@@ -24,18 +24,18 @@ extension AuthView: View {
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
                 .background(Color.gray100)
-                
+
             VStack(spacing: 36) {
                 VStack(spacing: 12) {
                     emailTextFieldRow()
-                    
+
                     SolidButton(
                         text: "이메일로 계속하기",
                         disabled: !self.state.isEnabledEmailBtn,
                         action: { self.intent.send(action: .emailBtnDidTap) }
                     )
                 }
-                
+
                 socialIconButtonRow()
                 findButtonRow()
             }
@@ -51,7 +51,7 @@ extension AuthView {
             Text("이메일")
                 .subtitle5(.medium)
                 .foregroundStyle(Color.gray600)
-            
+
             DefaultTextField(
                 placeholder: "이메일을 입력해주세요",
                 text: .init(
@@ -71,7 +71,7 @@ extension AuthView {
             )
         }
     }
-    
+
     @ViewBuilder
     func socialIconButtonRow() -> some View {
         HStack(alignment: .center, spacing: 20) {
@@ -82,7 +82,7 @@ extension AuthView {
                     .resizable()
                     .frame(width: 52, height: 52)
             }
-            
+
             Button {
                 self.intent.send(action: .naverBtnDidTap)
             } label: {
@@ -90,7 +90,7 @@ extension AuthView {
                     .resizable()
                     .frame(width: 52, height: 52)
             }
-            
+
             Button {
 //                self.intent.send(action: )
             } label: {
@@ -100,7 +100,7 @@ extension AuthView {
             }
         }
     }
-    
+
     @ViewBuilder
     func findButtonRow() -> some View {
         HStack(alignment: .center, spacing: 12) {
@@ -111,11 +111,11 @@ extension AuthView {
                     .caption1()
                     .foregroundStyle(Color.gray600)
             }
-            
+
             Line()
                 .frame(width: 1, height: 12)
                 .background(Color.gray200)
-            
+
             Button {
                 self.intent.send(action: .findPWBtnDidTap)
             } label: {

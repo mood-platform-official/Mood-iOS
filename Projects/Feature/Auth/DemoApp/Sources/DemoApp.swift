@@ -17,10 +17,10 @@ struct AuthApp: App {
     init() {
         KakaoSDK.initSDK(appKey: Env.KAKAO_APP_KEY)
         DesignSystemFontFamily.registerAllCustomFonts()
-        
+
         initNaver()
     }
-    
+
     var body: some Scene {
         WindowGroup {
             LinkNavigationView(
@@ -28,28 +28,27 @@ struct AuthApp: App {
                 item: .init(path: Screen.Path.SignupPhoneAuth.rawValue)
             )
             .onOpenURL { url in
-                if (AuthApi.isKakaoTalkLoginUrl(url)) {
+                if AuthApi.isKakaoTalkLoginUrl(url) {
                     _ = AuthController.handleOpenUrl(url: url)
                 }
-                
+
                 NaverThirdPartyLoginConnection
                     .getSharedInstance()
                     .receiveAccessToken(url)
             }
         }
     }
-    
-    
+
     private func initNaver() {
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
         // 네이버 앱으로 로그인 허용
         instance?.isNaverAppOauthEnable = true
         // 브라우저 로그인 허용
         instance?.isInAppOauthEnable = true
-        
+
         // 네이버 로그인 세로모드 고정
         instance?.setOnlyPortraitSupportInIphone(true)
-        
+
         // NaverThirdPartyConstantsForApp.h에 선언한 상수 등록
         instance?.serviceUrlScheme = "com.mood.Mood"
         instance?.consumerKey = Env.NAVER_CLIENT_ID

@@ -9,7 +9,7 @@ let project = Project.makeModule(
     bundleId: bundleID + "NetworkKit",
     dependencies: [
         .core(module: .Entity),
-        .SPM.Alamofire
+        .core(module: .ThirdPartyLibrary)
     ],
     settings: .core()
 )

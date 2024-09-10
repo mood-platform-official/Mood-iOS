@@ -8,37 +8,37 @@ struct LoginView: IntentBindingType {
     @StateObject var container: Container<LoginIntentType, LoginModel.State>
     var intent: LoginIntentType { self.container.intent }
     var state: LoginModel.State { self.intent.state }
-    
+
     @Environment(\.dismiss) private var dismiss
-    
+
     @FocusState var focusField: LoginModel.FocusField?
 }
 
 // MARK: Body
 
 extension LoginView: View {
-    
+
     var body: some View {
         VStack(alignment: .center, spacing: 28) {
             HStack {
                 Text("비밀번호를 입력하고\n로그인해주세요")
                     .headline7(.bold)
                     .multilineTextAlignment(.leading)
-                    
+
                 Spacer()
             }
             .padding(.top, 28)
-            
+
             VStack(spacing: 12) {
                 passwordTextFieldRow()
-                
+
                 SolidButton(
                     text: "로그인",
                     disabled: state.isDisabledLoginBtn,
                     action: { self.intent.send(action: .loginBtnDidTap) }
                 )
             }
-            
+
             Button {
                 self.intent.send(action: .findPWBtnDidTap)
             } label: {
@@ -62,7 +62,7 @@ extension LoginView {
             Text("비밀번호")
                 .subtitle5(.medium)
                 .foregroundStyle(Color.gray600)
-            
+
             DefaultTextField(
                 isSecure: true,
                 placeholder: "비밀번호를 입력해주세요",

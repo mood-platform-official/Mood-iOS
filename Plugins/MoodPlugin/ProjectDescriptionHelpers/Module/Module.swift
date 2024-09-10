@@ -14,6 +14,7 @@ public extension Module {
     enum Feature: String, CaseIterable {
         case Auth
         case Base
+        case Main
         
         public static let name: String = "Feature"
     }

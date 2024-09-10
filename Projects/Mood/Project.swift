@@ -34,7 +34,8 @@ let project = Project.makeModule(
     bundleId: bundleID,
     infoPlist: .extendingDefault(with: infoPlist),
     dependencies: [
-        .feature(module: .Auth)
+        .feature(module: .Auth),
+        .feature(module: .Main)
     ],
     settings: .main,
     entitlements: .file(path: .path("Entitlements/Mood.entitlements"))

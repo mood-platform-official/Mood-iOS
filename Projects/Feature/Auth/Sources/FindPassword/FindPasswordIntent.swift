@@ -6,21 +6,21 @@ import Logger
 
 protocol FindPasswordIntentType {
     var state: FindPasswordModel.State { get }
-    
+
     func send(action: FindPasswordModel.ViewAction)
 }
 
 // MARK: FindPasswordIntent
 
 final class FindPasswordIntent: ObservableObject {
-    
+
     // MARK: Internal
-    
+
     typealias State = FindPasswordModel.State
     typealias ViewAction = FindPasswordModel.ViewAction
-    
+
     @Published var state: State
-    
+
     var cancellable: Set<AnyCancellable> = []
     var navigator: RootNavigatorType
 
@@ -38,9 +38,9 @@ extension FindPasswordIntent: IntentType, FindPasswordIntentType {
         switch action {
         case .onAppear:
             self.viewOnAppear()
-        case .changePhoneNumber(let pn):
-            Log.debug("changePhoneNumber(pn)", pn ?? "")
-            state.phoneNumber = pn ?? ""
+        case .changePhoneNumber(let phoneNumber):
+            Log.debug("changePhoneNumber(phoneNumber)", phoneNumber ?? "")
+            state.phoneNumber = phoneNumber ?? ""
             let isValid = state.phoneNumber.isValidPhone() && state.email.isValidEmail()
             state.isDisabledAuthenticationNumberBtn = isValid
         case .changeEmail(let email):
@@ -58,7 +58,5 @@ extension FindPasswordIntent: IntentType, FindPasswordIntentType {
 // MARK: Custom Method
 
 extension FindPasswordIntent {
-    private func viewOnAppear() {
-        
-    }
+    private func viewOnAppear() {}
 }
