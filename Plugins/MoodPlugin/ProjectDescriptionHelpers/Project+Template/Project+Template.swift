@@ -16,6 +16,7 @@ public extension Project {
         settings: Settings,
         entitlements: Entitlements? = nil,
         package: [Package] = [],
+        scripts: [TargetScript] = [],
         hasTest: Bool = false,
         hasDemo: Bool = false
     ) -> Project {
@@ -29,7 +30,7 @@ public extension Project {
             sources: sources,
             resources: resources,
             entitlements: entitlements,
-            scripts: [],
+            scripts: scripts,
             dependencies: dependencies
         )
         

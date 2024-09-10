@@ -7,11 +7,11 @@ enum FindPasswordModel {
         var focusField: FocusField?
         var phoneNumber: String = ""
         var email: String = ""
-        
+
         var bottomText: String = ""
         var isDisabledAuthenticationNumberBtn: Bool = false
     }
-    
+
     enum ViewAction: Equatable {
         case onAppear
         case changePhoneNumber(String?)

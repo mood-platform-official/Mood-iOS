@@ -6,11 +6,11 @@ enum LoginModel {
     struct State: Equatable {
         var focusField: FocusField?
         var password: String = ""
-        
+
         var bottomText: String = ""
         var isDisabledLoginBtn: Bool = false
     }
-    
+
     enum ViewAction: Equatable {
         case onAppear
         case changePassword(String?)

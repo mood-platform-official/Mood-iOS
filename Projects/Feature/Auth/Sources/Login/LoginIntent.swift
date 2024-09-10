@@ -8,24 +8,24 @@ import Logger
 protocol LoginIntentType {
     var state: LoginModel.State { get }
     var navigator: RootNavigatorType { get }
-    
+
     func send(action: LoginModel.ViewAction)
 }
 
 // MARK: LoginIntent
 
 final class LoginIntent: ObservableObject {
-    
+
     // MARK: Internal
-    
+
     typealias State = LoginModel.State
     typealias ViewAction = LoginModel.ViewAction
-    
+
     @Published var state: State
-    
+
     var cancellable: Set<AnyCancellable> = []
     var navigator: RootNavigatorType
-    
+
     init(
         initialState: State,
         navigator: RootNavigatorType
@@ -40,9 +40,9 @@ extension LoginIntent: IntentType, LoginIntentType {
         switch action {
         case .onAppear:
             self.viewOnAppear()
-        case .changePassword(let pw):
-            Log.debug("changePassword(pw)", pw ?? "")
-            state.password = pw ?? ""
+        case .changePassword(let password):
+            Log.debug("changePassword(password)", password ?? "")
+            state.password = password ?? ""
             state.isDisabledLoginBtn = state.password.isEmpty
         case .loginBtnDidTap:
             Log.debug("loginBtnDidTap")
@@ -57,7 +57,5 @@ extension LoginIntent: IntentType, LoginIntentType {
 // MARK: Custom Method
 
 extension LoginIntent {
-    private func viewOnAppear() {
-        
-    }
+    private func viewOnAppear() {}
 }

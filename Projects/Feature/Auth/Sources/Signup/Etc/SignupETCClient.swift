@@ -4,13 +4,13 @@ struct SignupETCClient {
     var checkDuplNickname: @Sendable (String) async throws -> Bool
 }
 
-//extension AuthClient: DependencyKey {
-//    static var liveValue = AuthClient(
-//        checkDuplEmail: { email in
-//            return
-//        }
-//    )
-//}
+extension SignupETCClient: DependencyKey {
+    static var liveValue = SignupETCClient(
+        checkDuplNickname: { _ in
+            return false
+        }
+    )
+}
 
 extension SignupETCClient: TestDependencyKey {
     static var testValue: SignupETCClient = .init(

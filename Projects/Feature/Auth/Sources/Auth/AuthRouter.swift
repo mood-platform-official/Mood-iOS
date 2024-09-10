@@ -9,14 +9,14 @@ public struct AuthRouteBuilder<RootNavigator: RootNavigatorType> {
         var matchPath: String { Screen.Path.Auth.rawValue }
         return .init(matchPath: matchPath) { navigator, _, _ -> RouteViewController? in
             let intent = AuthIntent(initialState: .init(), navigator: navigator)
-            let vc = DebugWrappingViewController(matchPath: matchPath) {
+            let viewcontroller = DebugWrappingViewController(matchPath: matchPath) {
                 AuthView(container: .init(
                     intent: intent,
                     state: intent.state,
                     modelChangePublisher: intent.objectWillChange
                 ))
             }
-            return vc
+            return viewcontroller
         }
     }
 }

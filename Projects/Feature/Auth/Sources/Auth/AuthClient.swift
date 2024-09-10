@@ -4,13 +4,13 @@ struct AuthClient {
     var checkDuplEmail: @Sendable (String) async throws -> Bool
 }
 
-//extension AuthClient: DependencyKey {
-//    static var liveValue = AuthClient(
-//        checkDuplEmail: { email in
-//            return
-//        }
-//    )
-//}
+extension AuthClient: DependencyKey {
+    static var liveValue = AuthClient(
+        checkDuplEmail: { _ in
+            return true
+        }
+    )
+}
 
 extension AuthClient: TestDependencyKey {
     static var testValue: AuthClient = .init(
