@@ -8,6 +8,7 @@ public enum Env {
             static let BASE_URL = "BASE_URL"
             static let NAVER_CLIENT_ID = "NAVER_CLIENT_ID"
             static let NAVER_CLIENT_SECRET = "NAVER_CLIENT_SECRET"
+            static let BUNDLE_SHORT_VERSION = "CFBundleShortVersionString"
         }
     }
 
@@ -46,5 +47,12 @@ public enum Env {
             fatalError("CLIENT_SECRET not set in plist for this environment")
         }
         return clientSecret
+    }()
+    
+    public static let BUNDLE_SHORT_VERSION: String = {
+        guard let version = Env.infoDictionary[Keys.Plist.BUNDLE_SHORT_VERSION] as? String else {
+            fatalError("BUNDLE_SHORT_VERSION not set in plist for this environment")
+        }
+        return version
     }()
 }
