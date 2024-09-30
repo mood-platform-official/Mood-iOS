@@ -39,9 +39,9 @@ extension AuthEndPoint: Endpoint {
     
     public var headers: Alamofire.HTTPHeaders? {
         switch self {
-        case .native: nil
-        case .nativeLogin: nil
-        case .oauth: nil
+        case .native: .common()
+        case .nativeLogin: .common()
+        case .oauth: .common()
         case .refreshToken: [.init(name: "Authorization", value: "")]
         }
     }
