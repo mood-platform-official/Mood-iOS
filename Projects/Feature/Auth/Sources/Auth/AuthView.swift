@@ -18,111 +18,78 @@ struct AuthView: IntentBindingType {
 
 extension AuthView: View {
     var body: some View {
-        VStack(spacing: 72) {
+        VStack(spacing: 160) {
             Text("Mood")
                 .headline1(.bold)
-                .frame(height: 50)
+                .frame(height: 160)
                 .frame(maxWidth: .infinity)
                 .background(Color.grey100)
 
-            VStack(spacing: 36) {
-                VStack(spacing: 12) {
-                    emailTextFieldRow()
-
-                    SolidButton(
-                        text: "이메일로 계속하기",
-                        disabled: !self.state.isEnabledEmailBtn,
-                        action: { self.intent.send(action: .emailBtnDidTap) }
-                    )
-                }
-
-                socialIconButtonRow()
-                findButtonRow()
-            }
+            socialButtonRows()
         }
+        .frame(maxHeight: .infinity)
         .padding(.horizontal, 16)
     }
 }
 
 extension AuthView {
-    @ViewBuilder
-    func emailTextFieldRow() -> some View {
-        VStack(alignment: .leading, spacing: 8) {
-            Text("이메일")
-                .subtitle5(.medium)
-                .foregroundStyle(Color.grey600)
-
-            DefaultTextField(
-                placeholder: "이메일을 입력해주세요",
-                text: .init(
-                    get: { state.email },
-                    set: { intent.send(action: .changeEmail($0)) }
-                ),
-                focusedField: ($focusField, AuthModel.FocusField.email),
-                disabled: false,
-                isError: .init(
-                    get: { state.isErrorEmailBtn },
-                    set: { _ in }
-                ),
-                leftBottom: .init(
-                    text: state.bottomText,
-                    defaultColor: .textSecondary
-                )
-            )
-        }
-    }
 
     @ViewBuilder
-    func socialIconButtonRow() -> some View {
-        HStack(alignment: .center, spacing: 20) {
+    func socialButtonRows() -> some View {
+        VStack(spacing: 16) {
             Button {
                 self.intent.send(action: .kakaoBtnDidTap)
             } label: {
-                Image.icKakaoSocialButton
-                    .resizable()
-                    .frame(width: 52, height: 52)
+                HStack(spacing: 8) {
+                    Image.icKakaoLogo
+                        .resizable()
+                        .frame(width: 18, height: 18)
+
+                    Text("카카오로 계속하기")
+                        .subtitle3(.bold)
+                        .foregroundStyle(.black)
+                }
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .background(.yellow)
             }
+            .clipShape(.rect(cornerRadius: 16))
 
             Button {
                 self.intent.send(action: .naverBtnDidTap)
             } label: {
-                Image.icNaverSocialButton
-                    .resizable()
-                    .frame(width: 52, height: 52)
+                HStack(spacing: 8) {
+                    Image.icNaverLogo
+                        .resizable()
+                        .frame(width: 18, height: 18)
+
+                    Text("네이버로 계속하기")
+                        .subtitle3(.bold)
+                        .foregroundStyle(.white)
+                }
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .background(.green)
             }
+            .clipShape(.rect(cornerRadius: 16))
 
             Button {
-//                self.intent.send(action: )
+    //                self.intent.send(action: )
             } label: {
-                Image.icAppleSocialButton
-                    .resizable()
-                    .frame(width: 52, height: 52)
-            }
-        }
-    }
+                HStack(spacing: 8) {
+                    Image.icAppleLogo
+                        .resizable()
+                        .frame(width: 18, height: 18)
 
-    @ViewBuilder
-    func findButtonRow() -> some View {
-        HStack(alignment: .center, spacing: 12) {
-            Button {
-                self.intent.send(action: .findEmailBtnDidTap)
-            } label: {
-                Text("이메일 찾기")
-                    .caption1()
-                    .foregroundStyle(Color.grey600)
+                    Text("애플로 계속하기")
+                        .subtitle3(.bold)
+                        .foregroundStyle(.white)
+                }
+                .padding(.vertical, 16)
+                .frame(maxWidth: .infinity)
+                .background(.black)
             }
-
-            Line()
-                .frame(width: 1, height: 12)
-                .background(Color.grey200)
-
-            Button {
-                self.intent.send(action: .findPWBtnDidTap)
-            } label: {
-                Text("비밀번호 찾기")
-                    .caption1()
-                    .foregroundStyle(Color.grey600)
-            }
+            .clipShape(.rect(cornerRadius: 16))
         }
     }
 }

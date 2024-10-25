@@ -22,8 +22,9 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     typealias State = AuthModel.State
     typealias ViewAction = AuthModel.ViewAction
 
-    @Dependency(\.authClient) var client
-    @Dependency(\.kakaoClient) var kakao
+    @Dependency(\.authClient) var authClient
+    @Dependency(\.kakaoClient) var kakaoClient
+    @Dependency(\.userClient) var userClient
     let naverClient = NaverClient()
     let appleClient = AppleClient()
 
@@ -60,21 +61,12 @@ extension AuthIntent: IntentType {
         switch action {
         case .onAppear:
             self.viewOnAppear()
-        case .changeEmail(let email):
-            state.email = email ?? ""
-            state.bottomText = state.email.isEmpty ? state.bottomText : ""
-        case .emailBtnDidTap:
-            self.emailBtnDidTap()
         case .kakaoBtnDidTap:
             self.kakaoBtnDidTap()
         case .naverBtnDidTap:
             self.naverBtnDidTap()
         case .appleBtnDidTap:
             self.appleBtnDidTap()
-        case .findEmailBtnDidTap:
-            navigator.next(linkItem: .init(path: Screen.Path.FindEmail.rawValue), isAnimated: true)
-        case .findPWBtnDidTap:
-            navigator.next(linkItem: .init(path: Screen.Path.FindPassword.rawValue), isAnimated: true)
 
         }
     }
@@ -85,28 +77,6 @@ extension AuthIntent: IntentType {
 extension AuthIntent {
     private func viewOnAppear() {
         self.naverClient.delegate = self
-    }
-
-    private func emailBtnDidTap() {
-        guard state.email.isValidEmail() else {
-            state.bottomText = "올바른 이메일 형식으로 입력해주세요."
-            return
-        }
-
-        self.dupEmailTask?.cancel()
-
-        self.dupEmailTask = Task {
-            let isDuplicated = await self.checkDupEmailRequest()
-
-            guard !(self.dupEmailTask?.isCancelled ?? false) else { return }
-            let path = isDuplicated
-            ? Screen.Path.Login.rawValue
-            : Screen.Path.SignupPassword.rawValue
-
-            await MainActor.run {
-                navigator.next(linkItem: .init(path: path), isAnimated: true)
-            }
-        }
     }
 
     private func kakaoBtnDidTap() {
@@ -135,18 +105,10 @@ extension AuthIntent {
 // MARK: API
 
 extension AuthIntent: NaverDelegate, AppleDelegate {
-    private func checkDupEmailRequest() async -> Bool {
-        do {
-            return try await self.client.checkDuplEmail(state.email)
-        } catch {
-            print("asdfd")
-            return false
-        }
-    }
 
     private func kakaoLoginRequest() async -> String {
         do {
-            return try await self.kakao.login()
+            return try await self.kakaoClient.login()
         } catch {
             Toast.shared.present(title: "error kakao login")
             return ""

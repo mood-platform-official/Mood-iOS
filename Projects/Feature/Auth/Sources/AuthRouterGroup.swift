@@ -6,14 +6,7 @@ public struct AuthRouterGroup<RootNavigator: RootNavigatorType> {
     
     public var routers: [RouteBuilderOf<RootNavigator>] {
         [
-            AuthRouteBuilder.generate(),
-            LoginRouteBuilder.generate(),
-            FindEmailRouter.generate(),
-            FindPasswordRouter.generate(),
-            SignupPasswordRouter.generate(),
-            SignupETCRouter.generate(),
-            SignupPhoneAuthRouter.generate(),
-            SignupTermsRouter.generate()
+            AuthRouteBuilder.generate()
         ]
     }
 }
