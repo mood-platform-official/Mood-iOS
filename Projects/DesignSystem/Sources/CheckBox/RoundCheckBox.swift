@@ -12,11 +12,11 @@ public struct RoundCheckBox: View {
     var icon: Image {
         switch state {
         case .unchecked:
-            Image.icCheckThickness20
+            Image.check
         case .checked:
-            Image.icCheckThickness20
+            Image.check
         case .partial:
-            Image.icMinusThickness20
+            Image.check
         }
     }
     

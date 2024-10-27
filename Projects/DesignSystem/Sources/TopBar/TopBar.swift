@@ -75,7 +75,7 @@ extension View {
                     Button {
                         backAction()
                     } label: {
-                        Image.icBracketLeftThickness15
+                        Image.arrowLeft
                             .resizable()
                             .frame(width: 24, height: 24)
                     }

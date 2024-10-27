@@ -31,7 +31,7 @@ public struct DatePickerRow: View {
             
             Spacer()
             
-            Image.icBracketDownThickness15
+            Image.chevronDown
                 .frame(width: 20, height: 20)
             
         }
