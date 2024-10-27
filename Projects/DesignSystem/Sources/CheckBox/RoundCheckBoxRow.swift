@@ -27,7 +27,7 @@ public struct RoundCheckBoxRow: View {
                 
                 Text(text)
                     .subtitle5(fontWeight)
-                    .foregroundStyle(Color.gray900)
+                    .foregroundStyle(Color.grey900)
                 
                 Spacer()
                 

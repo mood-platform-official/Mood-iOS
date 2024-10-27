@@ -24,11 +24,11 @@ extension DefaultTextField {
                 if isSecure {
                     SecureField(placeholder, text: $text)
                         .frame(height: 26)
-                        .foregroundStyle(Color.gray900)
+                        .foregroundStyle(Color.grey900)
                 } else {
                     TextField(placeholder, text: $text)
                         .frame(height: 26)
-                        .foregroundStyle(Color.gray900)
+                        .foregroundStyle(Color.grey900)
                 }
                     
                 if let rightBtn {

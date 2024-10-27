@@ -8,7 +8,7 @@ public struct DefaultCheckBox: View {
     var action: (Entity.UI.CheckBoxState) -> Void
     
     var bgColor: Color { state == .unchecked ? .white : .primary500 }
-    var strokeColor: Color { state == .unchecked ? .gray300 : .clear }
+    var strokeColor: Color { state == .unchecked ? .grey300 : .clear }
     var icon: Image {
         switch state {
         case .unchecked:

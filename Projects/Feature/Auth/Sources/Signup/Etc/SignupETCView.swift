@@ -63,7 +63,7 @@ extension SignupETCView {
             
             Text(subTitleText())
                 .body2()
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -73,7 +73,7 @@ extension SignupETCView {
         VStack(alignment: .leading, spacing: 8) {
             Text("이름")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
             
             DefaultTextField(
                 placeholder: "실명을 입력해주세요",
@@ -82,7 +82,7 @@ extension SignupETCView {
                     set: { intent.send(action: .changeName($0)) }
                 ),
                 focusedField: ($focusField, SignupETCModel.FocusField.name),
-                leftBottom: .init(text: state.nameBottomText, textColor: Color.rubyRed)
+                leftBottom: .init(text: state.nameBottomText, textColor: .errorText)
             )
             .keyboardType(.numberPad)
             .onSubmit {
@@ -96,7 +96,7 @@ extension SignupETCView {
         VStack(alignment: .leading, spacing: 8) {
             Text("생년월일")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
             
             DatePickerRow(
                 date: .init(
@@ -117,7 +117,7 @@ extension SignupETCView {
         VStack(alignment: .leading, spacing: 8) {
             Text("닉네임")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
             
             DefaultTextField(
                 placeholder: "별명을 입력해주세요",
@@ -126,7 +126,7 @@ extension SignupETCView {
                     set: { intent.send(action: .changeNickname($0)) }
                 ),
                 focusedField: ($focusField, SignupETCModel.FocusField.nickname),
-                leftBottom: .init(text: state.nickNameBottomText, textColor: Color.rubyRed)
+                leftBottom: .init(text: state.nickNameBottomText, textColor: .errorText)
             )
             .onSubmit {
                 self.intent.send(action: .onSubmitNickname)

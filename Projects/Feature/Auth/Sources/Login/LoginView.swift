@@ -44,7 +44,7 @@ extension LoginView: View {
             } label: {
                 Text("비밀번호 찾기")
                     .caption1()
-                    .foregroundStyle(Color.gray600)
+                    .foregroundStyle(Color.grey600)
             }
         }
         .padding(.horizontal, 16)
@@ -61,7 +61,7 @@ extension LoginView {
         VStack(alignment: .leading, spacing: 8) {
             Text("비밀번호")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
 
             DefaultTextField(
                 isSecure: true,
@@ -78,7 +78,7 @@ extension LoginView {
                 ),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .rubyRed
+                    textColor: .errorText
                 )
             )
         }

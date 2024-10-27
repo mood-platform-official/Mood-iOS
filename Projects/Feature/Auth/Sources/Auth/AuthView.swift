@@ -23,7 +23,7 @@ extension AuthView: View {
                 .headline1(.bold)
                 .frame(height: 50)
                 .frame(maxWidth: .infinity)
-                .background(Color.gray100)
+                .background(Color.grey100)
 
             VStack(spacing: 36) {
                 VStack(spacing: 12) {
@@ -50,7 +50,7 @@ extension AuthView {
         VStack(alignment: .leading, spacing: 8) {
             Text("이메일")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
 
             DefaultTextField(
                 placeholder: "이메일을 입력해주세요",
@@ -66,7 +66,7 @@ extension AuthView {
                 ),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .rubyRed
+                    textColor: .errorText
                 )
             )
         }
@@ -109,19 +109,19 @@ extension AuthView {
             } label: {
                 Text("이메일 찾기")
                     .caption1()
-                    .foregroundStyle(Color.gray600)
+                    .foregroundStyle(Color.grey600)
             }
 
             Line()
                 .frame(width: 1, height: 12)
-                .background(Color.gray200)
+                .background(Color.grey200)
 
             Button {
                 self.intent.send(action: .findPWBtnDidTap)
             } label: {
                 Text("비밀번호 찾기")
                     .caption1()
-                    .foregroundStyle(Color.gray600)
+                    .foregroundStyle(Color.grey600)
             }
         }
     }
