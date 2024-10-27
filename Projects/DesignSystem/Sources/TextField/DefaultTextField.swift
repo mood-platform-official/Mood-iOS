@@ -15,14 +15,14 @@ public struct DefaultTextField<value: Hashable>: View {
     var rightBtn: Entity.UI.RightButton?
     
     var hasBottom: Bool { leftBottom?.text.count ?? 0 > 0 || rightBottom?.text.count ?? 0 > 0 }
-    var bgColor: Color { disabled ? .gray75 : .white }
+    var bgColor: Color { disabled ? .grey100 : .white }
     var strokeColor: Color {
         if focusedField.binding.wrappedValue == focusedField.equals {
-            return .gray600
+            return .grey600
         } else if isError {
-            return .rubyRed
+            return .errorMain
         } else {
-            return .gray200
+            return .grey200
         }
     }
     

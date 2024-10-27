@@ -7,8 +7,8 @@ public struct DatePickerRow: View {
     var format: String
     var disabled: Bool
     
-    private var strokeColor: Color = .gray200
-    private var bgColor: Color { disabled ? .gray75 : .white }
+    private var strokeColor: Color = .grey200
+    private var bgColor: Color { disabled ? .grey100 : .white }
     @State private var selectDate: Date = Date.now
     
     public init(date: Binding<Date?>, placeholder: String, format: String, disabled: Bool = false) {
@@ -23,15 +23,15 @@ public struct DatePickerRow: View {
         HStack(spacing: 8) {
             if let date {
                 Text(dateFormat(date))
-                    .foregroundStyle(Color.gray900)
+                    .foregroundStyle(Color.grey900)
             } else {
                 Text(placeholder)
-                    .foregroundStyle(Color.gray400)
+                    .foregroundStyle(Color.grey400)
             }
             
             Spacer()
             
-            Image.icBracketDownThickness15
+            Image.chevronDown
                 .frame(width: 20, height: 20)
             
         }

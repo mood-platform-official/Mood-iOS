@@ -61,7 +61,7 @@ extension SignupPhoneAuthView {
             
             Text("더 안전한 커뮤니티를 위해 본인 인증이 필요해요.")
                 .body2()
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -71,7 +71,7 @@ extension SignupPhoneAuthView {
         VStack(alignment: .leading, spacing: 8) {
             Text("휴대폰 번호")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
             
             DefaultTextField(
                 placeholder: "01012345678",
@@ -82,7 +82,7 @@ extension SignupPhoneAuthView {
                 focusedField: ($focusField, SignupPhoneAuthModel.FocusField.phoneNumber),
                 rightBtn: .init(
                     text: state.isShowAuthCodeField ? "재전송" : "인증",
-                    textColor: !state.isEnabledSendBtn ? .gray700 : .primary500,
+                    textColor: !state.isEnabledSendBtn ? .grey700 : .primary500,
                     isEnabled: state.isEnabledSendBtn,
                     action: {
                         intent.send(action: .sendAuthCodeBtnDidTap)
@@ -119,7 +119,7 @@ extension SignupPhoneAuthView {
     private func authCodeRightBottomText() -> Entity.UI.BottomText {
         return .init(
             text: timeFormatter(timeRemaining),
-            textColor: .gray600
+            textColor: .grey600
         )
     }
     
@@ -127,7 +127,7 @@ extension SignupPhoneAuthView {
         let isAuthcodeEmpty = state.authCode.isEmpty
         return .init(
             text: "인증하기",
-            textColor: isAuthcodeEmpty ? .gray400 : .primary500,
+            textColor: isAuthcodeEmpty ? .grey400 : .primary500,
             isEnabled: !isAuthcodeEmpty,
             action: {
                 intent.send(action: .validAuthCodeBtnDidTap)

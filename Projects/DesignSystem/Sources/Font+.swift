@@ -66,6 +66,12 @@ extension View {
     
     public func headline8(_ weight: FontWeight) -> some View {
         return self
+            .fontWithLineHeight(font: .pretendard(weight: weight, size: 22), lineHeight: 30)
+            .kerning(-0.43)
+    }
+    
+    public func headline9(_ weight: FontWeight) -> some View {
+        return self
             .fontWithLineHeight(font: .pretendard(weight: weight, size: 20), lineHeight: 28)
             .kerning(-0.24)
     }
@@ -108,19 +114,19 @@ extension View {
     
     public func body1() -> some View {
         return self
-            .fontWithLineHeight(font: .pretendard(weight: .regular, size: 16), lineHeight: 26)
+            .fontWithLineHeight(font: .pretendard(weight: .medium, size: 16), lineHeight: 26)
             .kerning(0.1)
     }
     
     public func body2() -> some View {
         return self
-            .fontWithLineHeight(font: .pretendard(weight: .regular, size: 15), lineHeight: 24)
+            .fontWithLineHeight(font: .pretendard(weight: .medium, size: 15), lineHeight: 24)
             .kerning(0.15)
     }
     
     public func body3() -> some View {
         return self
-            .fontWithLineHeight(font: .pretendard(weight: .regular, size: 14), lineHeight: 24)
+            .fontWithLineHeight(font: .pretendard(weight: .medium, size: 14), lineHeight: 24)
             .kerning(0.19)
     }
     
@@ -134,18 +140,6 @@ extension View {
         return self
             .fontWithLineHeight(font: .pretendard(weight: .regular, size: 12), lineHeight: 16)
             .kerning(0.3)
-    }
-    
-    public func caption3() -> some View {
-        return self
-            .fontWithLineHeight(font: .pretendard(weight: .regular, size: 11), lineHeight: 14)
-            .kerning(0.34)
-    }
-    
-    public func caption4() -> some View {
-        return self
-            .fontWithLineHeight(font: .pretendard(weight: .regular, size: 11), lineHeight: 12)
-            .kerning(0.34)
     }
     
     private func fontWithLineHeight(font: UIFont, lineHeight: CGFloat) -> some View {

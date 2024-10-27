@@ -6,7 +6,7 @@ public struct DefaultRadio: View {
     var action: () -> Void
     
     var bgColor: Color { isChecked ? .primary500 : .white }
-    var strokeColor: Color { isChecked ? .clear : .gray300 }
+    var strokeColor: Color { isChecked ? .clear : .grey300 }
     
     public init(isChecked: Bool, action: @escaping () -> Void) {
         self.isChecked = isChecked

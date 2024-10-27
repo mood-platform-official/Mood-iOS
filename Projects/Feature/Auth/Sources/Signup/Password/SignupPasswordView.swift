@@ -52,7 +52,7 @@ extension SignupPasswordView {
             
             Text("영문 대소문자, 숫자, 특수문자를 포함해\n8자 이상으로 작성해주세요.")
                 .body2()
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
                 .multilineTextAlignment(.leading)
         }
     }
@@ -62,7 +62,7 @@ extension SignupPasswordView {
         VStack(alignment: .leading, spacing: 8) {
             Text("비밀번호")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
             
             DefaultTextField(
                 isSecure: true,
@@ -75,7 +75,7 @@ extension SignupPasswordView {
                 isError: .init(get: { state.isErrorPWRow }, set: { _ in }),
                 leftBottom: .init(
                     text: state.pwBottomText,
-                    textColor: .rubyRed
+                    textColor: .errorText
                 )
             )
         }
@@ -86,7 +86,7 @@ extension SignupPasswordView {
         VStack(alignment: .leading, spacing: 8) {
             Text("비밀번호 확인")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
             
             DefaultTextField(
                 isSecure: true,
@@ -99,7 +99,7 @@ extension SignupPasswordView {
                 isError: .init(get: { state.isErrorPWAgainRow }, set: { _ in }),
                 leftBottom: .init(
                     text: state.pwAgainBottomText,
-                    textColor: .rubyRed
+                    textColor: .errorText
                 )
             )
         }

@@ -54,7 +54,7 @@ extension FindPasswordView {
         VStack(alignment: .leading, spacing: 8) {
             Text("휴대폰 번호")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
 
             DefaultTextField(
                 placeholder: "01012345678",
@@ -65,7 +65,7 @@ extension FindPasswordView {
                 focusedField: ($focusField, FindPasswordModel.FocusField.phone),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .rubyRed
+                    textColor: .errorText
                 )
             )
             .keyboardType(.numberPad)
@@ -77,7 +77,7 @@ extension FindPasswordView {
         VStack(alignment: .leading, spacing: 8) {
             Text("이메일")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
 
             DefaultTextField(
                 placeholder: "가입한 이메일을 입력해주세요.",
@@ -88,7 +88,7 @@ extension FindPasswordView {
                 focusedField: ($focusField, FindPasswordModel.FocusField.phone),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .rubyRed
+                    textColor: .errorText
                 )
             )
         }

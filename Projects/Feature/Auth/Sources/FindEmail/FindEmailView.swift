@@ -49,7 +49,7 @@ extension FindEmailView {
         VStack(alignment: .leading, spacing: 8) {
             Text("휴대폰 번호")
                 .subtitle5(.medium)
-                .foregroundStyle(Color.gray600)
+                .foregroundStyle(Color.grey600)
 
             DefaultTextField(
                 placeholder: "01012345678",
@@ -65,7 +65,7 @@ extension FindEmailView {
                 ),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .rubyRed
+                    textColor: .errorText
                 )
             )
             .keyboardType(.numberPad)

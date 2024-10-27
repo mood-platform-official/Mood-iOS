@@ -8,8 +8,8 @@ public struct OutlinedButton: View {
     var action: () -> Void
     
     
-    var textColor: Color { disabled ? .gray300 : .primary500 }
-    var strokeColor: Color { disabled ? .gray200 : .primary500 }
+    var textColor: Color { disabled ? .grey300 : .primary500 }
+    var strokeColor: Color { disabled ? .grey200 : .primary500 }
     
     public init(text: String, leftIcon: Image? = nil, rightIcon: Image? = nil, disabled: Bool = false, action: @escaping () -> Void) {
         self.text = text

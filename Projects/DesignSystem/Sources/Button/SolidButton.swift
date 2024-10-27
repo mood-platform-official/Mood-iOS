@@ -7,8 +7,8 @@ public struct SolidButton: View {
     var disabled: Bool
     var action: () -> Void
     
-    var textColor: Color { disabled ? .gray400 : .white }
-    var bgColor: Color { disabled ? .gray75 : .primary500 }
+    var textColor: Color { disabled ? .grey400 : .white }
+    var bgColor: Color { disabled ? .grey100 : .primary500 }
     
     public init(text: String, leftIcon: Image? = nil, rightIcon: Image? = nil, disabled: Bool = false, action: @escaping () -> Void) {
         self.text = text

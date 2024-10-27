@@ -8,15 +8,15 @@ public struct DefaultCheckBox: View {
     var action: (Entity.UI.CheckBoxState) -> Void
     
     var bgColor: Color { state == .unchecked ? .white : .primary500 }
-    var strokeColor: Color { state == .unchecked ? .gray300 : .clear }
+    var strokeColor: Color { state == .unchecked ? .grey300 : .clear }
     var icon: Image {
         switch state {
         case .unchecked:
-            Image.icCheckThickness20
+            Image.check
         case .checked:
-            Image.icCheckThickness20
+            Image.check
         case .partial:
-            Image.icMinusThickness20
+            Image.check
         }
     }
     
@@ -30,7 +30,7 @@ public struct DefaultCheckBox: View {
         Button {
             action(state)
         } label: {
-            Image.icCheckThickness20
+            Image.check
                 .resizable()
                 .renderingMode(.template)
                 .foregroundStyle(state == .unchecked ? .clear : .white)

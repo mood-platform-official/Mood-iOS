@@ -8,7 +8,7 @@ public struct SecondaryButton: View {
     var action: () -> Void
     
     
-    var textColor: Color { disabled ? .gray300 : .primary500 }
+    var textColor: Color { disabled ? .grey300 : .primary500 }
     
     public init(text: String, leftIcon: Image? = nil, rightIcon: Image? = nil, disabled: Bool = false, action: @escaping () -> Void) {
         self.text = text
@@ -53,7 +53,7 @@ public struct SecondaryButton: View {
             }
             .overlay(
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.gray200, lineWidth: 1.0)
+                    .stroke(Color.grey200, lineWidth: 1.0)
             )
         }
         .disabled(disabled)
