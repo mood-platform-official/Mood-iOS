@@ -6,6 +6,7 @@ import CoreKit
 import Entity
 import Dependencies
 import NetworkKit
+import Logger
 
 protocol AuthIntentType {
     var state: AuthModel.State { get }
@@ -83,9 +84,9 @@ extension AuthIntent {
         self.kakaoTask?.cancel()
 
         self.kakaoTask = Task { @MainActor in
-            let userData = await self.kakaoLoginRequest()
-
             guard !(self.kakaoTask?.isCancelled ?? false) else { return }
+
+            await self.kakaoLoginRequest()
         }
     }
 
@@ -106,13 +107,24 @@ extension AuthIntent {
 
 extension AuthIntent: NaverDelegate, AppleDelegate {
 
-    private func kakaoLoginRequest() async -> UserData? {
+    private func kakaoLoginRequest() async {
         do {
-            let (accessToken, IDToken) = try await self.kakaoClient.login()
-            return try await self.kakaoClient.me()
-        } catch {
+            let (accessToken, idToken) = try await self.kakaoClient.login()
+//            let userData = try await self.kakaoClient.me()
+            let param: AuthDTO.Login.Request = .init(
+                provider: "KAKAO",
+                oauthToken: accessToken,
+                oidcToken: idToken
+            )
+            _ = try await self.authClient.login(param)
+        } catch let error as APIError {
+            Log.debug("API Error", [error.message, error.errorCode])
+//            if error.errorCode == "OA0004" {
+//                
+//            }
             Toast.shared.present(title: "error kakao login")
-            return nil
+        } catch {
+            Log.debug("Fail Error Decode", error.localizedDescription)
         }
     }
 

@@ -39,7 +39,10 @@ extension AuthEndPoint: Endpoint {
     
     public var body: Alamofire.Parameters? {
         switch self {
-        case .login: nil
+        case .login(let param): [
+            "oauthToken": param.oauthToken,
+            "oidcToken": param.oidcToken
+        ]
         case .register(let param): [
             "email": param.email,
             "nickname": param.nickname,
@@ -62,7 +65,9 @@ extension AuthEndPoint: Endpoint {
         var request = URLRequest(url: url)
         request.headers = headers ?? .default
         request.method = method
-        
+        if let body {
+            request.httpBody = try? JSONSerialization.data(withJSONObject: body)
+        }
         return request
     }
 }

@@ -5,6 +5,12 @@ public extension AuthDTO.Login {
         public let provider: String
         public let oauthToken: String
         public let oidcToken: String
+        
+        public init(provider: String, oauthToken: String, oidcToken: String) {
+            self.provider = provider
+            self.oauthToken = oauthToken
+            self.oidcToken = oidcToken
+        }
     }
     
     struct Response: Decodable {
