@@ -6,6 +6,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import NaverThirdPartyLogin
 import Base
+import Logger
 
 @main
 struct MoimApp: App {
@@ -37,6 +38,9 @@ struct MoimApp: App {
                 NaverThirdPartyLoginConnection
                     .getSharedInstance()
                     .receiveAccessToken(url)
+            }
+            .task {
+                
             }
         }
     }

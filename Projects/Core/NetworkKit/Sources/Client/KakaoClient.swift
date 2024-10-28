@@ -5,20 +5,22 @@ import KakaoSDKCommon
 import Entity
 
 public struct KakaoClient {
-    public var login: @Sendable () async throws -> String
+    public var login: @MainActor @Sendable () async throws -> (accessToken: String, oicdToken: String)
     public var me: @Sendable () async throws -> UserData
 }
 
 extension KakaoClient {
-    private static func login() async throws -> String {
+    private static func login() async throws -> (accessToken: String, oicdToken: String) {
         return try await withCheckedThrowingContinuation { continuation in
             if UserApi.isKakaoTalkLoginAvailable() {
                 UserApi.shared.loginWithKakaoTalk { oauthToken, error in
                     if let error {
                         continuation.resume(throwing: error)
                     }
-                    if let oauthToken {
-                        continuation.resume(returning: oauthToken.accessToken)
+                    if let oauthToken,
+                       let idToken = oauthToken.idToken {
+                        let result: (String, String) = (oauthToken.accessToken, idToken)
+                        continuation.resume(returning: result)
                     }
                 }
             } else {
@@ -26,8 +28,10 @@ extension KakaoClient {
                     if let error {
                         continuation.resume(throwing: error)
                     }
-                    if let oauthToken {
-                        continuation.resume(returning: oauthToken.accessToken)
+                    if let oauthToken,
+                       let idToken = oauthToken.idToken {
+                        let result: (String, String) = (oauthToken.accessToken, idToken)
+                        continuation.resume(returning: result)
                     }
                 }
             }

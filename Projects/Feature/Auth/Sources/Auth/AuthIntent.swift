@@ -83,7 +83,7 @@ extension AuthIntent {
         self.kakaoTask?.cancel()
 
         self.kakaoTask = Task { @MainActor in
-//            let oauthToken = await self.kakaoLoginRequest()
+            let userData = await self.kakaoLoginRequest()
 
             guard !(self.kakaoTask?.isCancelled ?? false) else { return }
         }
@@ -106,12 +106,13 @@ extension AuthIntent {
 
 extension AuthIntent: NaverDelegate, AppleDelegate {
 
-    private func kakaoLoginRequest() async -> String {
+    private func kakaoLoginRequest() async -> UserData? {
         do {
-            return try await self.kakaoClient.login()
+            let (accessToken, IDToken) = try await self.kakaoClient.login()
+            return try await self.kakaoClient.me()
         } catch {
             Toast.shared.present(title: "error kakao login")
-            return ""
+            return nil
         }
     }
 
