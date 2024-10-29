@@ -31,7 +31,7 @@ extension AuthEndPoint: Endpoint {
     
     public var headers: Alamofire.HTTPHeaders? {
         switch self {
-        case .login: nil
+        case .login: .common()
         case .register: .common()
         case .refreshToken: [.init(name: "Authorization", value: "")]
         }
@@ -46,6 +46,7 @@ extension AuthEndPoint: Endpoint {
         case .register(let param): [
             "email": param.email,
             "nickname": param.nickname,
+            "name": param.name,
             "birth": param.birth,
             "gender": param.gender,
             "phoneNumber": param.phoneNumber,

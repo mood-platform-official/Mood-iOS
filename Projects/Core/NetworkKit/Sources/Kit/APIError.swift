@@ -1,24 +1,18 @@
 import Foundation
 
 public struct APIError: Error {
-
-    public var statusCode: Int
-    public let errorCode: String
+    public let statusCode: Int
+    public let resultCode: String
     public var message: String
 
-    public init(statusCode: Int = 0, errorCode: String, message: String) {
+    public init(statusCode: Int = 0, resultCode: String, message: String) {
         self.statusCode = statusCode
-        self.errorCode = errorCode
+        self.resultCode = resultCode
         self.message = message
     }
 
-    public var errorCodeNumber: String {
-        let numberString = errorCode.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-        return numberString
-    }
-
     private enum CodingKeys: String, CodingKey {
-        case errorCode
+        case resultCode
         case message
     }
 }
@@ -27,7 +21,7 @@ extension APIError: Decodable {
 
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        errorCode = try container.decode(String.self, forKey: .errorCode)
+        resultCode = try container.decode(String.self, forKey: .resultCode)
         message = try container.decode(String.self, forKey: .message)
         statusCode = 0
     }

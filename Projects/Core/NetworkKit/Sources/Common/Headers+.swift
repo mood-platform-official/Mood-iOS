@@ -8,7 +8,8 @@ extension Alamofire.HTTPHeaders {
         return [
             .init(name: "Mood-Agent", value: agent),
             .init(name: "Device-Uuid", value: deviceUUID),
-            .init(name: "Accept-Language", value: "ko")
+            .init(name: "Accept-Language", value: "ko"),
+            .init(name: "content-type", value: "application/json")
         ]
     }
     

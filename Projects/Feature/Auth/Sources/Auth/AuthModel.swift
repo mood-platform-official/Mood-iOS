@@ -4,7 +4,8 @@ import Entity
 
 enum AuthModel {
     struct State: Equatable {
-        
+        var accessToken: String?
+        var idToken: String?
     }
 
     enum ViewAction: Equatable {

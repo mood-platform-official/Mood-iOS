@@ -21,7 +21,7 @@ public final class APIClient: APIProtocol {
             throw error
         } catch {
             throw APIError(
-                errorCode: "ERROR",
+                resultCode: "ERROR",
                 message: "Unknown API error \(error.localizedDescription)"
             )
         }
@@ -34,13 +34,13 @@ extension APIClient {
     private func manageResponse<T: Decodable>(data: Data?, response: HTTPURLResponse?) throws -> T {
         guard let response else {
             throw APIError(
-                errorCode: "ERROR",
+                resultCode: "ERROR",
                 message: "Invalid HTTP response"
             )
         }
         guard let data else {
             throw APIError(
-                errorCode: "ERROR",
+                resultCode: "ERROR",
                 message: "Unknown Data Response"
             )
         }
@@ -51,7 +51,7 @@ extension APIClient {
             } catch {
                 debugPrint("‼️", error)
                 throw APIError(
-                    errorCode: "Decoding Data Error Code",
+                    resultCode: "Decoding Data Error Code",
                     message: "Error decoding data"
                 )
             }
@@ -59,14 +59,14 @@ extension APIClient {
             guard let decodedError = try? JSONDecoder().decode(APIError.self, from: data) else {
                 throw APIError(
                     statusCode: response.statusCode,
-                    errorCode: "ERROR",
+                    resultCode: "ERROR",
                     message: "Unknown backend error"
                 )
             }
             
             throw APIError(
                 statusCode: response.statusCode,
-                errorCode: decodedError.errorCode,
+                resultCode: decodedError.resultCode,
                 message: decodedError.message
             )
         }

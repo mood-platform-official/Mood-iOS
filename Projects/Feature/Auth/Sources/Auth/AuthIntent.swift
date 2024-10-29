@@ -110,19 +110,41 @@ extension AuthIntent: NaverDelegate, AppleDelegate {
     private func kakaoLoginRequest() async {
         do {
             let (accessToken, idToken) = try await self.kakaoClient.login()
-//            let userData = try await self.kakaoClient.me()
             let param: AuthDTO.Login.Request = .init(
                 provider: "KAKAO",
                 oauthToken: accessToken,
                 oidcToken: idToken
             )
-            _ = try await self.authClient.login(param)
+            self.state.accessToken = accessToken
+            self.state.idToken = idToken
+            let login = try await self.authClient.login(param)
         } catch let error as APIError {
-            Log.debug("API Error", [error.message, error.errorCode])
-//            if error.errorCode == "OA0004" {
-//                
-//            }
-            Toast.shared.present(title: "error kakao login")
+            Log.debug("API Error", [error.resultCode, error.message])
+            if error.resultCode == APIError.LG0002 {
+                await self.kakaoUserInfoRequest()
+            }
+        } catch {
+            Log.debug("Fail Error Decode", error.localizedDescription)
+        }
+    }
+
+    private func kakaoUserInfoRequest() async {
+        do {
+            let userData = try await self.kakaoClient.me()
+            let param: AuthDTO.Register.Request = .init(
+                provider: "KAKAO",
+                email: userData.email ?? "",
+                nickname: userData.nickname ?? "",
+                name: userData.name ?? "",
+                birth: userData.birthDay ?? "",
+                gender: userData.gender ?? "",
+                phoneNumber: userData.phoneNumber ?? "",
+                socialIdToken: self.state.accessToken ?? "",
+                oidcToken: self.state.idToken ?? ""
+            )
+            let register = try await self.authClient.register(param)
+        } catch let error as APIError {
+            Log.debug("API Error", [error.resultCode, error.message])
         } catch {
             Log.debug("Fail Error Decode", error.localizedDescription)
         }
