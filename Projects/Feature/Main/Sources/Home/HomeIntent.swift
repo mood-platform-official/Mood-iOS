@@ -1,6 +1,7 @@
 import Combine
 import Dependencies
 import Base
+import Logger
 
 protocol HomeIntentType {
     var state: HomeModel.State { get }
@@ -20,11 +21,21 @@ final class HomeIntent: ObservableObject {
     @Published var state: State
     
     var cancellable: Set<AnyCancellable> = []
+    
+    private var navigator: RootNavigatorType
 
     init(
-        initialState: State
+        initialState: State,
+        navigator: RootNavigatorType
     ) {
         self.state = initialState
+        self.navigator = navigator
+        
+        Log.debug("HomeIntent init")
+    }
+    
+    deinit {
+        Log.debug("HomeIntent deinit")
     }
 }
 
