@@ -13,7 +13,8 @@ let project = Project.makeModule(
         .SPM.Dependencies,
         .SPM.KakaoSDKAuth,
         .SPM.KakaoSDKUser,
-        .SPM.NaverThirdPartyLogin
+        .SPM.NaverThirdPartyLogin,
+        .SPM.NukeUI
     ],
     settings: .core()
 )

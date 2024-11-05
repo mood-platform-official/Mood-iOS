@@ -14,19 +14,17 @@ struct AuthApp: App {
     var body: some Scene {
         WindowGroup {
             VStack(spacing: 20) {
-                Button {
-                    self.isVisible.toggle()
-                } label: {
-                    Text("Tooltip Test")
-                }
-                .tooltip(text: "Tooltip on Top", alignment: .top, isVisible: $isVisible)
+                ProfileCard(state: .delete(url: ""), size: .small)
                 
-                Button {
-                    self.isVisible.toggle()
-                } label: {
-                    Text("Tooltip Test")
-                }
-                .primaryTooltip(text: "Tooltip on Bottom", alignment: .bottom, isVisible: $isVisible)
+                ProfileCard(state: .delete(url: ""))
+                
+                ProfileCard(state: .delete(url: ""), size: .large)
+                
+                ProfileCard(state: .disabled(url: ""), size: .large)
+                
+                ProfileCard(state: .disabled(url: ""), size: .regular)
+                
+                ProfileCard(state: .disabled(url: ""), size: .small)
             }
             .padding(.horizontal, 20)
             .frame(maxHeight: .infinity)
