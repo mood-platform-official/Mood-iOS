@@ -2,7 +2,7 @@ import SwiftUI
 import DesignSystem
 import Base
 
-// MARK: AccountSleepView
+// MARK: AuthView
 
 struct AuthView: IntentBindingType {
     @StateObject public var container: Container<AuthIntentType, AuthModel.State>
