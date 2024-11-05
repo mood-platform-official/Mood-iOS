@@ -17,5 +17,6 @@ enum TermsModel {
     
     enum ViewAction: Equatable {
         case onAppear
+        case back
     }
 }

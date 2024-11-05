@@ -6,7 +6,8 @@ public struct AuthRouterGroup<RootNavigator: RootNavigatorType> {
     
     public var routers: [RouteBuilderOf<RootNavigator>] {
         [
-            AuthRouteBuilder.generate()
+            AuthRouteBuilder.generate(),
+            TermsRouteBuilder.generate()
         ]
     }
 }
