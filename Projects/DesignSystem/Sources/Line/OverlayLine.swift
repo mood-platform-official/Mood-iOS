@@ -24,5 +24,6 @@ public struct OverlayLine: View {
                         .background(tintColor)
                 }
         }
+        .fixedSize(horizontal: false, vertical: true)
     }
 }
