@@ -42,7 +42,10 @@ final class HomeIntent: ObservableObject {
 extension HomeIntent: IntentType, HomeIntentType {
     func mutate(action: HomeModel.ViewAction, viewEffect: (() -> Void)?) {
         switch action {
-        
+        case .onAppear:
+            self.state.dayOfWeek = (1...8).map { HomeModel.DayOfWeek(day: "\($0)", dayOfWeek: "\($0)", isSelected: $0 == 1) }
+        case .selectedDateCard(let dayOfWeek):
+            Log.debug("selectedDateCard", dayOfWeek)
         }
     }
 }

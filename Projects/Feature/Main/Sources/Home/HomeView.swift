@@ -22,13 +22,17 @@ struct HomeView: IntentBindingType {
 extension HomeView: View {
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 32) {
+        VStack(alignment: .leading, spacing: 0) {
             fakeSearchBar()
-            
+            weekSection()
+                .padding(.horizontal, 16)
+            Line()
+                .frame(height: 1)
+                .background(Color.dividerGrey)
             Spacer()
         }
         .task {
-            
+            self.intent.send(action: .onAppear)
         }
     }
 }
@@ -66,5 +70,58 @@ extension HomeView {
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
+    }
+    
+    @ViewBuilder
+    private func weekSection() -> some View {
+        let columns = Array(repeatElement(GridItem(spacing: 0), count: 8))
+        LazyVGrid(columns: columns) {
+            ForEach(self.state.dayOfWeek, id: \.day) { dayOfWeek in
+                DateCard(
+                    day: dayOfWeek.day,
+                    dayOfWeek: dayOfWeek.dayOfWeek,
+                    isSelected: dayOfWeek.isSelected,
+                    action: {
+                        self.intent.send(action: .selectedDateCard(dayOfWeek))
+                    }
+                )
+            }
+        }
+        .padding(.top, 4)
+        .padding(.bottom, 12)
+    }
+    
+    private struct DateCard: View {
+        var day: String
+        var dayOfWeek: String
+        var isSelected: Bool
+        var action: () -> Void
+        
+        private var textColor: Color { isSelected ? Color.primary500 : Color.textTertiary }
+        
+        var body: some View {
+            Button {
+                self.action()
+            } label: {
+                VStack(alignment: .center, spacing: 0) {
+                    Text(day)
+                        .subtitle5(.bold)
+                        .foregroundStyle(textColor)
+                    
+                    Text(dayOfWeek)
+                        .caption1()
+                        .foregroundStyle(textColor)
+                }
+                .frame(height: 56)
+                .frame(maxWidth: .infinity)
+            }
+            .background {
+                if isSelected {
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color.primary50)
+                        .stroke(Color.primary200, lineWidth: 1.0)
+                }
+            }
+        }
     }
 }
