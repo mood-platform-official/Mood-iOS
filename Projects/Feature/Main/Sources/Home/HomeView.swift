@@ -29,7 +29,11 @@ extension HomeView: View {
             Line()
                 .frame(height: 1)
                 .background(Color.dividerGrey)
-            Spacer()
+            if state.meetings.isEmpty {
+                emptyWarningText()
+            } else {
+                
+            }
         }
         .task {
             self.intent.send(action: .onAppear)
@@ -123,5 +127,17 @@ extension HomeView {
                 }
             }
         }
+    }
+    
+    @ViewBuilder
+    private func emptyWarningText() -> some View {
+        VStack(alignment: .center) {
+            Spacer()
+            Text("진행중인 모임이 없어요")
+                .subtitle4(.regular)
+                .foregroundStyle(Color.textTertiary)
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
     }
 }
