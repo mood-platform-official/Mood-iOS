@@ -32,7 +32,7 @@ extension HomeView: View {
             if state.meetings.isEmpty {
                 emptyWarningText()
             } else {
-                
+                meetingCardSection()
             }
         }
         .task {
@@ -148,5 +148,27 @@ extension HomeView {
                 )
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+    
+    @ViewBuilder
+    private func meetingCardSection() -> some View {
+        let columns: [GridItem] = Array(repeatElement(GridItem(), count: 2))
+        ScrollView(.vertical, showsIndicators: false) {
+            LazyVGrid(columns: columns) {
+                ForEach(state.meetings, id: \.id) { meeting in
+                    MeetingCard(
+                        state: meeting.state,
+                        imageURL: meeting.imageURL,
+                        title: meeting.title,
+                        time: meeting.time,
+                        place: meeting.place,
+                        makerImageURL: meeting.makerImageURL,
+                        emptyCount: meeting.emptyCount
+                    )
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 24)
+        }
     }
 }
