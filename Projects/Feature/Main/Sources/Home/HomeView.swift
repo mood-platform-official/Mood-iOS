@@ -137,7 +137,16 @@ extension HomeView {
                 .subtitle4(.regular)
                 .foregroundStyle(Color.textTertiary)
             Spacer()
+            
+            Line()
+                .frame(height: 1)
+                .primaryTooltip(
+                    text: "함께 할 수 있는 모임을 먼저 등록해보세요!",
+                    alignment: .top,
+                    isVisible: .constant(true),
+                    isAnimating: true
+                )
         }
-        .frame(maxWidth: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
