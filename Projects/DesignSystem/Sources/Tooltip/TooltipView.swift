@@ -10,11 +10,12 @@ struct TooltipModifier: ViewModifier {
     let alignment: Edge
     let state: TooltipState
     @Binding var isVisible: Bool
+    var isAnimating: Bool
     
     func body(content: Content) -> some View {
         content
             .overlay {
-                TooltipView(text: text, state: state, alignment: alignment, isVisible: $isVisible)
+                TooltipView(text: text, state: state, alignment: alignment, isVisible: $isVisible, isAnimating: isAnimating)
             }
     }
 }
@@ -24,7 +25,9 @@ struct TooltipView: View {
     let state: TooltipState
     let alignment: Edge
     @Binding var isVisible: Bool
-    let arrowOffset = CGFloat(8)
+    var isAnimating: Bool
+    let arrowOffset: CGFloat = 8
+    @State private var animateOffset: CGFloat = -50
     
     private var oppositeAlignment: Alignment {
         let result: Alignment
@@ -71,6 +74,13 @@ struct TooltipView: View {
                                 .offset(y: alignment == .bottom ? (proxy2.size.height / 2) + (proxy1.size.height / 2) : 0)
                         }
                     }
+            }
+            .offset(y: isAnimating ? animateOffset : 0)
+            .animation(.easeInOut.repeatForever(), value: animateOffset)
+            .task {
+                if isAnimating {
+                    animateOffset = 0
+                }
             }
             .onTapGesture {
                 isVisible.toggle()

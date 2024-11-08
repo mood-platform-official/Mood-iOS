@@ -25,7 +25,7 @@ struct MoimApp: App {
             RootView {
                 LinkNavigationView(
                     linkNavigator: navigator,
-                    item: .init(path: Screen.Path.Auth.rawValue)
+                    item: .init(path: Screen.Path.Home.rawValue)
                 )
             }
             .ignoresSafeArea(.all)

@@ -265,4 +265,5 @@ extension Image {
     public static let icAppleSocialButton = DesignSystemAsset.SocialButtons.icAppleSocialButton.swiftUIImage
     public static let icKakaoSocialButton = DesignSystemAsset.SocialButtons.icKakaoSocialButton.swiftUIImage
     public static let icNaverSocialButton = DesignSystemAsset.SocialButtons.icNaverSocialButton.swiftUIImage
+    public static let icHomeLogo = DesignSystemAsset.Icons.homeLogo.swiftUIImage
 }
