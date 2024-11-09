@@ -181,6 +181,7 @@ extension Image {
     public static let messageSquareWarning = DesignSystemAsset.Icons.messageSquareWarning.swiftUIImage
     public static let messageSquareX = DesignSystemAsset.Icons.messageSquareX.swiftUIImage
     public static let messagesSquare = DesignSystemAsset.Icons.messagesSquare.swiftUIImage
+    public static let minus = DesignSystemAsset.Icons.minus.swiftUIImage
     public static let move = DesignSystemAsset.Icons.move.swiftUIImage
     public static let moveDiagonal = DesignSystemAsset.Icons.moveDiagonal.swiftUIImage
     public static let moveDiagonal2 = DesignSystemAsset.Icons.moveDiagonal2.swiftUIImage
