@@ -23,8 +23,8 @@ struct NicknameView: IntentBindingType {
 extension NicknameView: View {
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 32) {
-            
+        VStack(alignment: .leading, spacing: 24) {
+            OverlayLine(divideBy: 2)
         }
         .backTopBar(
             title: "회원가입",
