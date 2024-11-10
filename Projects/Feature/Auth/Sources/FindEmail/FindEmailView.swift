@@ -65,7 +65,7 @@ extension FindEmailView {
                 ),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .errorText
+                    defaultColor: .textSecondary
                 )
             )
             .keyboardType(.numberPad)

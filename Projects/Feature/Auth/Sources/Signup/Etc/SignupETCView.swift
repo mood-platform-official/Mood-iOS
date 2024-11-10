@@ -82,7 +82,7 @@ extension SignupETCView {
                     set: { intent.send(action: .changeName($0)) }
                 ),
                 focusedField: ($focusField, SignupETCModel.FocusField.name),
-                leftBottom: .init(text: state.nameBottomText, textColor: .errorText)
+                leftBottom: .init(text: state.nameBottomText, defaultColor: .textSecondary)
             )
             .keyboardType(.numberPad)
             .onSubmit {
@@ -126,7 +126,7 @@ extension SignupETCView {
                     set: { intent.send(action: .changeNickname($0)) }
                 ),
                 focusedField: ($focusField, SignupETCModel.FocusField.nickname),
-                leftBottom: .init(text: state.nickNameBottomText, textColor: .errorText)
+                leftBottom: .init(text: state.nickNameBottomText, defaultColor: .textSecondary)
             )
             .onSubmit {
                 self.intent.send(action: .onSubmitNickname)

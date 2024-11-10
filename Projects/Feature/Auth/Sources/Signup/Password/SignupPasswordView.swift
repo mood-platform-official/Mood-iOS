@@ -75,7 +75,7 @@ extension SignupPasswordView {
                 isError: .init(get: { state.isErrorPWRow }, set: { _ in }),
                 leftBottom: .init(
                     text: state.pwBottomText,
-                    textColor: .errorText
+                    defaultColor: .textSecondary
                 )
             )
         }
@@ -99,7 +99,7 @@ extension SignupPasswordView {
                 isError: .init(get: { state.isErrorPWAgainRow }, set: { _ in }),
                 leftBottom: .init(
                     text: state.pwAgainBottomText,
-                    textColor: .errorText
+                    defaultColor: .textSecondary
                 )
             )
         }

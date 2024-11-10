@@ -81,7 +81,7 @@ extension SignupTermsView {
                 fontWeight: .medium,
                 rightBtn: .init(
                     text: "보기",
-                    textColor: Color.grey400,
+                    defaultColor: Color.grey400,
                     action: { intent.send(action: .serviceTermsBtnDidTap) }
                 ),
                 action: { state in
@@ -96,7 +96,7 @@ extension SignupTermsView {
                 fontWeight: .medium,
                 rightBtn: .init(
                     text: "보기",
-                    textColor: Color.grey400,
+                    defaultColor: Color.grey400,
                     action: { intent.send(action: .personalTermsBtnDidTap) }
                 ),
                 action: { state in
@@ -111,7 +111,7 @@ extension SignupTermsView {
                 fontWeight: .medium,
                 rightBtn: .init(
                     text: "보기",
-                    textColor: Color.grey400,
+                    defaultColor: Color.grey400,
                     action: { intent.send(action: .marketingTermsBtnDidTap) }
                 ),
                 action: { state in

@@ -65,7 +65,7 @@ extension FindPasswordView {
                 focusedField: ($focusField, FindPasswordModel.FocusField.phone),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .errorText
+                    defaultColor: .textSecondary
                 )
             )
             .keyboardType(.numberPad)
@@ -88,7 +88,7 @@ extension FindPasswordView {
                 focusedField: ($focusField, FindPasswordModel.FocusField.phone),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .errorText
+                    defaultColor: .textSecondary
                 )
             )
         }

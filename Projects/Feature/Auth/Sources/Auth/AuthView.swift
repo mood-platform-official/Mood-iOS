@@ -66,7 +66,7 @@ extension AuthView {
                 ),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .errorText
+                    defaultColor: .textSecondary
                 )
             )
         }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct TopBarModifier<Left, Right>: ViewModifier where Left: View, Right: View {
-    var title: String
+    var title: String?
     var padding: (Edge.Set, CGFloat?)
     var leftItem: (() -> Left)?
     var rightItem: (() -> Right)?
@@ -23,7 +23,7 @@ struct TopBarModifier<Left, Right>: ViewModifier where Left: View, Right: View {
 }
 
 struct TopBar<Left, Right>: View where Left: View, Right: View {
-    var title: String
+    var title: String?
     var padding: (Edge.Set, CGFloat?)
     var leftItem: (() -> Left)?
     var rightItem: (() -> Right)?
@@ -31,16 +31,16 @@ struct TopBar<Left, Right>: View where Left: View, Right: View {
     var body: some View {
         HStack {
             self.leftItem?()
+            if let title {
+                Text(title)
+                    .subtitle3(.medium)
+                    .padding(.horizontal, 16)
+            }
             Spacer()
             self.rightItem?()
         }
-        .overlay(
-            Text(self.title)
-                .subtitle3(.bold)
-                .frame(minWidth: 140, minHeight: 44)
-        )
         .padding(padding.0, padding.1)
-        .frame(height: 44)
+        .frame(height: 56)
         .background(Color.clear.ignoresSafeArea())
     }
 }
@@ -71,17 +71,44 @@ extension View {
             TopBarModifier(
                 title: title,
                 padding: padding,
-                leftItem: {
-                    Button {
-                        backAction()
-                    } label: {
-                        Image.arrowLeft
-                            .resizable()
-                            .frame(width: 24, height: 24)
-                    }
-                },
+                leftItem: { self.backButton(backAction: backAction) },
                 rightItem: { EmptyView() }
             )
         )
+    }
+    
+    public func searchTopBar<value:Hashable>(
+        title: String? = nil,
+        padding: (Edge.Set, CGFloat?) = (.horizontal, 16),
+        backAction: @escaping () -> Void,
+        text: Binding<String>,
+        placeholder: String = "지금 나의 무드와 맞는 모임은?",
+        focusedField: (binding: FocusState<value?>.Binding, equals: value?)
+    ) -> some View {
+        modifier(
+            TopBarModifier(
+                title: title,
+                padding: padding,
+                leftItem: { self.backButton(backAction: backAction) },
+                rightItem: {
+                    DefaultTextField(
+                        size: .small,
+                        isSecure: false,
+                        placeholder: placeholder,
+                        text: text,
+                        focusedField: focusedField
+                    )
+                    .padding(.leading, 12)
+                }
+            )
+        )
+    }
+    
+    private func backButton(backAction: @escaping () -> Void) -> some View {
+        Button(action: backAction) {
+            Image.arrowLeft
+                .resizable()
+                .frame(width: 24, height: 24)
+        }
     }
 }
