@@ -37,7 +37,7 @@ public struct RoundCheckBoxRow: View {
                     } label: {
                         Text(rightBtn.text)
                             .subtitle6(.medium)
-                            .foregroundStyle(rightBtn.textColor)
+                            .foregroundStyle(rightBtn.defaultColor)
                     }
                     .disabled(!rightBtn.isEnabled)
                 }

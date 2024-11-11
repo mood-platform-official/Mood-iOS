@@ -78,7 +78,7 @@ extension LoginView {
                 ),
                 leftBottom: .init(
                     text: state.bottomText,
-                    textColor: .errorText
+                    defaultColor: .textSecondary
                 )
             )
         }

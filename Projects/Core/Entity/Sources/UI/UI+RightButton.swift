@@ -3,13 +3,15 @@ import SwiftUI
 extension Entity.UI {
     public struct RightButton {
         public let text: String
-        public let textColor: Color
+        public let defaultColor: Color
+        public let image: Image?
         public let isEnabled: Bool
         public let action: () -> Void
         
-        public init(text: String, textColor: Color, isEnabled: Bool = true, action: @escaping () -> Void) {
+        public init(text: String, defaultColor: Color, image: Image? = nil, isEnabled: Bool = true, action: @escaping () -> Void) {
             self.text = text
-            self.textColor = textColor
+            self.defaultColor = defaultColor
+            self.image = image
             self.isEnabled = isEnabled
             self.action = action
         }

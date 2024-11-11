@@ -80,9 +80,9 @@ extension SignupPhoneAuthView {
                     set: { intent.send(action: .changePhoneNumber($0)) }
                 ),
                 focusedField: ($focusField, SignupPhoneAuthModel.FocusField.phoneNumber),
-                rightBtn: .init(
+                rightButton: .init(
                     text: state.isShowAuthCodeField ? "재전송" : "인증",
-                    textColor: !state.isEnabledSendBtn ? .grey700 : .primary500,
+                    defaultColor: !state.isEnabledSendBtn ? .grey700 : .primary500,
                     isEnabled: state.isEnabledSendBtn,
                     action: {
                         intent.send(action: .sendAuthCodeBtnDidTap)
@@ -106,7 +106,7 @@ extension SignupPhoneAuthView {
             focusedField: ($focusField, SignupPhoneAuthModel.FocusField.authCode),
             disabled: timeRemaining == 0 || !state.isEnabledAuthCodeField,
             rightBottom: authCodeRightBottomText(),
-            rightBtn: authCodeRightBtn()
+            rightButton: authCodeRightBtn()
         )
         .keyboardType(.numberPad)
         .onReceive(timer) { _ in
@@ -119,7 +119,7 @@ extension SignupPhoneAuthView {
     private func authCodeRightBottomText() -> Entity.UI.BottomText {
         return .init(
             text: timeFormatter(timeRemaining),
-            textColor: .grey600
+            defaultColor: .textSecondary
         )
     }
     
@@ -127,7 +127,7 @@ extension SignupPhoneAuthView {
         let isAuthcodeEmpty = state.authCode.isEmpty
         return .init(
             text: "인증하기",
-            textColor: isAuthcodeEmpty ? .grey400 : .primary500,
+            defaultColor: isAuthcodeEmpty ? .grey400 : .primary500,
             isEnabled: !isAuthcodeEmpty,
             action: {
                 intent.send(action: .validAuthCodeBtnDidTap)

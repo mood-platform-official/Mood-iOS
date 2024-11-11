@@ -1,62 +1,106 @@
 import SwiftUI
 
 public struct OutlinedButton: View {
+    var size: ButtonSize
+    var style: OutlinedButtonStyle
+    var maxWidth: CGFloat?
     var text: String
     var leftIcon: Image?
     var rightIcon: Image?
+    var loadingIcon: Image?
     var disabled: Bool
     var action: () -> Void
     
+    @State private var isLoading = false
     
-    var textColor: Color { disabled ? .grey300 : .primary500 }
-    var strokeColor: Color { disabled ? .grey200 : .primary500 }
+    private var foregroundColor: Color { disabled ? style.disabledForegroundColor : style.foregroundColor }
+    private var backgroundColor: Color { isLoading ? style.loadingBackgroundColor : (disabled ? style.disabledBackgroundColor : style.backgroundColor) }
+    private var strokeColor: Color { disabled ? .clear : style.strokeColor }
+    private var iconSize: CGSize { size.iconSize }
     
-    public init(text: String, leftIcon: Image? = nil, rightIcon: Image? = nil, disabled: Bool = false, action: @escaping () -> Void) {
+    public init(
+        size: ButtonSize = .base,
+        style: OutlinedButtonStyle = .primary,
+        maxWidth: CGFloat? = .infinity,
+        text: String,
+        leftIcon: Image? = nil,
+        rightIcon: Image? = nil,
+        loadingIcon: Image? = nil,
+        disabled: Bool = false,
+        action: @escaping () -> Void
+    ) {
+        self.size = size
+        self.style = style
+        self.maxWidth = maxWidth
         self.text = text
         self.leftIcon = leftIcon
         self.rightIcon = rightIcon
+        self.loadingIcon = loadingIcon
         self.disabled = disabled
         self.action = action
     }
     
     public var body: some View {
         Button {
-            self.action()
+            performAction()
         } label: {
-            HStack(alignment: .center, spacing: 4) {
-                if let leftIcon {
-                    leftIcon
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(textColor)
-                        
-                }
+            HStack(alignment: .center, spacing: 8) {
+                iconView(icon: leftIcon, size: iconSize, color: foregroundColor)
                 
-                Text(text)
-                    .subtitle3(.medium)
-                    .foregroundStyle(textColor)
+                size.applyFont(to: Text(text))
+                    .foregroundStyle(foregroundColor)
                 
-                if let rightIcon {
-                    rightIcon
-                        .resizable()
-                        .renderingMode(.template)
-                        .frame(width: 20, height: 20)
-                        .foregroundStyle(textColor)
-                        
+                if isLoading {
+                    iconView(icon: loadingIcon, size: iconSize, color: foregroundColor)
+                } else {
+                    iconView(icon: rightIcon, size: iconSize, color: foregroundColor)
+                    
                 }
             }
-            .padding(.horizontal, 28)
-            .padding(.vertical, 12)
+            .padding(.horizontal, size.hPadding)
+            .padding(.vertical, size.vPadding)
+            .frame(maxWidth: maxWidth)
             .background {
-                RoundedRectangle(cornerRadius: 12)
-                    .fill(.white)
+                Capsule()
+                    .fill(backgroundColor)
             }
             .overlay(
-                RoundedRectangle(cornerRadius: 12)
+                Capsule()
                     .stroke(strokeColor, lineWidth: 1.0)
             )
         }
-        .disabled(disabled)
+        .disabled(disabled || isLoading)
+    }
+    
+    private func performAction() {
+        guard !isLoading else { return }
+        withAnimation {
+            isLoading = true
+        }
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.action()
+            
+            DispatchQueue.main.async {
+                withAnimation {
+                    isLoading = false
+                }
+            }
+        }
+    }
+}
+
+extension OutlinedButton {
+    @ViewBuilder
+    func iconView(icon: Image?, size: CGSize, color: Color) -> some View {
+        if let icon = icon {
+            icon
+                .resizable()
+                .renderingMode(.template)
+                .frame(width: size.width, height: size.height)
+                .foregroundStyle(color)
+        } else {
+            EmptyView()
+        }
     }
 }
