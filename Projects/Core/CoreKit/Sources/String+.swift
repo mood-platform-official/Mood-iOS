@@ -21,10 +21,10 @@ extension String {
         return pwPred.evaluate(with: self)
     }
     
-    public func isValidName() -> Bool {
+    public func isValidNickName() -> Bool {
         /// 한글, 영문, 대소문자, 공백
         /// 앞 뒤 공백 불가
-        let nameRegEx = "^.*(?=.{2,20})(?=.*[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z\\s]).*$"
+        let nameRegEx = "^.*(?=.{2,10})(?=.*[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z\\s]).*$"
         let namePred = NSPredicate(format: "SELF MATCHES %@", nameRegEx)
         return namePred.evaluate(with: self) && !self.hasPrefix(" ") && !self.hasSuffix(" ")
     }

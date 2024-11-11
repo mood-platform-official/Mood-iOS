@@ -60,15 +60,4 @@ extension AuthEndPoint: Endpoint {
     public var token: String? { nil }
     
     public var multipart: Alamofire.MultipartFormData? { nil }
-    
-    public func asURLRequest() throws -> URLRequest {
-        let url = URL(string: baseURL + path)!
-        var request = URLRequest(url: url)
-        request.headers = headers ?? .default
-        request.method = method
-        if let body {
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body)
-        }
-        return request
-    }
 }

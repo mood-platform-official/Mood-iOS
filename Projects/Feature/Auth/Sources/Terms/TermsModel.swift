@@ -1,9 +1,12 @@
 import Foundation
 import SwiftUI
 import Dependencies
+import Entity
 
 enum TermsModel {
-    struct State: Equatable {
+    struct State: Equatable, Codable {
+        var registerInfo: RegisterInfo?
+
         var isAllAgreed: Bool = false
 
         var isCorrectAgeSelected: Bool = false

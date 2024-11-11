@@ -115,40 +115,45 @@ extension AuthIntent: NaverDelegate, AppleDelegate {
                 oauthToken: accessToken,
                 oidcToken: idToken
             )
-            self.state.accessToken = accessToken
-            self.state.idToken = idToken
+            self.state.registerInfo = .init(oauthToken: accessToken, idToken: idToken)
             let login = try await self.authClient.login(param)
         } catch let error as APIError {
             Log.debug("API Error", [error.resultCode, error.message])
             if error.resultCode == APIError.LG0002 {
-                await self.kakaoUserInfoRequest()
+                self.navigator.next(
+                    linkItem: .init(
+                        path: Screen.Path.Terms.rawValue,
+                        items: state.registerInfo
+                    ),
+                    isAnimated: true
+                )
             }
         } catch {
             Log.debug("Fail Error Decode", error.localizedDescription)
         }
     }
 
-    private func kakaoUserInfoRequest() async {
-        do {
-            let userData = try await self.kakaoClient.me()
-            let param: AuthDTO.Register.Request = .init(
-                provider: "KAKAO",
-                email: userData.email ?? "",
-                nickname: userData.nickname ?? "",
-                name: userData.name ?? "",
-                birth: userData.birthDay ?? "",
-                gender: userData.gender ?? "",
-                phoneNumber: userData.phoneNumber ?? "",
-                socialIdToken: self.state.accessToken ?? "",
-                oidcToken: self.state.idToken ?? ""
-            )
-            let register = try await self.authClient.register(param)
-        } catch let error as APIError {
-            Log.debug("API Error", [error.resultCode, error.message])
-        } catch {
-            Log.debug("Fail Error Decode", error.localizedDescription)
-        }
-    }
+//    private func kakaoUserInfoRequest() async {
+//        do {
+//            let userData = try await self.kakaoClient.me()
+//            let param: AuthDTO.Register.Request = .init(
+//                provider: "KAKAO",
+//                email: userData.email ?? "",
+//                nickname: userData.nickname ?? "",
+//                name: userData.name ?? "",
+//                birth: userData.birthDay ?? "",
+//                gender: userData.gender ?? "",
+//                phoneNumber: userData.phoneNumber ?? "",
+//                socialIdToken: self.state.registerInfo?.oauthToken ?? "",
+//                oidcToken: self.state.registerInfo?.idToken ?? ""
+//            )
+//            let register = try await self.authClient.register(param)
+//        } catch let error as APIError {
+//            Log.debug("API Error", [error.resultCode, error.message])
+//        } catch {
+//            Log.debug("Fail Error Decode", error.localizedDescription)
+//        }
+//    }
 
     func naverUserInfo(_ user: UserData) {
         print(user)

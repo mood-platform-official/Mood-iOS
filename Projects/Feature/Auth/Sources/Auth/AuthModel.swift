@@ -3,9 +3,8 @@ import CoreKit
 import Entity
 
 enum AuthModel {
-    struct State: Equatable {
-        var accessToken: String?
-        var idToken: String?
+    struct State: Equatable, Codable {
+        var registerInfo: RegisterInfo?
     }
 
     enum ViewAction: Equatable {
@@ -19,5 +18,10 @@ enum AuthModel {
 extension AuthModel {
     enum FocusField {
         case email
+    }
+    
+    struct ITEM {
+        var oauthToken: String
+        var idToken: String
     }
 }
