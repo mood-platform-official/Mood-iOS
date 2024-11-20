@@ -14,7 +14,11 @@ let project = Project.makeModule(
         .SPM.KakaoSDKAuth,
         .SPM.KakaoSDKUser,
         .SPM.NaverThirdPartyLogin,
-        .SPM.NukeUI
+        .SPM.NukeUI,
+        .SPM.FirebaseCore,
+        .SPM.FirebaseAnalytics,
+        .SPM.FirebaseMessaging,
+        .SPM.FirebaseCrashlytics
     ],
     settings: .core()
 )

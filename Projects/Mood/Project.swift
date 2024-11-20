@@ -33,6 +33,9 @@ let project = Project.makeModule(
     product: .app,
     bundleId: bundleID,
     infoPlist: .extendingDefault(with: infoPlist),
+    resources: [
+        "Resources/GoogleService-Info.plist"
+    ],
     dependencies: [
         .feature(module: .Auth),
         .feature(module: .Main)

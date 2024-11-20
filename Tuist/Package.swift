@@ -17,5 +17,6 @@ let package = Package(
         .package(url: "https://github.com/kean/NukeUI", branch: "main"),
         .package(url: "https://github.com/kakao/kakao-ios-sdk", branch: "master"),
         .package(url: "https://github.com/naver/naveridlogin-sdk-ios", branch: "master"),
+        .package(url: "https://github.com/firebase/firebase-ios-sdk.git", .upToNextMajor(from: "11.5.0")),
     ]
 )
