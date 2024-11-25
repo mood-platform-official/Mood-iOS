@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import Dependencies
 
 enum NicknameModel {
     struct State: Equatable {

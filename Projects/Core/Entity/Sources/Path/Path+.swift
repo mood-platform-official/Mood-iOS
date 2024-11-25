@@ -5,6 +5,7 @@ extension Screen {
         case Auth
         case Terms
         case Nickname
+        case Certification
         
         case Home
     }

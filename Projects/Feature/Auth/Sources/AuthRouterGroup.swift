@@ -8,7 +8,8 @@ public struct AuthRouterGroup<RootNavigator: RootNavigatorType> {
         [
             AuthRouteBuilder.generate(),
             TermsRouteBuilder.generate(),
-            NicknameRouteBuilder.generate()
+            NicknameRouteBuilder.generate(),
+            CertificationRouteBuilder.generate()
         ]
     }
 }
