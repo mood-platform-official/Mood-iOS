@@ -10,23 +10,23 @@ import Logger
 protocol CertificationIntentType {
     var state: CertificationModel.State { get }
     var navigator: RootNavigatorType { get }
-    
+
     func send(action: CertificationModel.ViewAction)
 }
 
 // MARK: CertificationIntent
 
 final class CertificationIntent: ObservableObject, CertificationIntentType {
-    
+
     // MARK: Internal
-    
+
     typealias State = CertificationModel.State
     typealias ViewAction = CertificationModel.ViewAction
-    
+
     @Published var state: State
-    
+
     var cancellable: Set<AnyCancellable> = []
-    
+
     var navigator: RootNavigatorType
 
     init(
@@ -46,6 +46,14 @@ extension CertificationIntent: IntentType {
         case .back:
             Log.debug("CertificationIntent back")
             self.navigator.back(isAnimated: true)
+        case .changePhoneNumber(let phoneNumber):
+            Log.debug("CertificationIntent changePhoneNumber", phoneNumber)
+            state.phone = phoneNumber
+        case .authBtnDidTap:
+            Log.debug("CertificationIntent authBtnDidTap")
+        case .doneBtnDidTap:
+            Log.debug("CertificationIntent doneBtnDidTap")
+//            navigator.next(linkItem: .init(path: Screen.Path.), isAnimated: true)
         }
     }
 }
@@ -53,5 +61,5 @@ extension CertificationIntent: IntentType {
 // MARK: Custom Method
 
 extension CertificationIntent {
-    
+
 }
