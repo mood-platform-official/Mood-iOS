@@ -263,8 +263,8 @@ extension Image {
     public static let userSearch = DesignSystemAsset.Icons.userSearch.swiftUIImage
     public static let usersRound = DesignSystemAsset.Icons.usersRound.swiftUIImage
     public static let wifiOff = DesignSystemAsset.Icons.wifiOff.swiftUIImage
-    public static let icAppleSocialButton = DesignSystemAsset.SocialButtons.icAppleSocialButton.swiftUIImage
-    public static let icKakaoSocialButton = DesignSystemAsset.SocialButtons.icKakaoSocialButton.swiftUIImage
-    public static let icNaverSocialButton = DesignSystemAsset.SocialButtons.icNaverSocialButton.swiftUIImage
+    public static let icAppleLogo = DesignSystemAsset.SocialButtons.appleLogo.swiftUIImage
+    public static let icKakaoLogo = DesignSystemAsset.SocialButtons.kakaoLogo.swiftUIImage
+    public static let icNaverLogo = DesignSystemAsset.SocialButtons.kakaoLogo.swiftUIImage
     public static let icHomeLogo = DesignSystemAsset.Icons.homeLogo.swiftUIImage
 }

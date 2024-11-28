@@ -25,7 +25,7 @@ struct AuthApp: App {
         WindowGroup {
             LinkNavigationView(
                 linkNavigator: navigator,
-                item: .init(path: Screen.Path.SignupPhoneAuth.rawValue)
+                item: .init(path: Screen.Path.Certification.rawValue)
             )
             .onOpenURL { url in
                 if AuthApi.isKakaoTalkLoginUrl(url) {

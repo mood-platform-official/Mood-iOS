@@ -6,6 +6,7 @@ import CoreKit
 import Entity
 import Dependencies
 import NetworkKit
+import Logger
 
 protocol AuthIntentType {
     var state: AuthModel.State { get }
@@ -22,8 +23,9 @@ final class AuthIntent: ObservableObject, AuthIntentType {
     typealias State = AuthModel.State
     typealias ViewAction = AuthModel.ViewAction
 
-    @Dependency(\.authClient) var client
-    @Dependency(\.kakaoClient) var kakao
+    @Dependency(\.authClient) var authClient
+    @Dependency(\.kakaoClient) var kakaoClient
+    @Dependency(\.userClient) var userClient
     let naverClient = NaverClient()
     let appleClient = AppleClient()
 
@@ -60,21 +62,12 @@ extension AuthIntent: IntentType {
         switch action {
         case .onAppear:
             self.viewOnAppear()
-        case .changeEmail(let email):
-            state.email = email ?? ""
-            state.bottomText = state.email.isEmpty ? state.bottomText : ""
-        case .emailBtnDidTap:
-            self.emailBtnDidTap()
         case .kakaoBtnDidTap:
             self.kakaoBtnDidTap()
         case .naverBtnDidTap:
             self.naverBtnDidTap()
         case .appleBtnDidTap:
             self.appleBtnDidTap()
-        case .findEmailBtnDidTap:
-            navigator.next(linkItem: .init(path: Screen.Path.FindEmail.rawValue), isAnimated: true)
-        case .findPWBtnDidTap:
-            navigator.next(linkItem: .init(path: Screen.Path.FindPassword.rawValue), isAnimated: true)
 
         }
     }
@@ -87,35 +80,13 @@ extension AuthIntent {
         self.naverClient.delegate = self
     }
 
-    private func emailBtnDidTap() {
-        guard state.email.isValidEmail() else {
-            state.bottomText = "올바른 이메일 형식으로 입력해주세요."
-            return
-        }
-
-        self.dupEmailTask?.cancel()
-
-        self.dupEmailTask = Task {
-            let isDuplicated = await self.checkDupEmailRequest()
-
-            guard !(self.dupEmailTask?.isCancelled ?? false) else { return }
-            let path = isDuplicated
-            ? Screen.Path.Login.rawValue
-            : Screen.Path.SignupPassword.rawValue
-
-            await MainActor.run {
-                navigator.next(linkItem: .init(path: path), isAnimated: true)
-            }
-        }
-    }
-
     private func kakaoBtnDidTap() {
         self.kakaoTask?.cancel()
 
         self.kakaoTask = Task { @MainActor in
-//            let oauthToken = await self.kakaoLoginRequest()
-
             guard !(self.kakaoTask?.isCancelled ?? false) else { return }
+
+            await self.kakaoLoginRequest()
         }
     }
 
@@ -135,23 +106,54 @@ extension AuthIntent {
 // MARK: API
 
 extension AuthIntent: NaverDelegate, AppleDelegate {
-    private func checkDupEmailRequest() async -> Bool {
+
+    private func kakaoLoginRequest() async {
         do {
-            return try await self.client.checkDuplEmail(state.email)
+            let (accessToken, idToken) = try await self.kakaoClient.login()
+            let param: AuthDTO.Login.Request = .init(
+                provider: "KAKAO",
+                oauthToken: accessToken,
+                oidcToken: idToken
+            )
+            self.state.registerInfo = .init(oauthToken: accessToken, idToken: idToken)
+            let login = try await self.authClient.login(param)
+        } catch let error as APIError {
+            Log.debug("API Error", [error.resultCode, error.message])
+            if error.resultCode == APIError.LG0002 {
+                self.navigator.next(
+                    linkItem: .init(
+                        path: Screen.Path.Terms.rawValue,
+                        items: state.registerInfo
+                    ),
+                    isAnimated: true
+                )
+            }
         } catch {
-            print("asdfd")
-            return false
+            Log.debug("Fail Error Decode", error.localizedDescription)
         }
     }
 
-    private func kakaoLoginRequest() async -> String {
-        do {
-            return try await self.kakao.login()
-        } catch {
-            Toast.shared.present(title: "error kakao login")
-            return ""
-        }
-    }
+//    private func kakaoUserInfoRequest() async {
+//        do {
+//            let userData = try await self.kakaoClient.me()
+//            let param: AuthDTO.Register.Request = .init(
+//                provider: "KAKAO",
+//                email: userData.email ?? "",
+//                nickname: userData.nickname ?? "",
+//                name: userData.name ?? "",
+//                birth: userData.birthDay ?? "",
+//                gender: userData.gender ?? "",
+//                phoneNumber: userData.phoneNumber ?? "",
+//                socialIdToken: self.state.registerInfo?.oauthToken ?? "",
+//                oidcToken: self.state.registerInfo?.idToken ?? ""
+//            )
+//            let register = try await self.authClient.register(param)
+//        } catch let error as APIError {
+//            Log.debug("API Error", [error.resultCode, error.message])
+//        } catch {
+//            Log.debug("Fail Error Decode", error.localizedDescription)
+//        }
+//    }
 
     func naverUserInfo(_ user: UserData) {
         print(user)

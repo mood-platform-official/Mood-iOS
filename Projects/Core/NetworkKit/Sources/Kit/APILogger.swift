@@ -8,26 +8,22 @@ struct APILogger: EventMonitor {
         #if DEBUG
         print("🚀 NETWORK Reqeust LOG")
         print(request.description)
-        
-        print(
-            "URL:" + (request.request?.url?.absoluteString ?? "")  + "\n"
-            + "Method:" + (request.request?.httpMethod ?? "") + "\n"
-            + "Headers:" + "\(request.request?.allHTTPHeaderFields ?? [:])" + "\n"
-        )
-        print("Authorization:" + (request.request?.headers["Authorization"] ?? "nil"))
-        print("Body:" + (request.request?.httpBody?.prettyJson ?? "nil"))
+        print("URL:", request.request?.url?.absoluteString ?? "")
+        print("Method:", request.request?.httpMethod ?? "")
+        print("Headers:", "\(request.request?.allHTTPHeaderFields ?? [:])")
+        print("Authorization:", request.request?.headers["Authorization"] ?? "nil")
+        print("query:", request.request?.url?.query() ?? "nil")
+        print("Body:", request.request?.httpBody?.prettyJson ?? "nil")
         #endif
     }
     
     func request<Value>(_ request: DataRequest, didParseResponse response: DataResponse<Value, AFError>) {
         #if DEBUG
         print("✅ NETWORK Response LOG")
-        print(
-          "URL: " + (request.request?.url?.absoluteString ?? "nil") + "\n"
-            + "Result: " + "\(response.result)" + "\n"
-            + "StatusCode: " + "\(response.response?.statusCode ?? 0)" + "\n"
-            + "Data: \(response.data?.prettyJson ?? "nil")"
-        )
+        print("URL:", request.request?.url?.absoluteString ?? "nil")
+        print("Result:", response.result)
+        print("StatusCode:", response.response?.statusCode ?? 0)
+        print("Data:", response.data?.prettyJson ?? "nil")
         #endif
     }
 }

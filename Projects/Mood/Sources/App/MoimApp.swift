@@ -6,6 +6,7 @@ import KakaoSDKCommon
 import KakaoSDKAuth
 import NaverThirdPartyLogin
 import Base
+import Logger
 
 @main
 struct MoimApp: App {
@@ -25,7 +26,7 @@ struct MoimApp: App {
             RootView {
                 LinkNavigationView(
                     linkNavigator: navigator,
-                    item: .init(path: Screen.Path.Home.rawValue)
+                    item: .init(path: Screen.Path.Certification.rawValue)
                 )
             }
             .ignoresSafeArea(.all)
@@ -37,6 +38,9 @@ struct MoimApp: App {
                 NaverThirdPartyLoginConnection
                     .getSharedInstance()
                     .receiveAccessToken(url)
+            }
+            .task {
+                
             }
         }
     }
